@@ -19,12 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\lib\Component.cpp" />
+    <ClCompile Include="..\lib\GameObject.cpp" />
     <ClCompile Include="..\lib\Object.cpp" />
+    <ClCompile Include="..\lib\Transform.cpp" />
     <ClCompile Include="..\lib\UrLib.cpp" />
     <ClCompile Include="..\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\lib\Component.h" />
+    <ClInclude Include="..\lib\GameObject.h" />
     <ClInclude Include="..\lib\Object.h" />
+    <ClInclude Include="..\lib\Transform.h" />
     <ClInclude Include="..\lib\UrLib.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

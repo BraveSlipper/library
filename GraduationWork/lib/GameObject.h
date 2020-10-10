@@ -1,0 +1,112 @@
+#pragma once
+#include <list>
+#include <string>
+#include "Object.h"
+#include "Transform.h"
+
+class Component;
+
+class GameObject : public Object {
+public:
+	GameObject();
+	~GameObject();
+
+	virtual void Start() override;
+	virtual void Update() override;
+
+	/// <summary>
+	/// Componentを追加する
+	/// </summary>
+	/// <typeparam name="C">追加したいComponentのクラス</typeparam>
+	/// <returns>追加したComponentのポインター</returns>
+	template<class C>
+	inline C* AddComponent();
+
+	/// <summary>
+	/// 指定したComponentを取得する
+	/// </summary>
+	/// <typeparam name="C">取得したいComponentのクラス</typeparam>
+	/// <returns>成功で指定したComponentのポインター、失敗でnullptr</returns>
+	template<class C>
+	C* GetComponent();
+
+	/// <summary>
+	/// 指定したComponentを破棄する
+	/// </summary>
+	/// <typeparam name="C">破棄したいComponentのクラス</typeparam>
+	/// <returns>成功でtrue、指定したクラスのComponentが見つからなければfalse</returns>
+	template<class C>
+	bool RemoveComponent();
+
+	/// <summary>
+	/// 親GameObjectを取得
+	/// </summary>
+	/// <returns>親GameObjectのポインター</returns>
+	GameObject* GetParent() const;
+
+	/// <summary>
+	/// 親GameObjectをセットする
+	/// </summary>
+	/// <param name="_obj">親にしたいGameObjectのポインター</param>
+	void SetParent(GameObject* _obj);
+
+	/// <summary>
+	/// 指定した名前の子GameObjectを抽出する
+	/// </summary>
+	/// <param name="_name">抽出したい子GameObjectの名前</param>
+	/// <returns>抽出成功でその子GameObjectのポインター、抽出失敗でnullptr</returns>
+	GameObject* GetChild(std::string _name) const;
+
+	/// <summary>
+	/// 子GameObjectのリストを取得
+	/// </summary>
+	/// <returns>子GameObjectのリスト</returns>
+	std::list<GameObject*> GetChildren() const;
+
+	/// <summary>
+	/// 子GameObjectを追加する
+	/// </summary>
+	/// <param name="_obj">追加したいGameObjectのポインター</param>
+	/// <returns>成功でtrue、既に追加されている子GameObjectがあるとfalse</returns>
+	bool SetChild(GameObject* _obj);
+
+	/// <summary>
+	/// 指定した名前の子GameObjectを破棄する
+	/// </summary>
+	/// <param name="_name">破棄したい子GameObjectの名前</param>
+	/// <returns>成功でtrue、指定した名前の子GameObjectが見つからなければfalse</returns>
+	bool RemoveChild(std::string _name);
+
+	/// <summary>
+	/// 子GameObjectを全て破棄する
+	/// </summary>
+	void RemoveChildren();
+
+	Transform transform;					// トランスフォーム
+
+private:
+	std::list<Component*> compList;			// コンポーネントリスト
+	GameObject* parent;						// 親オブジェクト
+	std::list<GameObject*> children;		// 子オブジェクトのリスト
+};
+
+template<class C>
+inline C* GameObject::AddComponent()
+{
+	C* comp = new C(this);
+	compList.push_back(comp);
+
+	return comp;
+}
+
+template<class C>
+inline C* GameObject::GetComponent()
+{
+	return nullptr;
+}
+
+template<class C>
+inline bool GameObject::RemoveComponent()
+{
+	return false;
+}

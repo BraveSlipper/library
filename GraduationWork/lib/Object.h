@@ -7,7 +7,6 @@ class Object {
 public:
 	Object();
 	Object(std::string _name);
-	Object();
 	~Object();
 
 	virtual void Start();
@@ -51,9 +50,9 @@ public:
 	inline GameObject* Instantiate();
 
 private:
-	std::string name;
-	bool active;
-	bool isDestroy;
+	std::string name;			// 名前
+	bool active;				// 有効状態
+	bool isDestroy;				// 破壊フラグ
 };
 
 template<class C>
