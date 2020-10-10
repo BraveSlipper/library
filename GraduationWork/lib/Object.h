@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+class GameObject;
+
 class Object {
 public:
 	Object();
@@ -40,8 +42,22 @@ public:
 	/// </summary>
 	void Destroy();
 
+	/// <summary>
+	/// GameObjectを生成する
+	/// </summary>
+	/// <typeparam name="C">生成したいGameObjectのクラス</typeparam>
+	/// <returns>生成したGameObjectのポインター</returns>
+	template<class C>
+	inline GameObject* Instantiate();
+
 private:
 	std::string name;
 	bool active;
 	bool isDestroy;
 };
+
+template<class C>
+inline GameObject* Object::Instantiate()
+{
+	return new C();
+}
