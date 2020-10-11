@@ -58,5 +58,7 @@ private:
 template<class C>
 inline GameObject* Object::Instantiate()
 {
-	return new C();
+	GameObject* obj = new C();
+
+	return obj;
 }

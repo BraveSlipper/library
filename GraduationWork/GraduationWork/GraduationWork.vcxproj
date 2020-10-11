@@ -22,6 +22,8 @@
     <ClCompile Include="..\lib\Component.cpp" />
     <ClCompile Include="..\lib\GameObject.cpp" />
     <ClCompile Include="..\lib\Object.cpp" />
+    <ClCompile Include="..\lib\Scene.cpp" />
+    <ClCompile Include="..\lib\SceneManager.cpp" />
     <ClCompile Include="..\lib\Transform.cpp" />
     <ClCompile Include="..\lib\UrLib.cpp" />
     <ClCompile Include="..\Main.cpp" />
@@ -30,6 +32,8 @@
     <ClInclude Include="..\lib\Component.h" />
     <ClInclude Include="..\lib\GameObject.h" />
     <ClInclude Include="..\lib\Object.h" />
+    <ClInclude Include="..\lib\Scene.h" />
+    <ClInclude Include="..\lib\SceneManager.h" />
     <ClInclude Include="..\lib\Transform.h" />
     <ClInclude Include="..\lib\UrLib.h" />
   </ItemGroup>

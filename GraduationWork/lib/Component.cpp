@@ -1,5 +1,10 @@
 #include "Component.h"
 
+Component::Component() :
+	gameObject(nullptr)
+{
+}
+
 Component::Component(GameObject* _actor) :
 	gameObject(_actor)
 {

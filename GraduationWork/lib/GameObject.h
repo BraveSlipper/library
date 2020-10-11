@@ -1,18 +1,21 @@
 #pragma once
 #include <list>
 #include <string>
+#include <typeinfo>
 #include "Object.h"
-#include "Transform.h"
 
+class Scene;
 class Component;
+class Transform;
 
 class GameObject : public Object {
 public:
 	GameObject();
+	GameObject(Scene* _scene);
 	~GameObject();
 
 	virtual void Start() override;
-	virtual void Update() override;
+	void Update() override;
 
 	/// <summary>
 	/// Componentを追加する
@@ -37,6 +40,17 @@ public:
 	/// <returns>成功でtrue、指定したクラスのComponentが見つからなければfalse</returns>
 	template<class C>
 	bool RemoveComponent();
+
+	/// <summary>
+	/// 所持しているComponentから、破壊フラグが立っているものを破棄する
+	/// </summary>
+	void DestroyComponents();
+
+	/// <summary>
+	/// 存在しているシーンのポインターを返す
+	/// </summary>
+	/// <returns>存在しているシーンのポインター</returns>
+	Scene* GetScene() const;
 
 	/// <summary>
 	/// 親GameObjectを取得
@@ -82,31 +96,61 @@ public:
 	/// </summary>
 	void RemoveChildren();
 
-	Transform transform;					// トランスフォーム
+	Transform* transform;					// トランスフォーム
 
 private:
 	std::list<Component*> compList;			// コンポーネントリスト
 	GameObject* parent;						// 親オブジェクト
 	std::list<GameObject*> children;		// 子オブジェクトのリスト
+	Scene* scene;							// 存在しているシーンのポインター
 };
 
 template<class C>
 inline C* GameObject::AddComponent()
 {
-	C* comp = new C(this);
+	// 既に同じComponentを持っていたら終了
+	C* p = GetComponent<C>();
+	if (p != nullptr) 
+		return nullptr;
+
+	// Componentを生成し、追加する
+	p = new C();
+	Component* comp = p;
+	comp->gameObject = this;
 	compList.push_back(comp);
 
-	return comp;
+	return p;
 }
 
 template<class C>
 inline C* GameObject::GetComponent()
 {
+	C* p = nullptr;
+
+	// 対応するComponentを抽出
+	for (auto comp : compList) {
+		p = dynamic_cast<C*>(comp);
+		if (p != nullptr)
+			return p;
+	}
+
 	return nullptr;
 }
 
 template<class C>
 inline bool GameObject::RemoveComponent()
 {
+	C* p = nullptr;
+
+	// 対応するComponentの破壊フラグを立てる
+	for (auto it = compList.begin(); it != compList.end(); ++it) {
+		p = dynamic_cast<C*>(*it);
+			if (p != nullptr) {
+				Object* obj = p;
+				obj->Destroy();
+				return true;
+			}
+	}
+
 	return false;
 }
