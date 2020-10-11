@@ -6,7 +6,21 @@ namespace UrLib {
 
 	class SceneManager
 	{
+	private:
+		/// <summary>
+		/// シーン生成
+		/// </summary>
+		/// <typeparam name="C">シーン型</typeparam>
+		/// <param name="_name">シーン名</param>
+		/// <returns>生成したシーンのアドレス</returns>
+		template<class C>
+		static Scene* CreateScene() { return new C; }
+
 	public:
+		/// <summary>
+		/// インスタンス取得
+		/// </summary>
+		/// <returns>インスタンス</returns>
 		static SceneManager* Get();
 
 	private:
@@ -25,19 +39,39 @@ namespace UrLib {
 		}
 
 	public:
+		/// <summary>
+		/// インスタンス破棄
+		/// </summary>
+		/// <returns>true：破棄、false：生成されていない</returns>
 		bool Destroy();
 
+		/// <summary>
+		/// 初期化
+		/// </summary>
 		void Start();
 
+		/// <summary>
+		/// 更新
+		/// </summary>
 		void Update();
 
+		/// <summary>
+		/// シーン切り替え
+		/// </summary>
+		/// <typeparam name="C">切り替えるシーン</typeparam>
 		template<class C>
-		bool LoadScene()
+		void LoadScene()
 		{
 			sceneName = typeid(C).name;
-			createScene = Scene::CreateScene<C>;
+			sceneName = sceneName.substr(6ull);
+			createScene = CreateScene<Scene>;
 		}
 
+		/// <summary>
+		/// メインシーンにサブシーンを追加
+		/// </summary>
+		/// <typeparam name="C">追加するサブシーン</typeparam>
+		/// <returns>true：成功、false：メインシーンが生成されていない</returns>
 		template<class C>
 		bool AddSubScene()
 		{
@@ -46,6 +80,11 @@ namespace UrLib {
 			return mainScene->AddSubScene<C>();
 		}
 
+		/// <summary>
+		/// メインシーンからサブシーンを破棄
+		/// </summary>
+		/// <typeparam name="C">破棄するサブシーン</typeparam>
+		/// <returns>true：サブシーンの破棄、false：メインシーンが生成されていない</returns>
 		template<class C>
 		bool DestroySubScene()
 		{
@@ -54,20 +93,28 @@ namespace UrLib {
 			return mainScene->DestroySubScene<C>();
 		}
 
+		/// <summary>
+		/// メインシーン取得
+		/// </summary>
+		/// <typeparam name="C">メインシーンの型</typeparam>
+		/// <returns>メインシーン取得</returns>
 		template<class C>
 		C* GetScene() { return dynamic_cast<C*>(mainScene); }
 
 	private:
-		void CreateScene();
+		/// <summary>
+		/// シーン切り替え
+		/// </summary>
+		void ChangeScene();
 
 	private:
-		Scene* mainScene;
+		Scene* mainScene;//メインシーン
 
-		Scene* (*createScene)(std::string& _name);
+		Scene* (*createScene)();//メインシーン切り替え関数
 
-		std::string sceneName;
+		std::string sceneName;//メインシーン名
 
-		static SceneManager* singleton;
+		static SceneManager* instance;//SceneManagerのインスタンス
 
 	};
 

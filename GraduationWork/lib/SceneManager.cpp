@@ -1,22 +1,22 @@
 #include "SceneManager.h"
 
-UrLib::SceneManager* UrLib::SceneManager::singleton = nullptr;
+UrLib::SceneManager* UrLib::SceneManager::instance = nullptr;
 
 UrLib::SceneManager* UrLib::SceneManager::Get()
 {
-	if (singleton == nullptr)
+	if (instance == nullptr)
 	{
-		singleton = new SceneManager();
+		instance = new SceneManager();
 	}
-	return singleton;
+	return instance;
 }
 
 bool UrLib::SceneManager::Destroy()
 {
-	if (singleton != nullptr)
+	if (instance != nullptr)
 	{
-		delete singleton;
-		singleton = nullptr;
+		delete instance;
+		instance = nullptr;
 		return true;
 	}
 	return false;
@@ -29,15 +29,32 @@ void UrLib::SceneManager::Start()
 void UrLib::SceneManager::Update()
 {
 	if (createScene != nullptr)
-		CreateScene();
+		ChangeScene();
 
-	if (mainScene != nullptr)mainScene->Update();
+	if (mainScene != nullptr)
+	{
+		if (mainScene->IsDestroy())
+		{
+			delete mainScene;
+			mainScene = nullptr;
+		}
+		else
+		{
+			if (mainScene->IsActive())
+				mainScene->SceneUpdate();
+		}
+	}
 }
 
-void UrLib::SceneManager::CreateScene()
+void UrLib::SceneManager::ChangeScene()
 {
 	if (mainScene != nullptr)
 		delete mainScene;
 
-	mainScene = createScene(sceneName);
+	mainScene = createScene();
+	
+//	mainScene->SetName(sceneName);//TODO
+
+	mainScene->SceneStart();
+	createScene = nullptr;
 }
