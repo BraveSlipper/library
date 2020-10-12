@@ -137,27 +137,41 @@ public:
 		return nullptr;
 	}
 
+	/// <summary>
+	/// ゲームオブジェクト生成
+	/// </summary>
+	/// <typeparam name="C">生成するオブジェクト</typeparam>
+	/// <returns>生成したオブジェクト</returns>
 	template<class C>
 	GameObject* Instantiate()
 	{
 		GameObject* obj = new C;
-		obj->scene = GetCurrentScene();
+		obj->scene = this;
 
 		Object* p = obj;
 		p->className = typeid(C).name;
+
+		obj->name = p->className;
 
 		objectList.emplace_back(obj);
 
 		return obj;
 	}
 
+private://SceneManagerで使用
+	void SetName(const std::string& _name) { className = _name; }
+
+	/// <summary>
+	/// 現在のシーンを再帰的に検索
+	/// </summary>
+	/// <returns>現在のシーン</returns>
 	Scene* GetCurrentScene();
 
 private:
-//	void DestroyGameObject(Object* _object);
-
-private://SceneManagerで使用
-	void SetName(const std::string& _name) { className = _name; }
+	/// <summary>
+	/// 志望フラグが立っているオブジェクトを破棄
+	/// </summary>
+	void DestroyGameObjects();
 
 private:
 	std::list<GameObject*> objectList;//オブジェクトリスト

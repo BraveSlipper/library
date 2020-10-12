@@ -73,5 +73,5 @@ inline bool Component::RemoveComponent()
 template<class C>
 inline GameObject* Component::Instantiate()
 {
-	return SceneManager::Get()->GetMainScene<Scene>()->GetCurrentScene()->Instantiate<C>();
+	return SceneManager::Get()->GetCurrentScene()->Instantiate<C>();
 }

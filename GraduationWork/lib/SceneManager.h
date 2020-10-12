@@ -83,7 +83,7 @@ public:
 	/// <typeparam name="C">破棄するサブシーン</typeparam>
 	/// <returns>true：サブシーンの破棄、false：メインシーンが生成されていない</returns>
 	template<class C>
-	bool DestroySubScene()
+	bool DestroySubScene()const
 	{
 		if (mainScene == nullptr)return false;
 
@@ -96,7 +96,13 @@ public:
 	/// <typeparam name="C">メインシーンの型</typeparam>
 	/// <returns>メインシーン取得</returns>
 	template<class C>
-	C* GetMainScene() { return dynamic_cast<C*>(mainScene); }
+	C* GetMainScene()const { return dynamic_cast<C*>(mainScene); }
+
+	/// <summary>
+	/// 現在のシーンを取得
+	/// </summary>
+	/// <returns>現在のシーン</returns>
+	Scene* GetCurrentScene();
 
 private:
 	/// <summary>

@@ -7,34 +7,7 @@ void Scene::SceneStart()
 
 void Scene::SceneUpdate()
 {
-	//自身のオブジェクト破棄
-	for (std::list<GameObject*>::iterator it = objectList.begin(); it != objectList.end();)
-	{
-		if ((*it)->IsDestroy())
-		{
-			std::list<GameObject*> children = (*it)->GetChildren();
-			for (std::list<GameObject*>::iterator cit = children.begin(); cit != children.end();)
-			{
-				bool isfind = false;
-				/*for (std::list<GameObject*>::iterator find = objectList.begin(), end = objectList.end(); it != end; ++it)
-				{
-					if (cit == find)
-					{
-						delete* cit;
-						cit = children.erase(cit);
-						isfind = true;
-						break;
-					}
-				}*///TODO
-				if (!isfind)
-					++cit;
-			}
-			delete* it;
-			it = objectList.erase(it);
-		}
-		else
-			++it;
-	}
+	DestroyGameObjects();
 
 	//サブシーン破棄
 	for (std::list<Scene*>::iterator it = subSceneList.begin(); it != subSceneList.end();)
@@ -111,4 +84,35 @@ Scene* Scene::GetCurrentScene()
 	if (p == this)
 		return this;
 	return p;
+}
+
+void Scene::DestroyGameObjects()
+{
+	//親の死亡フラグが立っている場合、子の死亡フラグを立てる
+	for (std::list<GameObject*>::iterator it = objectList.begin(), end = objectList.end(); it != end; ++it)
+	{
+		if (!(*it)->IsDestroy())continue;
+
+		std::list<GameObject*> children = (*it)->GetChildren();
+		for (std::list<GameObject*>::iterator cit = children.begin(), cend = children.end(); cit != cend; ++cit)
+		{
+			(*it)->Destroy();
+		}
+	}
+	
+	//サブシーンチェック
+	for (std::list<Scene*>::iterator it = subSceneList.begin(), end = subSceneList.end(); it != end; ++it)
+		(*it)->DestroyGameObjects();
+
+	//自身のオブジェクト破棄
+	for (std::list<GameObject*>::iterator it = objectList.begin(); it != objectList.end();)
+	{
+		if ((*it)->IsDestroy())
+		{
+			delete* it;
+			it = objectList.erase(it);
+		}
+		else
+			++it;
+	}
 }

@@ -41,9 +41,18 @@ void SceneManager::Update()
 		else
 		{
 			if (mainScene->IsActive())
+			{
 				mainScene->SceneUpdate();
+			}
 		}
 	}
+}
+
+Scene* SceneManager::GetCurrentScene()
+{
+	if (mainScene != nullptr)
+		return mainScene->GetCurrentScene();
+	return nullptr;
 }
 
 void SceneManager::ChangeScene()
@@ -53,7 +62,7 @@ void SceneManager::ChangeScene()
 
 	mainScene = createScene();
 	
-//	mainScene->SetName(sceneName);//TODO
+	mainScene->SetName(sceneName);
 
 	mainScene->SceneStart();
 	createScene = nullptr;
