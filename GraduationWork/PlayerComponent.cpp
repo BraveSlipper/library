@@ -1,7 +1,6 @@
 #include "PlayerComponent.h"
 
-PlayerComponent::PlayerComponent() : 
-	isStarted(false)
+PlayerComponent::PlayerComponent()
 {
 }
 
@@ -11,10 +10,10 @@ PlayerComponent::~PlayerComponent()
 
 void PlayerComponent::Start()
 {
-	printfDx("component Start!");
+	printfDx("component Start!\n");
 }
 
 void PlayerComponent::Update()
 {
-	printfDx("%f", transform->position.x);
+	printfDx("position.x = %f\n", transform->position.x);
 }

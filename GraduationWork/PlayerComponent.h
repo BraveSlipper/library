@@ -9,5 +9,4 @@ public:
 	void Update() override;
 
 private:
-	bool isStarted;
 };

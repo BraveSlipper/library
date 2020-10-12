@@ -8,5 +8,5 @@ public:
 	void Start();
 
 private:
-
+	GameObject* testChild;
 };

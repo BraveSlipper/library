@@ -123,6 +123,7 @@ inline C* GameObject::AddComponent()
 	p = new C();
 	Component* comp = p;
 	comp->gameObject = this;
+	comp->transform = this->transform;
 	compList.push_back(comp);
 	comp->Start();
 
