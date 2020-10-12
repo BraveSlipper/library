@@ -1,4 +1,5 @@
 #include "lib/UrLib.h"
+#include "TitleScene.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -10,7 +11,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	{
 		return -1;			// エラーが起きたら直ちに終了
 	}
-	SetDrawScreen(DX_SCREEN_BACK);	//裏画面を描画対象へ
+
+	SceneManager::Get()->LoadScene<TitleScene>();
 
 	//メイン処理
 	UrLib::Update();

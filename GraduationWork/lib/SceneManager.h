@@ -60,8 +60,8 @@ public:
 	template<class C>
 	void LoadScene()
 	{
-		sceneName = typeid(C).name;
-		createScene = CreateScene<Scene>;
+		sceneName = typeid(C).name();
+		createScene = CreateScene<C>;
 	}
 
 	/// <summary>

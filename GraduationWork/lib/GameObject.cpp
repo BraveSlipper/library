@@ -18,10 +18,6 @@ GameObject::~GameObject()
 	}
 }
 
-void GameObject::Start()
-{
-}
-
 void GameObject::Update()
 {	
 	// XVˆ—
@@ -111,4 +107,13 @@ void GameObject::DestroyComponents()
 Scene* GameObject::GetScene() const
 {
 	return scene;
+}
+
+GameObject* GameObject::func(GameObject* _p)
+{
+	scene->AddGameObject(_p);
+
+	_p->scene = scene;
+
+	return _p;
 }

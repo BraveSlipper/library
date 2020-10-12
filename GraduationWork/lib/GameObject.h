@@ -14,7 +14,6 @@ public:
 	GameObject();
 	~GameObject();
 
-	virtual void Start() override;
 	void Update() override;
 
 	/// <summary>
@@ -96,7 +95,8 @@ public:
 	/// </summary>
 	void RemoveChildren();
 
-	Transform* transform;					// トランスフォーム
+	template<class C>
+	inline C* Instantiate();
 
 private:
 	std::list<Component*> compList;			// コンポーネントリスト
@@ -104,8 +104,11 @@ private:
 	std::list<GameObject*> children;		// 子オブジェクトのリスト
 	Scene* scene;							// 存在しているシーンのポインター
 
+	GameObject* func(GameObject*);
+
 public:
 	std::string name;						// オブジェクト名
+	Transform* transform;					// トランスフォーム
 };
 
 template<class C>
@@ -121,6 +124,7 @@ inline C* GameObject::AddComponent()
 	Component* comp = p;
 	comp->gameObject = this;
 	compList.push_back(comp);
+	comp->Start();
 
 	return p;
 }
@@ -156,4 +160,17 @@ inline bool GameObject::RemoveComponent()
 	}
 
 	return false;
+}
+
+template<class C>
+inline C* GameObject::Instantiate()
+{
+	C* p = reinterpret_cast<C*>(func(new C));
+	Object* obj = p;
+	obj->className = typeid(C).name();
+	GameObject* gameObj = p;
+	gameObj->name = obj->className.substr(6);
+	gameObj->Start();
+
+	return p;
 }

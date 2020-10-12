@@ -1,7 +1,7 @@
 #include "Component.h"
 
 Component::Component() :
-	gameObject(nullptr)
+	transform(nullptr), gameObject(nullptr)
 {
 }
 

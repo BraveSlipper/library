@@ -44,8 +44,6 @@ public:
 	inline GameObject* Instantiate();
 
 	Transform* transform;			// 所有者のトランスフォーム
-
-protected:
 	GameObject* gameObject;			// 所有者のポインター
 
 private:

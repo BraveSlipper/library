@@ -7,6 +7,7 @@ class Scene;
 
 class Object {
 	friend Scene;
+	friend GameObject;
 public:
 	Object();
 	~Object();

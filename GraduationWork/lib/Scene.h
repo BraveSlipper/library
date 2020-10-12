@@ -149,11 +149,13 @@ public:
 		obj->scene = this;
 
 		Object* p = obj;
-		p->className = typeid(C).name;
+		p->className = typeid(C).name();
 
 		obj->name = p->className;
 
 		objectList.emplace_back(obj);
+
+		obj->Start();
 
 		return obj;
 	}
