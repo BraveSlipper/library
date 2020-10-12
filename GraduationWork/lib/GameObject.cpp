@@ -1,16 +1,10 @@
 #include "GameObject.h"
 #include "Transform.h"
 
+
+
 GameObject::GameObject() :
 	parent(nullptr), scene(nullptr)
-{
-	transform = new Transform(this);
-	compList.clear();
-	children.clear();
-}
-
-GameObject::GameObject(Scene* _scene) :
-	parent(nullptr), scene(_scene)
 {
 	transform = new Transform(this);
 	compList.clear();
@@ -55,7 +49,7 @@ GameObject* GameObject::GetChild(std::string _name) const
 {
 	// 対応した名前の子GameObject抽出
 	for (auto child : children) {
-		if (child->GetName() == _name)
+		if (child->GetTypeName() == _name)
 			return child;
 	}
 	return nullptr;
@@ -84,7 +78,7 @@ bool GameObject::RemoveChild(std::string _name)
 {
 	// 対応した名前の子GameObjectの破壊フラグを立てる
 	for (auto child : children) {
-		if (child->GetName() == _name) {
+		if (child->GetTypeName() == _name) {
 			child->Destroy();
 			return true;
 		}

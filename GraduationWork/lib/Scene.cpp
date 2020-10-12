@@ -1,11 +1,11 @@
 #include "Scene.h"
 
-void UrLib::Scene::SceneStart()
+void Scene::SceneStart()
 {
 	Start();
 }
 
-void UrLib::Scene::SceneUpdate()
+void Scene::SceneUpdate()
 {
 	//自身のオブジェクト破棄
 	for (std::list<GameObject*>::iterator it = objectList.begin(); it != objectList.end();)
@@ -52,7 +52,7 @@ void UrLib::Scene::SceneUpdate()
 	for (std::list<NODE>::iterator it = addSceneList.begin(); it != addSceneList.end();)
 	{
 		Scene* p = it->createScene();
-//		p->SetName(it->name);//TODO
+		p->SetName(it->name);
 		p->SceneStart();
 		subSceneList.emplace_back(p);
 		it = addSceneList.erase(it);
@@ -63,15 +63,21 @@ void UrLib::Scene::SceneUpdate()
 	{
 		if ((*it)->IsActive())
 		{
+			currentScene = *it;
 			(*it)->SceneUpdate();
 		}
+	}
+
+	currentScene = this;
+	//自身のオブジェクトのコンポーネント破棄
+	for (std::list<GameObject*>::iterator it = objectList.begin(); it != objectList.end(); ++it)
+	{
+		(*it)->DestroyComponents();
 	}
 
 	//自身のオブジェクト更新
 	for (std::list<GameObject*>::iterator it = objectList.begin(); it != objectList.end(); ++it)
 	{
-
-		(*it)->DestroyComponents();
 		if ((*it)->IsActive())
 		{
 			(*it)->Update();
@@ -79,9 +85,11 @@ void UrLib::Scene::SceneUpdate()
 	}
 	
 	Update();
+
+	currentScene = nullptr;
 }
 
-bool UrLib::Scene::AddGameObject(GameObject* _object)
+bool Scene::AddGameObject(GameObject* _object)
 {
 	if (_object == nullptr)return false;
 
@@ -91,4 +99,16 @@ bool UrLib::Scene::AddGameObject(GameObject* _object)
 	objectList.emplace_back(_object);
 
 	return true;
+}
+
+Scene* Scene::GetCurrentScene()
+{
+	if (currentScene == nullptr)
+		return nullptr;
+	Scene* p = currentScene->GetCurrentScene();
+	if (p == nullptr)
+		return this;
+	if (p == this)
+		return this;
+	return p;
 }

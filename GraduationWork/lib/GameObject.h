@@ -9,9 +9,9 @@ class Component;
 class Transform;
 
 class GameObject : public Object {
+	friend Scene;
 public:
 	GameObject();
-	GameObject(Scene* _scene);
 	~GameObject();
 
 	virtual void Start() override;
@@ -103,6 +103,9 @@ private:
 	GameObject* parent;						// 親オブジェクト
 	std::list<GameObject*> children;		// 子オブジェクトのリスト
 	Scene* scene;							// 存在しているシーンのポインター
+
+public:
+	std::string name;						// オブジェクト名
 };
 
 template<class C>

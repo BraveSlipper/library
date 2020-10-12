@@ -3,10 +3,12 @@
 
 class GameObject;
 
+class Scene;
+
 class Object {
+	friend Scene;
 public:
 	Object();
-	Object(std::string _name);
 	~Object();
 
 	virtual void Start();
@@ -16,7 +18,7 @@ public:
 	/// 名前を取得
 	/// </summary>
 	/// <returns>名前の文字列</returns>
-	std::string GetName() const;
+	std::string GetTypeName() const;
 
 	/// <summary>
 	/// Objectの有効・無効を取得
@@ -41,24 +43,8 @@ public:
 	/// </summary>
 	void Destroy();
 
-	/// <summary>
-	/// GameObjectを生成する
-	/// </summary>
-	/// <typeparam name="C">生成したいGameObjectのクラス</typeparam>
-	/// <returns>生成したGameObjectのポインター</returns>
-	template<class C>
-	inline GameObject* Instantiate();
-
 private:
-	std::string name;			// 名前
+	std::string className;		// 名前
 	bool active;				// 有効状態
 	bool isDestroy;				// 破壊フラグ
 };
-
-template<class C>
-inline GameObject* Object::Instantiate()
-{
-	GameObject* obj = new C();
-
-	return obj;
-}

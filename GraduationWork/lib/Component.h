@@ -1,6 +1,5 @@
 #pragma once
-#include "Object.h"
-#include "GameObject.h"
+#include "SceneManager.h"
 
 class Transform;
 
@@ -37,6 +36,14 @@ public:
 	template<class C>
 	bool RemoveComponent();
 
+	/// <summary>
+	/// GameObjectを生成する
+	/// </summary>
+	/// <typeparam name="C">生成したいGameObjectのクラス</typeparam>
+	/// <returns>生成したGameObjectのポインター</returns>
+	template<class C>
+	inline GameObject* Instantiate();
+
 	Transform* transform;			// 所有者のトランスフォーム
 
 protected:
@@ -62,4 +69,10 @@ template<class C>
 inline bool Component::RemoveComponent()
 {
 	return gameObject->RemoveComponent<C>();
+}
+
+template<class C>
+inline GameObject* Component::Instantiate()
+{
+	return SceneManager::Get()->GetMainScene<Scene>()->GetCurrentScene()->Instantiate<C>();
 }

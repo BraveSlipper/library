@@ -1,12 +1,7 @@
 #include "Object.h"
 
 Object::Object() :
-    name(""), active(true), isDestroy(false)
-{
-}
-
-Object::Object(std::string _name) :
-    name(_name), active(true), isDestroy(false)
+    className(""), active(true), isDestroy(false)
 {
 }
 
@@ -22,9 +17,9 @@ void Object::Update()
 {
 }
 
-std::string Object::GetName() const
+std::string Object::GetTypeName() const
 {
-    return name;
+    return className;
 }
 
 bool Object::IsActive() const

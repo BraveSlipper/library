@@ -1,8 +1,8 @@
 #include "SceneManager.h"
 
-UrLib::SceneManager* UrLib::SceneManager::instance = nullptr;
+SceneManager* SceneManager::instance = nullptr;
 
-UrLib::SceneManager* UrLib::SceneManager::Get()
+SceneManager* SceneManager::Get()
 {
 	if (instance == nullptr)
 	{
@@ -11,7 +11,7 @@ UrLib::SceneManager* UrLib::SceneManager::Get()
 	return instance;
 }
 
-bool UrLib::SceneManager::Destroy()
+bool SceneManager::Destroy()
 {
 	if (instance != nullptr)
 	{
@@ -22,11 +22,11 @@ bool UrLib::SceneManager::Destroy()
 	return false;
 }
 
-void UrLib::SceneManager::Start()
+void SceneManager::Start()
 {
 }
 
-void UrLib::SceneManager::Update()
+void SceneManager::Update()
 {
 	if (createScene != nullptr)
 		ChangeScene();
@@ -46,7 +46,7 @@ void UrLib::SceneManager::Update()
 	}
 }
 
-void UrLib::SceneManager::ChangeScene()
+void SceneManager::ChangeScene()
 {
 	if (mainScene != nullptr)
 		delete mainScene;
