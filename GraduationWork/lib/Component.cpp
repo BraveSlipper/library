@@ -5,11 +5,6 @@ Component::Component() :
 {
 }
 
-Component::Component(GameObject* _actor) :
-	gameObject(_actor)
-{
-}
-
 Component::~Component()
 {
 }

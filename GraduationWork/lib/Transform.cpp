@@ -1,7 +1,6 @@
 #include "Transform.h"
 
-Transform::Transform(GameObject* _actor) :
-    Component(_actor), 
+Transform::Transform() : 
     position(VGet(0.0f,0.0f,0.0f)), rotation(VGet(0.0f, 0.0f, 0.0f)), scale(VGet(1.0f, 1.0f, 1.0f)),
     forward(VGet(0.0f, 0.0f, 1.0f)), up(VGet(0.0f, 1.0f, 0.0f))
 {

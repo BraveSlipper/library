@@ -4,7 +4,7 @@
 
 class Transform : public Component {
 public:
-	Transform(GameObject* _actor);
+	Transform();
 	~Transform();
 
 	void Start() override;

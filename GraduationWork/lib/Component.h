@@ -6,7 +6,6 @@ class Transform;
 class Component : public Object {
 public:
 	Component();
-	Component(GameObject* _actor);
 	~Component();
 
 	virtual void Start();
