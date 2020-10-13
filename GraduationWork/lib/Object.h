@@ -10,7 +10,7 @@ class Object {
 	friend GameObject;
 public:
 	Object();
-	~Object();
+	virtual ~Object();
 
 	virtual void Start();
 	virtual void Update();

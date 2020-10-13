@@ -12,7 +12,7 @@ class GameObject : public Object {
 	friend Scene;
 public:
 	GameObject();
-	~GameObject();
+	virtual ~GameObject();
 
 	void Update() override;
 

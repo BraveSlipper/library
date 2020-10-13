@@ -6,7 +6,7 @@ class Transform;
 class Component : public Object {
 public:
 	Component();
-	~Component();
+	virtual ~Component();
 
 	virtual void Start();
 	virtual void Update();
