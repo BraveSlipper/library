@@ -63,6 +63,9 @@
     <ClCompile Include="..\lib\Renderer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="..\lib\ImageRenderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\UrLib.h">
@@ -105,6 +108,12 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="..\lib\Image.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\ImageRenderer.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\typedef.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
