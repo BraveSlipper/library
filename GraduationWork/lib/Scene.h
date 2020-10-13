@@ -86,7 +86,7 @@ public:
 	template<class C>
 	bool DestroySubScene()
 	{
-		std::string name = typeid(C).name;
+		std::string name = typeid(C).name();
 
 		for (std::list<Scene*>::iterator it = subSceneList.begin(), end = subSceneList.end(); it != end; ++it)
 		{

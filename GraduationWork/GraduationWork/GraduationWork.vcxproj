@@ -37,6 +37,7 @@
     <ClCompile Include="..\PlayerComponent.cpp" />
     <ClCompile Include="..\PlayerRotate.cpp" />
     <ClCompile Include="..\TitleScene.cpp" />
+    <ClCompile Include="..\TitleSubScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\Component.h" />
@@ -58,6 +59,7 @@
     <ClInclude Include="..\PlayerComponent.h" />
     <ClInclude Include="..\PlayerRotate.h" />
     <ClInclude Include="..\TitleScene.h" />
+    <ClInclude Include="..\TitleSubScene.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

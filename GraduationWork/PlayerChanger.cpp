@@ -7,18 +7,16 @@ namespace {
 
 void PlayerChanger::Start()
 {
-	imageRenderer = AddComponent<ImageRenderer>();
-	imageRenderer->SetImage("..\\Media\\testImage.png");
+	imageRenderer = GetComponent<ImageRenderer>();
 }
 
 void PlayerChanger::Update()
 {
-	if (++count == 240) {
-		if (imageRenderer != nullptr)
-			imageRenderer->SetImage("..\\Media\\testImage2.png");
+	if (++count == 120) {
+		imageRenderer->SetImage("..\\Media\\testImage2.png");
 	}
-	if (count == 480) {
-		RemoveComponent<ImageRenderer>();
-		imageRenderer = nullptr;
+	else if (count > 240) {
+		count = 0;
+		imageRenderer->SetImage("..\\Media\\testImage.png");
 	}
 }

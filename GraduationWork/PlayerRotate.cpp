@@ -11,10 +11,5 @@ void PlayerRotate::Start()
 
 void PlayerRotate::Update()
 {
-	if (imageRenderer != nullptr) {
-		imageRenderer->rotate += 1.0f;
-	}
-	else {
-		RemoveComponent<PlayerRotate>();
-	}
+	imageRenderer->rotate += 1.0f;
 }

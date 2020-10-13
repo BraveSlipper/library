@@ -43,9 +43,10 @@ bool DrawManager::Erase(Renderer* _p)
 {
 	for (std::list<Renderer*>::iterator it = rendererList.begin(), end = rendererList.end(); it != end; ++it) 
 	{ 
-		if ((*it) == _p)
+		if ((*it) == _p) {
 			rendererList.erase(it);
-		return true; 
+			return true;
+		}	
 	}
 	return false; 
 }
