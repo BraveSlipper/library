@@ -130,6 +130,8 @@ inline C* GameObject::AddComponent()
 	Component* comp = p;
 	comp->gameObject = this;
 	comp->transform = this->transform;
+	Object* obj = comp;
+	obj->className = typeid(C).name();
 	compList.push_back(comp);
 	comp->Start();
 

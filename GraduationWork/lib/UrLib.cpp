@@ -1,6 +1,9 @@
 #include "UrLib.h"
 #include "DrawManager.h"
 
+int Screen::x = 800;
+int Screen::y = 600;
+
 int UrLib::Init()
 {
     int ret = 0;
@@ -10,6 +13,15 @@ int UrLib::Init()
     SceneManager::Get()->Start();
 
     return ret;
+}
+
+int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode, int RefreshRate)
+{
+    Screen::x = ScreenSizeX;
+    Screen::y = ScreenSizeY;
+    ChangeWindowMode(WindowMode);
+    SetGraphMode(Screen::x, Screen::y, ColorBitDepth, RefreshRate);
+    return Init();
 }
 
 int UrLib::Update()

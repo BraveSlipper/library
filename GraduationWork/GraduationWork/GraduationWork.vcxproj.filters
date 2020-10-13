@@ -66,6 +66,12 @@
     <ClCompile Include="..\lib\ImageRenderer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="..\PlayerChanger.cpp">
+      <Filter>testSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PlayerRotate.cpp">
+      <Filter>testSource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\UrLib.h">
@@ -115,6 +121,15 @@
     </ClInclude>
     <ClInclude Include="..\lib\typedef.h">
       <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PlayerChanger.h">
+      <Filter>testSource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\Function.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PlayerRotate.h">
+      <Filter>testSource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

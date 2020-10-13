@@ -1,8 +1,8 @@
 #include "ImageRenderer.h"
-#include "dxlib/DxLib.h"
+#include "UrLib.h"
 
 ImageRenderer::ImageRenderer() :
-    position(0.0f, 0.0f), rotate(0.0f), scale(0.0f, 0.0f), alpha(1.0f),
+    position(0.0f, 0.0f), rotate(0.0f), scale(1.0f, 1.0f), alpha(1.0f),
     transFlag(TRUE), turnFlag(FALSE), order(0)
 {
 }
@@ -13,7 +13,13 @@ ImageRenderer::~ImageRenderer()
 
 void ImageRenderer::Draw()
 {
-    DrawRotaGraph3(0, 0, 0, 0, 1.0, 1.0, 0.0, image.handle, TRUE);
+    int x = transform->position.x + position.x;
+    int y = transform->position.y + position.y;
+    int cx = image.sizeX / 2;
+    int cy = image.sizeY / 2;
+    float Angle = ToRadian(transform->rotation.z + rotate);
+
+    DrawRotaGraph3(x, y, cx, cy, scale.x, scale.y, Angle, image.handle, transFlag, turnFlag);
 }
 
 bool ImageRenderer::SetImage(const std::string& _filePass)

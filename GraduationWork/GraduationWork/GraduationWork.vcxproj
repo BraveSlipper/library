@@ -32,13 +32,16 @@
     <ClCompile Include="..\lib\UrLib.cpp" />
     <ClCompile Include="..\Main.cpp" />
     <ClCompile Include="..\Player.cpp" />
+    <ClCompile Include="..\PlayerChanger.cpp" />
     <ClCompile Include="..\PlayerChild.cpp" />
     <ClCompile Include="..\PlayerComponent.cpp" />
+    <ClCompile Include="..\PlayerRotate.cpp" />
     <ClCompile Include="..\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\Component.h" />
     <ClInclude Include="..\lib\DrawManager.h" />
+    <ClInclude Include="..\lib\Function.h" />
     <ClInclude Include="..\lib\GameObject.h" />
     <ClInclude Include="..\lib\Image.h" />
     <ClInclude Include="..\lib\ImageRenderer.h" />
@@ -50,8 +53,10 @@
     <ClInclude Include="..\lib\typedef.h" />
     <ClInclude Include="..\lib\UrLib.h" />
     <ClInclude Include="..\Player.h" />
+    <ClInclude Include="..\PlayerChanger.h" />
     <ClInclude Include="..\PlayerChild.h" />
     <ClInclude Include="..\PlayerComponent.h" />
+    <ClInclude Include="..\PlayerRotate.h" />
     <ClInclude Include="..\TitleScene.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
