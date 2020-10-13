@@ -9,5 +9,7 @@ public:
 	void Update();
 
 private:
-
+	int count;
+	GameObject* player;
+	GameObject* child;
 };

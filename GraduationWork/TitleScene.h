@@ -8,9 +8,11 @@ public:
 	void Start();
 	void Update();
 
+	void ResetCount() { count = 0; };
+
 private:
-	GameObject* player;
-	GameObject* child;
+	GameObject* player1;
+	GameObject* player2;
 	int count;
 	int nextSceneCount;
 };

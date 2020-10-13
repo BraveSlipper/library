@@ -1,13 +1,10 @@
 #include "TitleSubScene.h"
+#include "TitleScene.h"
 #include "Player.h"
+#include "PlayerRotate.h"
 
-namespace {
-	int count = 0;
-	GameObject* player;
-	GameObject* child;
-}
-
-TitleSubScene::TitleSubScene()
+TitleSubScene::TitleSubScene() :
+	count(0)
 {
 	player = Instantiate<Player>();
 	child = Instantiate<Player>();
@@ -19,13 +16,21 @@ TitleSubScene::~TitleSubScene()
 
 void TitleSubScene::Start()
 {
+	count = 0;
 	child->SetParent(player);
-	child->transform->position.x = 400.0f;
+	float dif = 100.0f;
+	player->transform->position.x = Screen::x / 2.0f - dif;
+	player->transform->position.y = Screen::y / 2.0f;
+	child->transform->position.x = Screen::x / 2.0f + dif;
+	child->transform->position.y = Screen::y / 2.0f;
+	child->GetComponent<PlayerRotate>()->SetRotate(180.0f);
 }
 
 void TitleSubScene::Update()
 {
 	printfDx("TitleSubScene\n");
-	if (++count > 120)
+	if (++count > 120) {
+		SceneManager::Get()->GetMainScene<TitleScene>()->ResetCount();
 		SceneManager::Get()->DestroySubScene<TitleSubScene>();
+	}	
 }
