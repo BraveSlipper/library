@@ -131,7 +131,7 @@ public:
 	/// <typeparam name="C">生成するオブジェクト</typeparam>
 	/// <returns>生成したオブジェクト</returns>
 	template<class C>
-	GameObject* Instantiate(std::string _name = "")
+	C* Instantiate(std::string _name = "")
 	{
 		GameObject* obj = new C;
 		obj->scene = this;
@@ -149,7 +149,7 @@ public:
 
 		obj->Start();
 
-		return obj;
+		return reinterpret_cast<C*>(obj);
 	}
 
 	/// <summary>
