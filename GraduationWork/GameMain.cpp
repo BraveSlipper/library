@@ -2,12 +2,14 @@
 #include "Player.h"
 #include "PlayerChild.h"
 #include "TitleScene.h"
+#include "PlayerChanger.h"
 
 void GameMain::Start()
 {
 	player = Instantiate<Player>();
 	player->SetChild(Instantiate<PlayerChild>());
 	player->transform->position.x = 800;
+	player->AddComponent<PlayerChanger>();
 	ImageRenderer* renderer = player->GetComponent<ImageRenderer>();
 	renderer->SetImage("..\\Media\\testImage.png");
 	renderer->scale.x = renderer->scale.y = 0.3f;

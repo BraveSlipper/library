@@ -16,10 +16,10 @@ void PlayerRotate::Start()
 
 void PlayerRotate::Update()
 {
-	imageRenderer->rotate += 1.0f;
+	imageRenderer->rotation += 1.0f;
 }
 
 void PlayerRotate::SetRotate(float _angle)
 {
-	imageRenderer->rotate = _angle;
+	imageRenderer->rotation = _angle;
 }

@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "GameMain.h"
 #include "PlayerRotate.h"
+#include "PlayerChanger.h"
 
 TitleScene::TitleScene() :
 	count(0), nextSceneCount(6)
@@ -19,6 +20,8 @@ void TitleScene::Start()
 {
 	count = 0;
 	nextSceneCount = 6;
+	player1->AddComponent<PlayerChanger>();
+	player2->AddComponent<PlayerChanger>();
 	player2->transform->position.x = Screen::x;
 	player2->transform->position.y = Screen::y;
 	player2->GetComponent<PlayerRotate>()->SetRotate(180.0f);

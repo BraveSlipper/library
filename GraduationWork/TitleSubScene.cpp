@@ -18,12 +18,14 @@ void TitleSubScene::Start()
 {
 	count = 0;
 	child->SetParent(player);
-	float dif = 100.0f;
+	float dif = 200;
 	player->transform->position.x = Screen::x / 2.0f - dif;
 	player->transform->position.y = Screen::y / 2.0f;
 	child->transform->position.x = Screen::x / 2.0f + dif;
 	child->transform->position.y = Screen::y / 2.0f;
 	child->GetComponent<PlayerRotate>()->SetRotate(180.0f);
+	player->GetComponent<ImageRenderer>()->SetImage("..\\Media\\testImage2.png");
+	child->GetComponent<ImageRenderer>()->SetImage("..\\Media\\testImage2.png");
 }
 
 void TitleSubScene::Update()

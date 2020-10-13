@@ -18,7 +18,7 @@ public:
 	bool SetImage(const std::string& _filePass);
 
 	VECTOR2 position;
-	float rotate;
+	float rotation;
 	VECTOR2 scale;
 	float alpha;
 	int transFlag;
