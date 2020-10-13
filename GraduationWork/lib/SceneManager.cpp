@@ -40,6 +40,16 @@ void SceneManager::Update()
 		}
 		else
 		{
+			if (mainScene->IsReload())
+			{
+				Scene* (*f)() = mainScene->reloadScene;
+				std::string name = mainScene->GetTypeName();
+				delete mainScene;
+				mainScene = f();
+				mainScene->SetName(name);
+				mainScene->reloadScene = f;
+			}
+
 			if (mainScene->IsActive())
 			{
 				mainScene->SceneUpdate();
@@ -64,6 +74,9 @@ void SceneManager::ChangeScene()
 	
 	mainScene->SetName(sceneName);
 
+	mainScene->reloadScene = createScene;
+
 	mainScene->SceneStart();
+
 	createScene = nullptr;
 }

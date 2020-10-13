@@ -21,11 +21,26 @@ void Scene::SceneUpdate()
 			++it;
 	}
 
+	//サブシーン再読み込み
+	for (std::list<Scene*>::iterator it = subSceneList.begin(), end = subSceneList.end(); it != end; ++it)
+	{
+		if ((*it)->IsReload())
+		{
+			std::string name = (*it)->GetTypeName();
+			Scene* (*f)() = (*it)->reloadScene;
+			delete* it;
+			*it = f();
+			(*it)->SetName(name);
+			(*it)->reloadScene = f;
+		}
+	}
+
 	//サブシーンの追加
 	for (std::list<NODE>::iterator it = addSceneList.begin(); it != addSceneList.end();)
 	{
 		Scene* p = it->createScene();
 		p->SetName(it->name);
+		p->reloadScene = it->createScene;
 		p->SceneStart();
 		subSceneList.emplace_back(p);
 		it = addSceneList.erase(it);

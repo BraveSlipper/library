@@ -3,6 +3,7 @@
 #include <list>
 #include <string>
 #include <typeinfo>
+#include <new>
 #include "GameObject.h"
 
 class SceneManager;
@@ -30,7 +31,7 @@ private:
 
 public:
 	Scene() :
-		currentScene(nullptr)
+		currentScene(nullptr), isReload(false), reloadScene(nullptr)
 	{
 	}
 
@@ -38,9 +39,10 @@ public:
 	{
 		for (std::list<GameObject*>::iterator it = objectList.begin(); it != objectList.end();)
 		{
-			delete* it;
-			it = objectList.erase(it);
+			(*it)->Destroy();
 		}
+		DestroyGameObjects();
+
 		for (std::list<Scene*>::iterator it = subSceneList.begin(); it != subSceneList.end();)
 		{
 			delete* it;
@@ -143,7 +145,7 @@ public:
 	/// <typeparam name="C">生成するオブジェクト</typeparam>
 	/// <returns>生成したオブジェクト</returns>
 	template<class C>
-	GameObject* Instantiate()
+	GameObject* Instantiate(std::string _name = "")
 	{
 		GameObject* obj = new C;
 		obj->scene = this;
@@ -151,7 +153,11 @@ public:
 		Object* p = obj;
 		p->className = typeid(C).name();
 
-		obj->name = p->className;
+		if (_name == "") {
+			obj->name = p->className.substr(6ull);
+		}
+		else
+			obj->name = _name;
 
 		objectList.emplace_back(obj);
 
@@ -159,6 +165,11 @@ public:
 
 		return obj;
 	}
+
+	/// <summary>
+	/// 再読み込み
+	/// </summary>
+	void Reload() { isReload = true; }
 
 private://SceneManagerで使用
 	void SetName(const std::string& _name) { className = _name; }
@@ -168,6 +179,12 @@ private://SceneManagerで使用
 	/// </summary>
 	/// <returns>現在のシーン</returns>
 	Scene* GetCurrentScene();
+
+	/// <summary>
+	/// 再読み込みフラグを取得
+	/// </summary>
+	/// <returns>true：フラグが立っている、false：フラグが立ってない</returns>
+	bool IsReload()const { return isReload; }
 
 private:
 	/// <summary>
@@ -183,5 +200,9 @@ private:
 	std::list<NODE> addSceneList;//次フレームで追加するサブシーンリスト
 
 	Scene* currentScene;//現在のシーン
+
+	bool isReload;//リロードフラグ
+
+	Scene* (*reloadScene)();//シーンの再読み込み
 
 };
