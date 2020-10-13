@@ -95,8 +95,14 @@ public:
 	/// </summary>
 	void RemoveChildren();
 
+	/// <summary>
+	/// GameObjectを生成する
+	/// </summary>
+	/// <typeparam name="C">生成したいクラス</typeparam>
+	/// <param name="_name">生成したGameObjectに付ける名前</param>
+	/// <returns>生成したGameObjectのポインター</returns>
 	template<class C>
-	inline C* Instantiate();
+	inline C* Instantiate(std::string _name = "");
 
 private:
 	std::list<Component*> compList;			// コンポーネントリスト
@@ -164,13 +170,16 @@ inline bool GameObject::RemoveComponent()
 }
 
 template<class C>
-inline C* GameObject::Instantiate()
+inline C* GameObject::Instantiate(std::string _name)
 {
 	C* p = reinterpret_cast<C*>(func(new C));
 	Object* obj = p;
 	obj->className = typeid(C).name();
 	GameObject* gameObj = p;
-	gameObj->name = obj->className.substr(6);
+	if (_name == "")
+		gameObj->name = obj->className.substr(6ull);
+	else
+		gameObj->name = _name;
 	gameObj->Start();
 
 	return p;

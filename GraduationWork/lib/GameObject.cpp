@@ -46,8 +46,9 @@ GameObject* GameObject::GetChild(std::string _name) const
 {
 	// 対応した名前の子GameObject抽出
 	for (auto child : children) {
-		if (child->name == _name)
+		if (child->name == _name) {
 			return child;
+		}
 	}
 	return nullptr;
 }
@@ -67,6 +68,7 @@ bool GameObject::SetChild(GameObject* _obj)
 
 	// 子のリストに追加
 	children.push_back(_obj);
+	_obj->parent = this;
 
 	return true;
 }
