@@ -4,7 +4,7 @@ Scene* Scene::currentScene = nullptr;
 
 Scene::~Scene()
 {
-	for (std::list<GameObject*>::iterator it = objectList.begin(); it != objectList.end();)
+	for (std::list<GameObject*>::iterator it = objectList.begin(); it != objectList.end(); ++it)
 	{
 		(*it)->Destroy();
 	}

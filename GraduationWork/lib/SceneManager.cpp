@@ -72,13 +72,16 @@ void SceneManager::ChangeScene()
 	if (mainScene != nullptr)
 		delete mainScene;
 
-	mainScene = createScene();
+	Scene* (*p)() = createScene;
+
+	createScene = nullptr;
+
+	mainScene = p();
 	
 	mainScene->SetName(sceneName);
 
-	mainScene->reloadScene = createScene;
+	mainScene->reloadScene = p;
 
 	mainScene->SceneStart();
 
-	createScene = nullptr;
 }
