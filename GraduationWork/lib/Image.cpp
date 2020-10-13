@@ -22,6 +22,7 @@ bool Image::Load(const std::string& _path)
 	else
 	{
 		it->second.count += 1;
+		h = it->second.handle;
 	}
 
 	Destroy();
@@ -43,7 +44,10 @@ void Image::Destroy()
 	{
 		it->second.count -= 1;
 		if (it->second.count <= 0)
+		{
+			DeleteGraph(it->second.handle);
 			loadInfo.erase(it);
+		}
 	}
 	handle = -1;
 }
