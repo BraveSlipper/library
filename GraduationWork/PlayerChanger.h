@@ -5,4 +5,7 @@ class PlayerChanger : public Component {
 public:
 	void Start();
 	void Update();
+private:
+	int count;
+	ImageRenderer* imageRenderer;
 };

@@ -12,7 +12,7 @@ Player::~Player()
 
 void Player::Start()
 {
-	AddComponent<ImageRenderer>();
+	AddComponent<ImageRenderer>()->SetImage("..\\Media\\testImage.png");
 	AddComponent<PlayerChanger>();
 	AddComponent<PlayerRotate>();
 }

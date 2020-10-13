@@ -5,4 +5,6 @@ class PlayerRotate : public Component {
 public:
 	void Start();
 	void Update();
+private:
+	ImageRenderer* imageRenderer;
 };

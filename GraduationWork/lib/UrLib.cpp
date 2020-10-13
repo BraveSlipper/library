@@ -29,6 +29,7 @@ int UrLib::Update()
     int ret = 0;
 
     while (ret += ProcessMessage(), ret == 0) {
+        ret += clsDx();
         SceneManager::Get()->Update();      // シーンの更新処理
         ret += UrLib::Draw();               // 描画処理
         ret += ScreenFlip();		        // 裏画面と表画面の入替

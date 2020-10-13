@@ -73,7 +73,10 @@
       <Filter>testSource</Filter>
     </ClCompile>
     <ClCompile Include="..\TitleSubScene.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>testSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameMain.cpp">
+      <Filter>testSource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +138,9 @@
       <Filter>testSource</Filter>
     </ClInclude>
     <ClInclude Include="..\TitleSubScene.h">
+      <Filter>testSource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameMain.h">
       <Filter>testSource</Filter>
     </ClInclude>
   </ItemGroup>

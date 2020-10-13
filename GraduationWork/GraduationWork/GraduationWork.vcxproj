@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\GameMain.cpp" />
     <ClCompile Include="..\lib\Component.cpp" />
     <ClCompile Include="..\lib\DrawManager.cpp" />
     <ClCompile Include="..\lib\GameObject.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="..\TitleSubScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\GameMain.h" />
     <ClInclude Include="..\lib\Component.h" />
     <ClInclude Include="..\lib\DrawManager.h" />
     <ClInclude Include="..\lib\Function.h" />

@@ -1,12 +1,8 @@
 #include "PlayerChanger.h"
 
-namespace {
-	int count = 0;
-	ImageRenderer* imageRenderer;
-}
-
 void PlayerChanger::Start()
 {
+	count = 0;
 	imageRenderer = GetComponent<ImageRenderer>();
 }
 

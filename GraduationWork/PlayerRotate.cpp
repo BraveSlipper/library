@@ -1,9 +1,5 @@
 #include "PlayerRotate.h"
 
-namespace {
-	ImageRenderer* imageRenderer;
-}
-
 void PlayerRotate::Start()
 {
 	imageRenderer = GetComponent<ImageRenderer>();

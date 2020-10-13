@@ -13,6 +13,9 @@ ImageRenderer::~ImageRenderer()
 
 void ImageRenderer::Draw()
 {
+    if (image.handle == -1) 
+        return;
+
     int x = transform->position.x + position.x;
     int y = transform->position.y + position.y;
     int cx = image.sizeX / 2;

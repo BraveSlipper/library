@@ -9,5 +9,8 @@ public:
 	void Update();
 
 private:
-
+	GameObject* player;
+	GameObject* child;
+	int count;
+	int nextSceneCount;
 };
