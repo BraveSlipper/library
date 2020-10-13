@@ -27,14 +27,7 @@ private:
 	{
 	}
 
-	~SceneManager()
-	{
-		if (mainScene != nullptr)
-		{
-			delete mainScene;
-			mainScene = nullptr;
-		}
-	}
+	~SceneManager();
 
 public:
 	/// <summary>
@@ -102,7 +95,7 @@ public:
 	/// 現在のシーンを取得
 	/// </summary>
 	/// <returns>現在のシーン</returns>
-	Scene* GetCurrentScene();
+	static Scene* GetCurrentScene() { return Scene::GetCurrentScene(); }
 
 private:
 	/// <summary>

@@ -1,4 +1,5 @@
 #include "UrLib.h"
+#include "DrawManager.h"
 
 int UrLib::Init()
 {
@@ -27,11 +28,14 @@ int UrLib::Update()
 int UrLib::Draw()
 {
     int ret = 0;
+    DrawManager::Get()->Draw();
     return ret;
 }
 
 int UrLib::End()
 {
     int ret = 0;
+    SceneManager::Get()->Destroy();
+    DrawManager::Get()->Destroy();
     return ret;
 }

@@ -11,6 +11,15 @@ SceneManager* SceneManager::Get()
 	return instance;
 }
 
+SceneManager::~SceneManager()
+{
+	if (mainScene != nullptr)
+	{
+		delete mainScene;
+		mainScene = nullptr;
+	}
+}
+
 bool SceneManager::Destroy()
 {
 	if (instance != nullptr)
@@ -56,13 +65,6 @@ void SceneManager::Update()
 			}
 		}
 	}
-}
-
-Scene* SceneManager::GetCurrentScene()
-{
-	if (mainScene != nullptr)
-		return mainScene->GetCurrentScene();
-	return nullptr;
 }
 
 void SceneManager::ChangeScene()

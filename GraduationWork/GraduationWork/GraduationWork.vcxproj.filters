@@ -54,6 +54,15 @@
     <ClCompile Include="..\PlayerChild.cpp">
       <Filter>testSource</Filter>
     </ClCompile>
+    <ClCompile Include="..\lib\DrawManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\Image.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\Renderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\UrLib.h">
@@ -88,6 +97,15 @@
     </ClInclude>
     <ClInclude Include="..\PlayerChild.h">
       <Filter>testSource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\Renderer.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\DrawManager.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\Image.h">
+      <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

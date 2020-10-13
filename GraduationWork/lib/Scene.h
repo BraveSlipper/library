@@ -31,25 +31,11 @@ private:
 
 public:
 	Scene() :
-		currentScene(nullptr), isReload(false), reloadScene(nullptr)
+		isReload(false), reloadScene(nullptr)
 	{
 	}
 
-	~Scene()
-	{
-		for (std::list<GameObject*>::iterator it = objectList.begin(); it != objectList.end();)
-		{
-			(*it)->Destroy();
-		}
-		DestroyGameObjects();
-
-		for (std::list<Scene*>::iterator it = subSceneList.begin(); it != subSceneList.end();)
-		{
-			delete* it;
-			it = subSceneList.erase(it);
-		}
-		addSceneList.clear();
-	}
+	virtual~Scene();
 
 	/// <summary>
 	/// 初期化
@@ -171,14 +157,14 @@ public:
 	/// </summary>
 	void Reload() { isReload = true; }
 
-private://SceneManagerで使用
-	void SetName(const std::string& _name) { className = _name; }
-
 	/// <summary>
 	/// 現在のシーンを再帰的に検索
 	/// </summary>
 	/// <returns>現在のシーン</returns>
-	Scene* GetCurrentScene();
+	static Scene* GetCurrentScene() { return currentScene; }
+
+private://SceneManagerで使用
+	void SetName(const std::string& _name) { className = _name; }
 
 	/// <summary>
 	/// 再読み込みフラグを取得
@@ -188,7 +174,7 @@ private://SceneManagerで使用
 
 private:
 	/// <summary>
-	/// 志望フラグが立っているオブジェクトを破棄
+	/// 死亡フラグが立っているオブジェクトを破棄
 	/// </summary>
 	void DestroyGameObjects();
 
@@ -199,7 +185,7 @@ private:
 
 	std::list<NODE> addSceneList;//次フレームで追加するサブシーンリスト
 
-	Scene* currentScene;//現在のシーン
+	static Scene* currentScene;//現在のシーン
 
 	bool isReload;//リロードフラグ
 

@@ -1,5 +1,24 @@
 #include "Scene.h"
 
+Scene* Scene::currentScene = nullptr;
+
+Scene::~Scene()
+{
+	for (std::list<GameObject*>::iterator it = objectList.begin(); it != objectList.end();)
+	{
+		(*it)->Destroy();
+	}
+	DestroyGameObjects();
+
+	for (std::list<Scene*>::iterator it = subSceneList.begin(); it != subSceneList.end();)
+	{
+		delete* it;
+		it = subSceneList.erase(it);
+	}
+	addSceneList.clear();
+
+}
+
 void Scene::SceneStart()
 {
 	Start();
@@ -51,7 +70,6 @@ void Scene::SceneUpdate()
 	{
 		if ((*it)->IsActive())
 		{
-			currentScene = *it;
 			(*it)->SceneUpdate();
 		}
 	}
@@ -87,18 +105,6 @@ bool Scene::AddGameObject(GameObject* _object)
 	objectList.emplace_back(_object);
 
 	return true;
-}
-
-Scene* Scene::GetCurrentScene()
-{
-	if (currentScene == nullptr)
-		return nullptr;
-	Scene* p = currentScene->GetCurrentScene();
-	if (p == nullptr)
-		return this;
-	if (p == this)
-		return this;
-	return p;
 }
 
 void Scene::DestroyGameObjects()
