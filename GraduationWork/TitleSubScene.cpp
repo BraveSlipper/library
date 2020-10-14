@@ -32,7 +32,6 @@ void TitleSubScene::Update()
 {
 	printfDx("TitleSubScene\n");
 	if (++count > 120) {
-		SceneManager::Get()->GetMainScene<TitleScene>()->ResetCount();
 		SceneManager::Get()->DestroySubScene<TitleSubScene>();
 	}	
 }

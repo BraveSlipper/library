@@ -1,4 +1,7 @@
 #pragma once
+
+#include <cmath>
+
 #include "dxlib/DxLib.h"
 
 namespace UrLib {

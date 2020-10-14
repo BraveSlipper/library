@@ -25,5 +25,6 @@ void GameMain::Update()
 		SceneManager::Get()->LoadScene<TitleScene>();
 		count = 0;
 	}
-	if (Input::IsKeyDown(KEY::KEY_0))SceneManager::Get()->End();
+	if (Input::IsKeyDown(KEY::KEY_ENTER))SceneManager::Get()->LoadScene<TitleScene>();
+	if(Input::IsMouseDown(MOUSE::MOUSE_LEFT))SceneManager::Get()->End();
 }

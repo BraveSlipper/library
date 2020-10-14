@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Function.h"
+
 namespace UrLib {
 	typedef struct tagVECTOR2 {
 		float x, y;

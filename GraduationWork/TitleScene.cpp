@@ -5,11 +5,12 @@
 #include "PlayerRotate.h"
 #include "PlayerChanger.h"
 
-TitleScene::TitleScene() :
-	count(0), nextSceneCount(6)
+TitleScene::TitleScene()
 {
 	player1 = Instantiate<Player>();
 	player2 = Instantiate<Player>();
+	player3 = Instantiate<Player>();
+	player4 = Instantiate<Player>();
 }
 
 TitleScene::~TitleScene()
@@ -18,22 +19,22 @@ TitleScene::~TitleScene()
 
 void TitleScene::Start()
 {
-	count = 0;
-	nextSceneCount = 6;
 	player1->AddComponent<PlayerChanger>();
 	player2->AddComponent<PlayerChanger>();
 	player2->transform->position.x = static_cast<float>(Screen::x);
 	player2->transform->position.y = static_cast<float>(Screen::y);
 	player2->GetComponent<PlayerRotate>()->SetRotate(180.0f);
+	player3->AddComponent<PlayerChanger>();
+	player4->AddComponent<PlayerChanger>();
+	player3->transform->position.x = static_cast<float>(Screen::x);
+	player4->transform->position.y = static_cast<float>(Screen::y);
+	player3->GetComponent<PlayerRotate>()->SetRotate(-90.0f);
+	player4->GetComponent<PlayerRotate>()->SetRotate(90.0f);
 }
 
 void TitleScene::Update()
 {
 	printfDx("TitleScene\n");
-	if (++count == 60) {
-		SceneManager::Get()->AddSubScene<TitleSubScene>();
-		--nextSceneCount;
-		if (nextSceneCount == 0)
-			SceneManager::Get()->LoadScene<GameMain>();
-	}
+	if (Input::IsKeyDown(KEY::KEY_ENTER))SceneManager::Get()->LoadScene<GameMain>();
+	if (Input::IsKeyDown(KEY::KEY_0))SceneManager::Get()->AddSubScene<TitleSubScene>();
 }

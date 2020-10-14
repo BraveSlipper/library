@@ -21,12 +21,12 @@ void Transform::Update()
 
 VECTOR Transform::GetForward() const
 {
-    return localAxis.z;
+    return VECTOR();//localAxis.z;
 }
 
 VECTOR Transform::GetUp() const
 {
-    return localAxis.y;
+    return VECTOR();//localAxis.y;
 }
 
 Transform Transform::GetWorldTransform()
@@ -35,11 +35,6 @@ Transform Transform::GetWorldTransform()
     SetWorldPosition(tr.gameObject->GetParent(), tr.position);
 
     return tr;
-}
-
-Axis Transform::GetLocalAxis() const
-{
-    return Axis();
 }
 
 void Transform::SetWorldPosition(GameObject* _parent, VECTOR& _pos)
@@ -51,7 +46,6 @@ void Transform::SetWorldPosition(GameObject* _parent, VECTOR& _pos)
 
     // 親からの距離ベクトルを、親の回転値を見て回転させる
     VECTOR dif = _pos - _parent->transform->position;
-    MATRIX rot 
 
-    SetWorldPosition(_parent->GetParent(), _pos);
+//    SetWorldPosition(_parent->GetParent(), _pos);
 }
