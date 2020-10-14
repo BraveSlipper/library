@@ -16,8 +16,8 @@ void ImageRenderer::Draw()
     if (image.handle == -1) 
         return;
 
-    int x = transform->position.x + position.x;
-    int y = transform->position.y + position.y;
+    int x = static_cast<int>(transform->position.x + position.x);
+    int y = static_cast<int>(transform->position.y + position.y);
     int cx = image.sizeX / 2;
     int cy = image.sizeY / 2;
     float Angle = ToRadian(transform->rotation.z + rotation);

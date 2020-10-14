@@ -22,8 +22,8 @@ void TitleScene::Start()
 	nextSceneCount = 6;
 	player1->AddComponent<PlayerChanger>();
 	player2->AddComponent<PlayerChanger>();
-	player2->transform->position.x = Screen::x;
-	player2->transform->position.y = Screen::y;
+	player2->transform->position.x = static_cast<float>(Screen::x);
+	player2->transform->position.y = static_cast<float>(Screen::y);
 	player2->GetComponent<PlayerRotate>()->SetRotate(180.0f);
 }
 

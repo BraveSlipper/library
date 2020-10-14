@@ -23,7 +23,7 @@ public:
 
 private:
 	SceneManager():
-		mainScene(nullptr), createScene(nullptr)
+		mainScene(nullptr), createScene(nullptr), isEnd(false)
 	{
 	}
 
@@ -97,6 +97,17 @@ public:
 	/// <returns>現在のシーン</returns>
 	static Scene* GetCurrentScene() { return Scene::GetCurrentScene(); }
 
+	/// <summary>
+	/// 終了フラグを立てる
+	/// </summary>
+	void End() { isEnd = true; }
+
+	/// <summary>
+	/// 終了フラグ取得
+	/// </summary>
+	/// <returns>true：終了、false：続行</returns>
+	bool IsEnd()const { return isEnd; }
+
 private:
 	/// <summary>
 	/// シーン切り替え
@@ -111,5 +122,8 @@ private:
 	std::string sceneName;//メインシーン名
 
 	static SceneManager* instance;//SceneManagerのインスタンス
+
+private:
+	bool isEnd;//終了フラグ
 
 };

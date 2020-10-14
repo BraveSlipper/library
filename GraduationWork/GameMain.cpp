@@ -21,5 +21,9 @@ void GameMain::Update()
 	static int count;
 
 	if (++count > 300)
+	{
 		SceneManager::Get()->LoadScene<TitleScene>();
+		count = 0;
+	}
+	if (Input::IsKeyDown(KEY::KEY_0))SceneManager::Get()->End();
 }

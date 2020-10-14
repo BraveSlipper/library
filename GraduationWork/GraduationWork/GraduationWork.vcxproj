@@ -25,6 +25,7 @@
     <ClCompile Include="..\lib\GameObject.cpp" />
     <ClCompile Include="..\lib\Image.cpp" />
     <ClCompile Include="..\lib\ImageRenderer.cpp" />
+    <ClCompile Include="..\lib\Input.cpp" />
     <ClCompile Include="..\lib\Object.cpp" />
     <ClCompile Include="..\lib\Renderer.cpp" />
     <ClCompile Include="..\lib\Scene.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="..\lib\GameObject.h" />
     <ClInclude Include="..\lib\Image.h" />
     <ClInclude Include="..\lib\ImageRenderer.h" />
+    <ClInclude Include="..\lib\Input.h" />
     <ClInclude Include="..\lib\Object.h" />
     <ClInclude Include="..\lib\Renderer.h" />
     <ClInclude Include="..\lib\Scene.h" />
