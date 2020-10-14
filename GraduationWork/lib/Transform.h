@@ -22,11 +22,27 @@ public:
 	/// <returns>アップベクトル</returns>
 	VECTOR GetUp() const;
 
+	/// <summary>
+	/// ワールドにおけるTransformを取得
+	/// </summary>
+	/// <returns>ワールドトランスフォーム</returns>
+	Transform GetWorldTransform();
+
 	VECTOR position;
 	VECTOR rotation;
 	VECTOR scale;
-	
+
+
+
 private:
-	VECTOR forward;
-	VECTOR up;
+	/// <summary>
+	/// ローカル座標からワールド座標へ変換し、代入する
+	/// </summary>
+	/// <param name="_parent">親のポインター</param>
+	/// <param name="_pos">変換したいローカルポジション</param>
+	void SetWorldPosition(GameObject* _parent, VECTOR& _pos);
+
+private:
+	VECTOR foward;
+	VECTOR right;
 };
