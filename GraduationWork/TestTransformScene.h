@@ -9,4 +9,5 @@ public:
 	void Update();
 private:
 	GameObject* obj;
+	GameObject* obj2;
 };

@@ -13,22 +13,16 @@ ImageRenderer::~ImageRenderer()
 
 void ImageRenderer::Draw()
 {
-    DrawCircle(transform->position.x, transform->position.y, 5, GetColor(255, 255, 255));
-    DrawLine(
-        transform->position.x, transform->position.y,
-        transform->position.x + transform->quaternion.x, transform->position.y + transform->quaternion.y,
-        GetColor(255, 0, 0)
-    );
-   /* if (image.handle == -1) 
+    if (image.handle == -1) 
         return;
 
     int x = static_cast<int>(transform->position.x + position.x);
     int y = static_cast<int>(transform->position.y + position.y);
     int cx = image.sizeX / 2;
     int cy = image.sizeY / 2;
-    float Angle = ToRadian(transform->quaternion.z + rotation);
+    float Angle = ToRadian(transform->rotation.z + rotation);
 
-    DrawRotaGraph3(x, y, cx, cy, scale.x, scale.y, Angle, image.handle, transFlag, turnFlag);*/
+    DrawRotaGraph3(x, y, cx, cy, scale.x, scale.y, Angle, image.handle, transFlag, turnFlag);
 }
 
 bool ImageRenderer::SetImage(const std::string& _filePass)

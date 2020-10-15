@@ -11,6 +11,6 @@ TestTransformChara::~TestTransformChara()
 
 void TestTransformChara::Start()
 {
-	AddComponent<ImageRenderer>();
-	AddComponent<TestTransformComponent>();
+	ImageRenderer* imageRenderer = AddComponent<ImageRenderer>();
+	imageRenderer->SetImage("..\\Media\\testCircle.png");
 }

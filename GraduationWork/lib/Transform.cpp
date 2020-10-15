@@ -2,7 +2,7 @@
 #include "Function.h"
 
 Transform::Transform() : 
-    position(VGet(0.0f,0.0f,0.0f)), quaternion(), scale(VGet(1.0f, 1.0f, 1.0f)),
+    position(VGet(0.0f,0.0f,0.0f)), rotation(), scale(VGet(1.0f, 1.0f, 1.0f)),
     foward(VGet(0.0f, 0.0f, 1.0f)), right(VGet(1.0f, 0.0f, 0.0f))
 {
 }
@@ -33,6 +33,18 @@ void Transform::SetPosition(VECTOR _pos)
     }
 }
 
+void Transform::AddPosition(float _x, float _y, float _z)
+{
+    // 自分の座標を加算
+    VECTOR add = VGet(_x, _y, _z);
+    position += add;
+
+    // 子の座標を加算
+    for (auto child : gameObject->GetChildren()) {
+        child->transform->AddPosition(add);
+    }
+}
+
 void Transform::AddPosition(VECTOR _add)
 {
     // 自分の座標を加算
@@ -47,36 +59,47 @@ void Transform::AddPosition(VECTOR _add)
 void Transform::AxisRotateX(float _deg)
 {
     VECTOR vec = { 1.0f, 0.0f, 0.0f };
+    rotation.x -= _deg;
+    LoopClamp(rotation.x, 0.0f, 360.0f);
     Rotate(vec, _deg);
 }
 
 void Transform::AxisRotateY(float _deg)
 {
     VECTOR vec = { 0.0f, 1.0f, 0.0f };
+    rotation.y -= _deg;
+    LoopClamp(rotation.y, 0.0f, 360.0f);
     Rotate(vec, _deg);
 }
 
 void Transform::AxisRotateZ(float _deg)
 {
     VECTOR vec = { 0.0f, 0.0f, 1.0f };
+    rotation.z -= _deg;
+    LoopClamp(rotation.z, 0.0f, 360.0f);
     Rotate(vec, _deg);
 }
 
 void Transform::Rotate(VECTOR _axis, float _deg)
 {
     VECTOR vec = VNorm(_axis);
-    Quaternion affter = Quaternion::CreateRotatedQuaternion(_axis, position, _deg);
-    VECTOR affterPos = { affter.x, affter.y, affter.z };
+    Quaternion affter;
 
-    SetPosition(affterPos);
+    // 子の座標を更新
+    for (auto child : gameObject->GetChildren()) {
+        VECTOR dif = child->transform->position - position;
+        affter = Quaternion::RotatePosition(_axis, dif, _deg);
+        child->transform->position = affter.GetVec() + position;
+        child->transform->Rotate(_axis, _deg);
+    }
 }
 
 VECTOR Transform::GetForward() const
 {
-    return quaternion.GetForword();
+    return rotation.GetForword();
 }
 
 VECTOR Transform::GetUp() const
 {
-    return quaternion.GetUp();
+    return rotation.GetUp();
 }

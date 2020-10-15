@@ -31,12 +31,36 @@ namespace UrLib {
 	inline Quaternion operator *(const Quaternion& q1, const Quaternion& q2) 
 	{
 		Quaternion q;
-		q.w = (q1.w * q2.w) - (q1.x * q2.x) - (q1.y * q2.y) - (q1.z * q2.z);
-		q.x = (q1.w * q2.x) + (q1.x * q2.w) + (q1.y * q2.z) - (q1.z * q2.y);
-		q.y = (q1.w * q2.y) + (q1.y * q2.w) + (q1.z * q2.x) - (q1.x * q2.z);
-		q.z = (q1.w * q2.z) + (q1.z * q2.w) + (q1.x * q2.y) - (q1.y * q2.x);
+		q.x = q1.w * q2.x - q1.z * q2.y + q1.y * q2.z + q1.x * q2.w;
+		q.y = q1.z * q2.x + q1.w * q2.y - q1.x * q2.z + q1.y * q2.w;
+		q.z = -q1.y * q2.x + q1.x * q2.y + q1.w * q2.z + q1.z * q2.w;
+		q.w = -q1.x * q2.x - q1.y * q2.y - q1.z * q2.z + q1.w * q2.w;
 
 		return q;
+	}
+
+	template<typename T>
+	inline bool Clamp(T& val, T min, T max)
+	{
+		if (min > max) return false;
+		else if (val < min) val = min;
+		else if (val > max) val = max;
+		return true;
+	}
+
+	template<typename T>
+	inline bool LoopClamp(T& val, T min, T max)
+	{
+		if (min > max) return false;
+		else if (val < min) {
+			T temp = val - min;
+			val = max + temp;
+		}
+		else if (val > max) {
+			T temp = val - max;
+			val = min + temp;
+		}
+		return true;
 	}
 }
 using namespace UrLib;

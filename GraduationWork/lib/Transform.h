@@ -21,6 +21,7 @@ public:
 	/// ç¿ïWÇâ¡éZÇ∑ÇÈ
 	/// </summary>
 	/// <param name="_add"></param>
+	void AddPosition(float _x = 0.0f, float _y = 0.0f, float _z = 0.0f);
 	void AddPosition(VECTOR _add);
 
 	/// <summary>
@@ -61,7 +62,7 @@ public:
 	VECTOR GetUp() const;
 
 	VECTOR position;
-	Quaternion quaternion;
+	Quaternion rotation;
 	VECTOR scale;
 
 private:

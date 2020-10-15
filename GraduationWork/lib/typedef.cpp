@@ -17,14 +17,19 @@ Quaternion UrLib::Quaternion::Create(VECTOR _axis, float _deg)
     return q;
 }
 
-Quaternion UrLib::Quaternion::CreateRotatedQuaternion(VECTOR _axis, VECTOR _pos, float _deg)
+Quaternion UrLib::Quaternion::RotatePosition(VECTOR _axis, VECTOR _pos, float _deg)
 {
-    VECTOR vec = VNorm(_axis);
     Quaternion q = Quaternion::Create(_axis, _deg);
     Quaternion r = Quaternion::Create(_axis * -1.0f, _deg);
-    Quaternion p = Quaternion::Create(_pos, 0.0f);
+    Quaternion p;
+    p.x = _pos.x;
+    p.y = _pos.y;
+    p.z = _pos.z;
+    p.w = 0.0f;
 
     Quaternion affter = r * p * q;
+    VECTOR newPos = { affter.x, affter.y, affter.z };
+    affter.up = VNorm(newPos);
 
     return affter;
 }
