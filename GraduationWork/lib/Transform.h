@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "dxlib/DxLib.h"
+#include "typedef.h"
 
 class Transform : public Component {
 public:
@@ -9,6 +10,43 @@ public:
 
 	void Start() override;
 	void Update() override;
+
+	/// <summary>
+	/// 座標を代入
+	/// </summary>
+	/// <param name="_pos">代入したい座標</param>
+	void SetPosition(VECTOR _pos);
+
+	/// <summary>
+	/// 座標を加算する
+	/// </summary>
+	/// <param name="_add"></param>
+	void AddPosition(VECTOR _add);
+
+	/// <summary>
+	/// X軸で回転する
+	/// </summary>
+	/// <param name="_deg">回転角度</param>
+	void AxisRotateX(float _deg);
+
+	/// <summary>
+	/// Y軸で回転する
+	/// </summary>
+	/// <param name="_deg">回転角度</param>
+	void AxisRotateY(float _deg);
+
+	/// <summary>
+	/// Z軸で回転する
+	/// </summary>
+	/// <param name="_deg">回転角度</param>
+	void AxisRotateZ(float _deg);
+
+	/// <summary>
+	/// 任意軸で回転する
+	/// </summary>
+	/// <param name="_axis">回転軸</param>
+	/// <param name="_deg">回転角度</param>
+	void Rotate(VECTOR _axis, float _deg);
 
 	/// <summary>
 	/// 正面ベクトルを取得
@@ -22,25 +60,9 @@ public:
 	/// <returns>アップベクトル</returns>
 	VECTOR GetUp() const;
 
-	/// <summary>
-	/// ワールドにおけるTransformを取得
-	/// </summary>
-	/// <returns>ワールドトランスフォーム</returns>
-	Transform GetWorldTransform();
-
 	VECTOR position;
-	VECTOR rotation;
+	Quaternion quaternion;
 	VECTOR scale;
-
-
-
-private:
-	/// <summary>
-	/// ローカル座標からワールド座標へ変換し、代入する
-	/// </summary>
-	/// <param name="_parent">親のポインター</param>
-	/// <param name="_pos">変換したいローカルポジション</param>
-	void SetWorldPosition(GameObject* _parent, VECTOR& _pos);
 
 private:
 	VECTOR foward;

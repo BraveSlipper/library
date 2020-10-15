@@ -1,6 +1,5 @@
 #pragma once
-
-#include "Function.h"
+#include "dxlib/DxLib.h"
 
 namespace UrLib {
 	typedef struct tagVECTOR2 {
@@ -9,15 +8,26 @@ namespace UrLib {
 		tagVECTOR2(float _x, float _y) : x(_x), y(_y) {}
 	} VECTOR2;
 
-	struct Quaternion {
+	class Quaternion {
+	public:
+		Quaternion() : x(0.0f), y(0.0f), z(1.0f), w(0.0f), up(VGet(0.0f, 1.0f, 0.0f)) {}
 		float x, y, z, w;
-		Quaternion(VECTOR _axis, float _deg) 
-		{
-			x = _axis.x * sin(ToRadian(_deg / 2.0f));
-			y = _axis.y * sin(ToRadian(_deg / 2.0f));
-			z = _axis.z * sin(ToRadian(_deg / 2.0f));
-			w = cos(ToRadian(_deg / 2.0f));
-		}
+		static Quaternion Create(VECTOR _axis, float _deg);
+		static Quaternion CreateRotatedQuaternion(VECTOR _axis, VECTOR _pos, float _deg);
+		/// <summary>
+		/// アップベクトルを取得
+		/// </summary>
+		/// <returns>アップベクトル</returns>
+		VECTOR GetForword() const { return VECTOR{x,y,z}; }
+
+		/// <summary>
+		/// アップベクトルを取得
+		/// </summary>
+		/// <returns>アップベクトル</returns>
+		VECTOR GetUp() const { return up; }
+
+	private:
+		VECTOR up;
 	};
 }
 using namespace UrLib;

@@ -1,7 +1,8 @@
 #include "TitleScene.h"
 #include "TitleSubScene.h"
-#include "Player.h"
 #include "GameMain.h"
+#include "TestTransformScene.h"
+#include "Player.h"
 #include "PlayerRotate.h"
 #include "PlayerChanger.h"
 
@@ -36,5 +37,6 @@ void TitleScene::Update()
 {
 	printfDx("TitleScene\n");
 	if (Input::IsKeyDown(KEY::KEY_ENTER))SceneManager::Get()->LoadScene<GameMain>();
+	if (Input::IsKeyDown(KEY::KEY_T))SceneManager::Get()->LoadScene<TestTransformScene>();
 	if (Input::IsKeyDown(KEY::KEY_0))SceneManager::Get()->AddSubScene<TitleSubScene>();
 }

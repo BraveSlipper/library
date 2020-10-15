@@ -2,7 +2,7 @@
 #include "Function.h"
 
 Transform::Transform() : 
-    position(VGet(0.0f,0.0f,0.0f)), rotation(VGet(0.0f, 0.0f, 0.0f)), scale(VGet(1.0f, 1.0f, 1.0f)),
+    position(VGet(0.0f,0.0f,0.0f)), quaternion(), scale(VGet(1.0f, 1.0f, 1.0f)),
     foward(VGet(0.0f, 0.0f, 1.0f)), right(VGet(1.0f, 0.0f, 0.0f))
 {
 }
@@ -19,33 +19,64 @@ void Transform::Update()
 {
 }
 
+void Transform::SetPosition(VECTOR _pos)
+{
+    // 移動量を算出
+    VECTOR dif = _pos - position;
+
+    // 自分の座標を代入
+    position = _pos;
+
+    // 移動した量だけ子の座標を加算
+    for (auto child : gameObject->GetChildren()) {
+        child->transform->AddPosition(dif);
+    }
+}
+
+void Transform::AddPosition(VECTOR _add)
+{
+    // 自分の座標を加算
+    position += _add;
+
+    // 子の座標を加算
+    for (auto child : gameObject->GetChildren()) {
+        child->transform->AddPosition(_add);
+    }
+}
+
+void Transform::AxisRotateX(float _deg)
+{
+    VECTOR vec = { 1.0f, 0.0f, 0.0f };
+    Rotate(vec, _deg);
+}
+
+void Transform::AxisRotateY(float _deg)
+{
+    VECTOR vec = { 0.0f, 1.0f, 0.0f };
+    Rotate(vec, _deg);
+}
+
+void Transform::AxisRotateZ(float _deg)
+{
+    VECTOR vec = { 0.0f, 0.0f, 1.0f };
+    Rotate(vec, _deg);
+}
+
+void Transform::Rotate(VECTOR _axis, float _deg)
+{
+    VECTOR vec = VNorm(_axis);
+    Quaternion affter = Quaternion::CreateRotatedQuaternion(_axis, position, _deg);
+    VECTOR affterPos = { affter.x, affter.y, affter.z };
+
+    SetPosition(affterPos);
+}
+
 VECTOR Transform::GetForward() const
 {
-    return VECTOR();//localAxis.z;
+    return quaternion.GetForword();
 }
 
 VECTOR Transform::GetUp() const
 {
-    return VECTOR();//localAxis.y;
-}
-
-Transform Transform::GetWorldTransform()
-{
-    Transform tr = *this;
-    SetWorldPosition(tr.gameObject->GetParent(), tr.position);
-
-    return tr;
-}
-
-void Transform::SetWorldPosition(GameObject* _parent, VECTOR& _pos)
-{
-    if (_parent == nullptr) return;
-
-    // 親のワールド座標を加算
-    _pos += _parent->transform->GetWorldTransform().position;
-
-    // 親からの距離ベクトルを、親の回転値を見て回転させる
-    VECTOR dif = _pos - _parent->transform->position;
-
-//    SetWorldPosition(_parent->GetParent(), _pos);
+    return quaternion.GetUp();
 }

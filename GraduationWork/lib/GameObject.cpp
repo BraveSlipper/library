@@ -5,6 +5,7 @@ GameObject::GameObject() :
 	parent(nullptr), scene(nullptr), name("")
 {
 	transform = new Transform();
+	transform->gameObject = this;
 	compList.clear();
 	children.clear();
 }

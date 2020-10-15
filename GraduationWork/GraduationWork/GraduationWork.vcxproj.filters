@@ -81,6 +81,18 @@
     <ClCompile Include="..\lib\Input.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="..\lib\typedef.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TestTransformChara.cpp">
+      <Filter>testSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TestTransformScene.cpp">
+      <Filter>testSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TestTransformComponent.cpp">
+      <Filter>testSource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\UrLib.h">
@@ -148,6 +160,15 @@
     </ClInclude>
     <ClInclude Include="..\lib\Input.h">
       <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TestTransformChara.h">
+      <Filter>testSource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TestTransformScene.h">
+      <Filter>testSource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TestTransformComponent.h">
+      <Filter>testSource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
