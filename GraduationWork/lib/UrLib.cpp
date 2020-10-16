@@ -1,10 +1,8 @@
 #include "UrLib.h"
 #include "DrawManager.h"
-#include "Input.h"
 
 int Screen::x = 800;
 int Screen::y = 600;
-float Screen::frameRate = 0.f;
 
 int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode)
 {
@@ -25,6 +23,8 @@ int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowM
 
     Input::Start();
 
+    Time::Init();
+
     SetSysCommandOffFlag(TRUE);
 
     return ret;
@@ -37,6 +37,7 @@ void UrLib::Update()
     while (ret += ProcessMessage(), ret == 0) {
         ret += clsDx();
         Input::Update();                    // 入力更新
+        Time::Update();                     // 経過時間更新
         SceneManager::Get()->Update();      // シーンの更新処理
         ret += UrLib::Draw();               // 描画処理
         ret += ScreenFlip();		        // 裏画面と表画面の入替

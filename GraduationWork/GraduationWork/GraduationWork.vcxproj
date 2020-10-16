@@ -30,6 +30,7 @@
     <ClCompile Include="..\lib\Renderer.cpp" />
     <ClCompile Include="..\lib\Scene.cpp" />
     <ClCompile Include="..\lib\SceneManager.cpp" />
+    <ClCompile Include="..\lib\Time.cpp" />
     <ClCompile Include="..\lib\Transform.cpp" />
     <ClCompile Include="..\lib\typedef.cpp" />
     <ClCompile Include="..\lib\UrLib.cpp" />
@@ -48,6 +49,7 @@
   <ItemGroup>
     <ClInclude Include="..\GameMain.h" />
     <ClInclude Include="..\lib\Component.h" />
+    <ClInclude Include="..\lib\Delay.h" />
     <ClInclude Include="..\lib\DrawManager.h" />
     <ClInclude Include="..\lib\Function.h" />
     <ClInclude Include="..\lib\GameObject.h" />
@@ -58,6 +60,7 @@
     <ClInclude Include="..\lib\Renderer.h" />
     <ClInclude Include="..\lib\Scene.h" />
     <ClInclude Include="..\lib\SceneManager.h" />
+    <ClInclude Include="..\lib\Time.h" />
     <ClInclude Include="..\lib\Transform.h" />
     <ClInclude Include="..\lib\typedef.h" />
     <ClInclude Include="..\lib\UrLib.h" />

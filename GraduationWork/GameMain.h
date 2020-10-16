@@ -22,4 +22,5 @@ private:
 	GameObject* player;
 	Component* control;
 
+	void Add();
 };
