@@ -4,27 +4,30 @@
 
 int Screen::x = 800;
 int Screen::y = 600;
+float Screen::frameRate = 0.f;
 
-int UrLib::Init()
+int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode)
 {
     int ret = 0;
 
+    Screen::x = ScreenSizeX;
+    Screen::y = ScreenSizeY;
+    
+    ret += ChangeWindowMode(WindowMode);
+
+    ret += SetGraphMode(Screen::x, Screen::y, ColorBitDepth);
+
     ret += DxLib_Init();
+    
     ret += SetDrawScreen(DX_SCREEN_BACK);	//— ‰æ–Ê‚ð•`‰æ‘ÎÛ‚Ö
+
     SceneManager::Get()->Start();
 
     Input::Start();
 
-    return ret;
-}
+    SetSysCommandOffFlag(TRUE);
 
-int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode, int RefreshRate)
-{
-    Screen::x = ScreenSizeX;
-    Screen::y = ScreenSizeY;
-    ChangeWindowMode(WindowMode);
-    SetGraphMode(Screen::x, Screen::y, ColorBitDepth, RefreshRate);
-    return Init();
+    return ret;
 }
 
 void UrLib::Update()

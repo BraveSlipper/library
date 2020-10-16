@@ -17,6 +17,12 @@ public:
 	/// <returns>読み込み成功でtrue, ファイルが見つからないか既に同じものを読み込んでいたらfalse</returns>
 	bool SetImage(const std::string& _filePass);
 
+	/// <summary>
+	/// 画像ハンドル取得
+	/// </summary>
+	/// <returns>画像ハンドル</returns>
+	int GetHandle()const { return image.handle; }
+
 	VECTOR2 position;
 	float rotation;
 	VECTOR2 scale;

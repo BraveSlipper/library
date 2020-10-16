@@ -8,8 +8,7 @@
 #include "Input.h"
 
 namespace UrLib {
-	int Init();
-	int Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode, int RefreshRate = 60);
+	int Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode);
 	void Update();
 	int Draw();
 	int End();
@@ -17,6 +16,7 @@ namespace UrLib {
 	class Screen {
 	public:
 		static int x, y;
+		static float frameRate;
 	};
 }
 using namespace UrLib;
