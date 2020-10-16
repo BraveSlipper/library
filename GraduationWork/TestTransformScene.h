@@ -10,4 +10,5 @@ public:
 private:
 	GameObject* obj;
 	GameObject* obj2;
+	GameObject* obj3;
 };

@@ -3,6 +3,8 @@
 #include "PlayerChild.h"
 #include "TitleScene.h"
 #include "PlayerChanger.h"
+#include "PlayerComponent.h"
+#include "PlayerRotate.h"
 
 void GameMain::Start()
 {
@@ -38,9 +40,12 @@ void GameMain::Update()
 void GameMain::Add()
 {
 	Player* p = Instantiate<Player>();
+	p->AddComponent<PlayerComponent>();
+	p->RemoveComponent<PlayerRotate>();
 	ImageRenderer* renderer = p->GetComponent<ImageRenderer>();
 	p->transform->position.x = static_cast<float>(GetRand(Screen::x));
 	p->transform->position.y = static_cast<float>(GetRand(Screen::y));
 	renderer->scale.x = 0.5f;
 	renderer->scale.y = 0.5f;
+	renderer->SetImage("..\\Media\\testImage3.png");
 }

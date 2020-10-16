@@ -7,4 +7,8 @@ public:
 	~TestTransformComponent();
 	void Start();
 	void Update();
+
+	void UseControl(bool _use);
+private:
+	bool isControl;
 };

@@ -56,16 +56,22 @@ public:
 	VECTOR GetForward() const;
 
 	/// <summary>
+	/// 右ベクトルを取得
+	/// </summary>
+	/// <returns>右ベクトル</returns>
+	VECTOR GetRight() const;
+
+	/// <summary>
 	/// アップベクトルを取得
 	/// </summary>
 	/// <returns>アップベクトル</returns>
 	VECTOR GetUp() const;
 
 	VECTOR position;
-	Quaternion rotation;
 	VECTOR scale;
 
 private:
-	VECTOR foward;
-	VECTOR right;
+	Quaternion foward;
+	Quaternion right;
+	Quaternion up;
 };

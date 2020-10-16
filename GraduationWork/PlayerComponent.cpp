@@ -10,10 +10,10 @@ PlayerComponent::~PlayerComponent()
 
 void PlayerComponent::Start()
 {
-	printfDx("component Start!\n");
+	printfDx("千夏フルパワー！！！\n");
 }
 
 void PlayerComponent::Update()
 {
-	printfDx("position.x = %f\n", transform->position.x);
+	transform->AddPosition(VGet(-1.0f, 0.0f, 0.0f));
 }

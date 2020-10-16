@@ -15,31 +15,18 @@ namespace UrLib {
 
 	class Quaternion {
 	public:
-		Quaternion() : x(0.0f), y(0.0f), z(0.0f), w(0.0f), up(VGet(0.0f, 1.0f, 0.0f)) {}
+		Quaternion() : x(0.0f), y(0.0f), z(0.0f), w(0.0f) {}
+		Quaternion(float _x, float _y, float _z, float _w) : x(_x), y(_y), z(_z), w(_w) {}
 		float x, y, z, w;
 		static Quaternion Create(VECTOR _axis, float _deg);
 		static Quaternion RotatePosition(VECTOR _axis, VECTOR _pos, float _deg);
+		static Quaternion RotatePosition(VECTOR _axis, Quaternion& _pos, float _deg);
 
 		/// <summary>
 		/// ベクトルを取得
 		/// </summary>
 		/// <returns>姿勢を除いたベクトル</returns>
 		VECTOR GetVec() const { return VGet(x, y, z); }
-
-		/// <summary>
-		/// 正面ベクトルを取得
-		/// </summary>
-		/// <returns>正面ベクトル</returns>
-		VECTOR GetForword() const { return VNorm(VGet(x,y,z)); }
-
-		/// <summary>
-		/// アップベクトルを取得
-		/// </summary>
-		/// <returns>アップベクトル</returns>
-		VECTOR GetUp() const { return up; }
-
-	private:
-		VECTOR up;
 	};
 }
 using namespace UrLib;

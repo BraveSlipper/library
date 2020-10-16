@@ -23,8 +23,8 @@ namespace UrLib {
 	inline MATRIX operator *(const MATRIX& m1, const MATRIX& m2) { return MMult(m1, m2); }
 	inline MATRIX& operator *=(MATRIX& m1, const MATRIX& m2) { return m1 = MMult(m1, m2); }
 
-	inline bool operator ==(VECTOR& v1, VECTOR& v2) { return VSize(v1 - v2) == 0; }
-	inline bool operator !=(VECTOR& v1, VECTOR& v2) { return VSize(v1 - v2) > 0; }
+	inline bool operator ==(const VECTOR& v1, const VECTOR& v2) { return VSize(v1 - v2) == 0; }
+	inline bool operator !=(const VECTOR& v1, const VECTOR& v2) { return VSize(v1 - v2) > 0; }
 
 	inline float Remainder(const float& f1, const float& f2) { return f1 - (f2 * (int)(f1 / f2)); }
 
@@ -52,11 +52,11 @@ namespace UrLib {
 	inline bool LoopClamp(T& val, T min, T max)
 	{
 		if (min > max) return false;
-		else if (val < min) {
+		while (val < min) {
 			T temp = val - min;
 			val = max + temp;
 		}
-		else if (val > max) {
+		while (val > max) {
 			T temp = val - max;
 			val = min + temp;
 		}

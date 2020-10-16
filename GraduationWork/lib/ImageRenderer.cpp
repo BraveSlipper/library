@@ -16,11 +16,13 @@ void ImageRenderer::Draw()
     if (image.handle == -1) 
         return;
 
+    LoopClamp(rotation, 0.0f, 360.0f);
+
     int x = static_cast<int>(transform->position.x + position.x);
     int y = static_cast<int>(transform->position.y + position.y);
     int cx = image.sizeX / 2;
     int cy = image.sizeY / 2;
-    float Angle = ToRadian(transform->rotation.z + rotation);
+    float Angle = ToRadian(rotation);
 
     DrawRotaGraph3(x, y, cx, cy, scale.x, scale.y, Angle, image.handle, transFlag, turnFlag);
 }
