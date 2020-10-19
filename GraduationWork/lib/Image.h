@@ -1,19 +1,21 @@
 #pragma once
 
 #include <unordered_map>
+#include <vector>
 
 class Image
 {
 	struct INFO
 	{
-		INFO(int _handle) :handle(_handle), count(1) {}
-		int handle;
+		INFO() : count(1) {}
+		std::vector<int> handles;//画像ハンドル
 		int count;
+		int sizeX, sizeY;//画像縦横サイズ
 	};
 
 public:
 	Image() :
-		handle(-1), sizeX(0), sizeY(0)
+		imageInfo(nullptr)
 	{
 	}
 
@@ -29,12 +31,21 @@ public:
 	/// <returns>true：読み込み成功、false：失敗</returns>
 	bool Load(const std::string& _path);
 
+	/// <summary>
+	/// 分割画像読み込み
+	/// </summary>
+	/// <param name="_path">ファイルパス</param>
+	/// <param name="_xdiv">横分割数</param>
+	/// <param name="_ydiv">縦分割数</param>
+	/// <param name="_allnum">全体分割数、0で_xdiv*_ydiv</param>
+	/// <returns>true：読み込み成功、false：失敗</returns>
+	bool LoadDiv(const std::string& _path, unsigned _xdiv, unsigned _ydiv, unsigned _allnum = 0u);
+
 private:
 	void Destroy();
 
 public:
-	int handle;//画像ハンドル
-	int sizeX, sizeY;//画像縦横サイズ
+	INFO* imageInfo;
 	std::string path;//ファイルパス
 
 private:

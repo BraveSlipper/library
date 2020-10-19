@@ -6,7 +6,8 @@ class Player;
 class GameMain :public Scene
 {
 public:
-	GameMain()
+	GameMain():
+		num(0)
 	{
 	}
 
@@ -21,6 +22,10 @@ public:
 private:
 	GameObject* player;
 	Component* control;
+
+	ImageRenderer* renderer;
+
+	int num;
 
 	void Add();
 };

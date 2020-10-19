@@ -6,6 +6,5 @@ public:
 	Player();
 	~Player();
 	void Start();
-
 private:
 };
