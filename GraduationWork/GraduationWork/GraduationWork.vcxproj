@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GameMain.cpp" />
+    <ClCompile Include="..\lib\Animator2D.cpp" />
+    <ClCompile Include="..\lib\Collider.cpp" />
     <ClCompile Include="..\lib\Component.cpp" />
     <ClCompile Include="..\lib\DrawManager.cpp" />
     <ClCompile Include="..\lib\GameObject.cpp" />
@@ -48,6 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GameMain.h" />
+    <ClInclude Include="..\lib\Anim2D.h" />
+    <ClInclude Include="..\lib\Animator2D.h" />
+    <ClInclude Include="..\lib\Collider.h" />
     <ClInclude Include="..\lib\Component.h" />
     <ClInclude Include="..\lib\Delay.h" />
     <ClInclude Include="..\lib\DrawManager.h" />

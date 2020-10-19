@@ -31,7 +31,7 @@ public:
 	/// Objectの有効状態をセットする
 	/// </summary>
 	/// <param name="_active">有効にするならtrue</param>
-	void SetActive(bool _active);
+	virtual void SetActive(bool _active);
 
 	/// <summary>
 	/// Objectの破壊フラグを取得

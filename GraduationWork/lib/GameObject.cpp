@@ -112,6 +112,15 @@ Scene* GameObject::GetScene() const
 	return scene;
 }
 
+void GameObject::SetActive(bool _active)
+{
+	active = _active;
+
+	for (auto child : children) {
+		child->SetActive(_active);
+	}
+}
+
 GameObject* GameObject::func(GameObject* _p)
 {
 	scene->AddGameObject(_p);

@@ -104,6 +104,13 @@ public:
 	template<class C>
 	inline C* Instantiate(std::string _name = "");
 
+public:
+	/// <summary>
+	/// Objectの有効状態をセットする
+	/// </summary>
+	/// <param name="_active">有効にするならtrue</param>
+	void SetActive(bool _active) final override;
+
 private:
 	std::list<Component*> compList;			// コンポーネントリスト
 	GameObject* parent;						// 親オブジェクト

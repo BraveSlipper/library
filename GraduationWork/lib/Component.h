@@ -43,6 +43,9 @@ public:
 	template<class C>
 	inline GameObject* Instantiate();
 
+	void OnCollisionEnter();
+
+public:
 	Transform* transform;			// 所有者のトランスフォーム
 	GameObject* gameObject;			// 所有者のポインター
 
