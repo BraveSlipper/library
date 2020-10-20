@@ -28,12 +28,22 @@ void ImageRenderer::Draw()
 
 bool ImageRenderer::SetImage(const std::string& _filePass)
 {
-    return image.Load(_filePass);
+    if (image.Load(_filePass))
+    {
+        drawNum = 0u;
+        return true;
+    }
+    return false;
 }
 
 bool ImageRenderer::SetImageDiv(const std::string& _filePass, unsigned _xdiv, unsigned _ydiv, unsigned _allnum)
 {
-    return image.LoadDiv(_filePass, _xdiv, _ydiv, _allnum);
+    if (image.LoadDiv(_filePass, _xdiv, _ydiv, _allnum))
+    {
+        drawNum = 0u;
+        return true;
+    }
+    return false;
 }
 
 bool ImageRenderer::SetImageNumber(unsigned _num)

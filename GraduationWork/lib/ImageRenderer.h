@@ -52,6 +52,17 @@ public:
 	/// <returns>描画最大番号</returns>
 	unsigned GetDrawMaxNumber()const;
 
+	/// <summary>
+	/// 読み込んでいるファイルのパスを取得
+	/// </summary>
+	/// <returns>ファイルパス</returns>
+	std::string GetPath()const { return image.path; }
+
+	/// <summary>
+	/// 読み込んでいるファイルを削除
+	/// </summary>
+	void Clear() { image.Destroy(); }
+
 	VECTOR2 position;
 	float rotation;
 	VECTOR2 scale;

@@ -15,7 +15,7 @@ class Image
 
 public:
 	Image() :
-		imageInfo(nullptr)
+		imageInfo(nullptr), isDiv(false)
 	{
 	}
 
@@ -41,14 +41,22 @@ public:
 	/// <returns>true：読み込み成功、false：失敗</returns>
 	bool LoadDiv(const std::string& _path, unsigned _xdiv, unsigned _ydiv, unsigned _allnum = 0u);
 
-private:
+	/// <summary>
+	/// 読み込んでいるファイルを削除
+	/// </summary>
 	void Destroy();
+
+private:
+	void Destroy(std::unordered_map<std::string, Image::INFO>& _info);
 
 public:
 	INFO* imageInfo;
 	std::string path;//ファイルパス
 
+	bool isDiv;//分割読み込みか
+
 private:
 	static std::unordered_map<std::string, INFO> loadInfo;//ファイルパスと参照数を関連付ける
+	static std::unordered_map<std::string, INFO> loadDivInfo;//ファイルパスと参照数を関連付ける（分割読み込み用）
 
 };

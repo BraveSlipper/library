@@ -2,10 +2,14 @@
 #include "dxlib/DxLib.h"
 
 std::unordered_map<std::string, Image::INFO> Image::loadInfo;
+std::unordered_map<std::string, Image::INFO> Image::loadDivInfo;
 
 bool Image::Load(const std::string& _path)
 {
-	if (path == _path)return true;//パスが同じ場合即終了
+	if (!isDiv)
+	{
+		if (path == _path)return true;//パスが同じ場合即終了
+	}
 
 	//マップから検索
 
@@ -35,20 +39,24 @@ bool Image::Load(const std::string& _path)
 
 	imageInfo = p;
 	path = _path;
+	isDiv = false;
 
 	return true;
 }
 
 bool Image::LoadDiv(const std::string& _path, unsigned _xdiv, unsigned _ydiv, unsigned _allnum)
 {
-	if (path == _path)return true;//パスが同じ場合即終了
+	if (isDiv)
+	{
+		if (path == _path)return true;//パスが同じ場合即終了
+	}
 
 	//マップから検索
 
 	INFO* p = nullptr;
 
-	std::unordered_map<std::string, INFO>::iterator it = loadInfo.find(_path);
-	if (it == loadInfo.end())
+	std::unordered_map<std::string, INFO>::iterator it = loadDivInfo.find(_path);
+	if (it == loadDivInfo.end())
 	{
 		//未登録時、読み込んでから登録
 		int x, y;
@@ -65,7 +73,7 @@ bool Image::LoadDiv(const std::string& _path, unsigned _xdiv, unsigned _ydiv, un
 
 		if (result == -1)return false;//失敗したら終了
 
-		p = &loadInfo[_path];//登録したINFOのアドレスを保持
+		p = &loadDivInfo[_path];//登録したINFOのアドレスを保持
 		*p = info;
 	}
 	else
@@ -79,11 +87,18 @@ bool Image::LoadDiv(const std::string& _path, unsigned _xdiv, unsigned _ydiv, un
 
 	path = _path;
 	imageInfo = p;
+	isDiv = true;
 
 	return true;
 }
 
 void Image::Destroy()
+{
+	if (isDiv)	Destroy(loadDivInfo);
+	else		Destroy(loadInfo);
+}
+
+void Image::Destroy(std::unordered_map<std::string, Image::INFO>& _info)
 {
 	if (imageInfo == nullptr)return;//読み込んでいない
 
@@ -97,11 +112,14 @@ void Image::Destroy()
 		}
 
 		//マップから消す
-		std::unordered_map<std::string, INFO>::iterator it = loadInfo.find(path);
-		if (it != loadInfo.end())
+		std::unordered_map<std::string, INFO>::iterator it = _info.find(path);
+		if (it != _info.end())
 		{
-			loadInfo.erase(it);
+			_info.erase(it);
 		}
 	}
+
+	imageInfo = nullptr;
+	path.clear();
 
 }

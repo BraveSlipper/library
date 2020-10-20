@@ -20,11 +20,6 @@ public:
 	void Update()override;
 
 private:
-	GameObject* player;
-	Component* control;
-
-	ImageRenderer* renderer;
-
 	int num;
 
 	void Add();

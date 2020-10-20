@@ -9,4 +9,6 @@ public:
 	void Update() override;
 
 private:
+	int a;
+	unsigned num;
 };
