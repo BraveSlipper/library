@@ -2,6 +2,7 @@
 #include "TitleSubScene.h"
 #include "GameMain.h"
 #include "TestTransformScene.h"
+#include "AnimTestScene.h"
 #include "Player.h"
 #include "PlayerRotate.h"
 #include "PlayerChanger.h"
@@ -20,6 +21,10 @@ TitleScene::~TitleScene()
 
 void TitleScene::Start()
 {
+	player1->AddComponent<PlayerRotate>();
+	player2->AddComponent<PlayerRotate>();
+	player3->AddComponent<PlayerRotate>();
+	player4->AddComponent<PlayerRotate>();
 	player1->AddComponent<PlayerChanger>();
 	player2->AddComponent<PlayerChanger>();
 	player2->transform->position.x = static_cast<float>(Screen::x);
@@ -38,5 +43,6 @@ void TitleScene::Update()
 	printfDx("TitleScene\n");
 	if (Input::IsKeyDown(KEY::KEY_ENTER))SceneManager::Get()->LoadScene<GameMain>();
 	if (Input::IsKeyDown(KEY::KEY_T))SceneManager::Get()->LoadScene<TestTransformScene>();
-	if (Input::IsKeyDown(KEY::KEY_0))SceneManager::Get()->AddSubScene<TitleSubScene>();
+	if (Input::IsKeyDown(KEY::KEY_A))SceneManager::Get()->LoadScene<AnimTestScene>();
+	if (Input::IsKeyDown(KEY::KEY_S))SceneManager::Get()->AddSubScene<TitleSubScene>();
 }

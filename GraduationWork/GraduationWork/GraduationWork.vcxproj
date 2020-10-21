@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\AnimTestComp.cpp" />
+    <ClCompile Include="..\AnimTestScene.cpp" />
     <ClCompile Include="..\GameMain.cpp" />
     <ClCompile Include="..\lib\Animator2D.cpp" />
     <ClCompile Include="..\lib\Collider.cpp" />
@@ -49,6 +51,8 @@
     <ClCompile Include="..\TitleSubScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\AnimTestComp.h" />
+    <ClInclude Include="..\AnimTestScene.h" />
     <ClInclude Include="..\GameMain.h" />
     <ClInclude Include="..\lib\Anim2D.h" />
     <ClInclude Include="..\lib\Animator2D.h" />

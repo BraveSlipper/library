@@ -5,6 +5,7 @@
 #include "SceneManager.h"
 #include "Transform.h"
 #include "ImageRenderer.h"
+#include "Animator2D.h"
 #include "Input.h"
 #include "Time.h"
 #include "Delay.h"

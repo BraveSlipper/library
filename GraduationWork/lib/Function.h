@@ -62,5 +62,14 @@ namespace UrLib {
 		}
 		return true;
 	}
+
+	template<typename T>
+	inline bool IsInSideValue(T _val, T _min, T _max) {
+		if (_val >= _min && _val < _max) {
+			return true;
+		}
+		else
+			return false;
+	}
 }
 using namespace UrLib;
