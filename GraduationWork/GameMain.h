@@ -22,5 +22,7 @@ public:
 private:
 	int num;
 
+	Player* player;
+
 	void Add();
 };

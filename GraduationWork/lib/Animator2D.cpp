@@ -253,7 +253,7 @@ bool Animator2D::IsTranslate(TransDirection*& _dir)
 
 bool Animator2D::TransDirInfo::IsTranslate()
 {
-	int size = transBool.size();
+	int size = static_cast<int>(transBool.size());
 	for (int i = 0; i < size; ++i) {
 		// ‘JˆÚðŒ‚Æˆê’v‚µ‚Ä‚¢‚È‚¢bool‚ª‚ ‚ê‚Î‘JˆÚ‚µ‚È‚¢
 		if (transBool.at(i)->enable != transState.at(i))

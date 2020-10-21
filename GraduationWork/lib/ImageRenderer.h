@@ -59,7 +59,7 @@ public:
 	std::string GetPath()const { return image.path; }
 
 	/// <summary>
-	/// 読み込んでいるファイルを削除
+	/// 読み込んだデータを破棄
 	/// </summary>
 	void Clear() { image.Destroy(); }
 

@@ -4,12 +4,18 @@
 int Screen::x = 800;
 int Screen::y = 600;
 
+float Meter::oneMeter = 1.f;
+
 int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode)
 {
     int ret = 0;
 
     Screen::x = ScreenSizeX;
     Screen::y = ScreenSizeY;
+
+    ret += SetEnableXAudioFlag(TRUE);
+
+    Set3DSoundOneMetre(Meter::oneMeter);
     
     ret += ChangeWindowMode(WindowMode);
 

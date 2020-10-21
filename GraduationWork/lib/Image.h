@@ -42,7 +42,7 @@ public:
 	bool LoadDiv(const std::string& _path, unsigned _xdiv, unsigned _ydiv, unsigned _allnum = 0u);
 
 	/// <summary>
-	/// 読み込んでいるファイルを削除
+	/// 読み込んだデータを破棄
 	/// </summary>
 	void Destroy();
 

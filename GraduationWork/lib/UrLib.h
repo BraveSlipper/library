@@ -9,6 +9,8 @@
 #include "Input.h"
 #include "Time.h"
 #include "Delay.h"
+#include "Sound.h"
+#include "SoundListener.h"
 
 namespace UrLib {
 	int Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode);
@@ -19,6 +21,11 @@ namespace UrLib {
 	class Screen {
 	public:
 		static int x, y;
+	};
+
+	struct Meter
+	{
+		static float oneMeter;
 	};
 }
 using namespace UrLib;

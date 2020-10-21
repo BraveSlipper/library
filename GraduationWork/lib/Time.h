@@ -17,8 +17,17 @@ public:
 
 	static void Update();
 
+	/// <summary>
+	/// 1フレームにかかった時間（秒）
+	/// </summary>
+	/// <returns>経過時間</returns>
 	static float DeltaTime() { return deltaTime; }
 
+	/// <summary>
+	/// 1フレームにかかった時間（秒）
+	/// スケールが適応されません
+	/// </summary>
+	/// <returns>経過時間</returns>
 	static float UnscaledDeltaTime() { return unscaledDeltaTime; }
 
 private:

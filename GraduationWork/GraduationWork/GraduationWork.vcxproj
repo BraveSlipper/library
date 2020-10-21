@@ -34,6 +34,8 @@
     <ClCompile Include="..\lib\Renderer.cpp" />
     <ClCompile Include="..\lib\Scene.cpp" />
     <ClCompile Include="..\lib\SceneManager.cpp" />
+    <ClCompile Include="..\lib\Sound.cpp" />
+    <ClCompile Include="..\lib\SoundListener.cpp" />
     <ClCompile Include="..\lib\Time.cpp" />
     <ClCompile Include="..\lib\Transform.cpp" />
     <ClCompile Include="..\lib\typedef.cpp" />
@@ -69,6 +71,8 @@
     <ClInclude Include="..\lib\Renderer.h" />
     <ClInclude Include="..\lib\Scene.h" />
     <ClInclude Include="..\lib\SceneManager.h" />
+    <ClInclude Include="..\lib\Sound.h" />
+    <ClInclude Include="..\lib\SoundListener.h" />
     <ClInclude Include="..\lib\Time.h" />
     <ClInclude Include="..\lib\Transform.h" />
     <ClInclude Include="..\lib\typedef.h" />
