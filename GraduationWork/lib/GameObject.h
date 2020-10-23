@@ -33,6 +33,12 @@ public:
 	C* GetComponent();
 
 	/// <summary>
+	/// Componentリストを取得する
+	/// </summary>
+	/// <returns>成功:componentList</returns>
+	std::list<Component*> GetComponentAll();
+
+	/// <summary>
 	/// 指定したComponentを破棄する
 	/// </summary>
 	/// <typeparam name="C">破棄したいComponentのクラス</typeparam>

@@ -11,6 +11,10 @@
 #include "Delay.h"
 #include "Sound.h"
 #include "SoundListener.h"
+#include "CircleCollider2D.h"
+#include "BoxCollider2D.h"
+#include "SphereCollider.h"
+#include "BoxCollider.h"
 
 namespace UrLib {
 	int Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode);

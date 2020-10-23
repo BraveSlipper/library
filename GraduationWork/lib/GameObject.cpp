@@ -94,6 +94,11 @@ void GameObject::RemoveChildren()
 	}
 }
 
+std::list<Component*> GameObject::GetComponentAll()
+{
+	return compList;
+}
+
 void GameObject::DestroyComponents()
 {
 	for (auto it = compList.begin(); it != compList.end();) {

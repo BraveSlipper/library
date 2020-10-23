@@ -4,7 +4,8 @@
 class Collider : public Component {
 public:
 	Collider();
-	~Collider();
+	virtual ~Collider();
+
 private:
 	bool isTrriger;
 };

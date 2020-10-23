@@ -2,6 +2,8 @@
 #include "SceneManager.h"
 
 class Transform;
+class Collider3D;
+class Collider2D;
 
 class Component : public Object {
 public:
@@ -28,6 +30,12 @@ public:
 	C* GetComponent();
 
 	/// <summary>
+	/// Componentリストを取得する
+	/// </summary>
+	/// <returns>成功:componentList</returns>
+	std::list<Component*> GetComponentAll();
+
+	/// <summary>
 	/// 指定したComponentを破棄する
 	/// </summary>
 	/// <typeparam name="C">破棄したいComponentのクラス</typeparam>
@@ -43,7 +51,18 @@ public:
 	template<class C>
 	inline GameObject* Instantiate();
 
-	void OnCollisionEnter();
+	virtual void OnCollisionEnter2D(Collider2D* _collider) {}
+	virtual void OnCollisionStay2D(Collider2D* _collider) {}
+	virtual void OnCollisionExit2D(Collider2D* _collider) {}
+	virtual void OnTriggerEnter2D(Collider2D* _collider) {}
+	virtual void OnTriggerStay2D(Collider2D* _collider) {}
+	virtual void OnTriggerExit2D(Collider2D* _collider) {}
+	virtual void OnCollisionEnter(Collider3D* _collider) {}
+	virtual void OnCollisionStay(Collider3D* _collider) {}
+	virtual void OnCollisionExit(Collider3D* _collider) {}
+	virtual void OnTriggerEnter(Collider3D* _collider) {}
+	virtual void OnTriggerStay(Collider3D* _collider) {}
+	virtual void OnTriggerExit(Collider3D* _collider) {}
 
 public:
 	Transform* transform;			// 所有者のトランスフォーム

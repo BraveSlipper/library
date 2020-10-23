@@ -16,3 +16,8 @@ void Component::Start()
 void Component::Update()
 {
 }
+
+std::list<Component*> Component::GetComponentAll()
+{
+	return gameObject->GetComponentAll();
+}

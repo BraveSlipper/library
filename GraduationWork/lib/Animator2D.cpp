@@ -28,6 +28,16 @@ void Animator2D::Update()
 	// 破壊フラグを確認し、アニメーションを破棄
 	for (auto it = animList.begin(); it != animList.end();) {
 		if ((*it)->IsDestroy()) {
+			for (auto dir = transDirList.begin(); dir != transDirList.end();) {
+				std::string animName = (*it)->name;
+				if ((*dir)->sourceName == animName || (*dir)->dirName == animName) {
+					delete (*dir);
+					dir = transDirList.erase(dir);
+				}
+				else {
+					++dir;
+				}
+			}
 			delete (*it);
 			it = animList.erase(it);
 		}
@@ -143,38 +153,38 @@ void Animator2D::SetBool(std::string _boolName, bool _bool)
 	}
 }
 
-int Animator2D::CreateBool(std::string _boolName)
+bool Animator2D::CreateBool(std::string _boolName)
 {
 	// 同じ名称のAnimBoolを見つけたら終了させる
 	for (auto it : boolList) {
 		if (it->boolName == _boolName)
-			return -1;
+			return false;
 	}
 
 	// 新しい遷移用Boolを生成
 	TransBool* newBool = new TransBool(_boolName);
 	boolList.emplace_back(newBool);
 
-	return 0;
+	return true;
 }
 
-int Animator2D::CreateTransDirection(std::string _sourceName, std::string _dirName)
+bool Animator2D::CreateTransDirection(std::string _sourceName, std::string _dirName)
 {
 	// 同じTransDirectionを見つけたら終了させる
 	for (auto it : transDirList) {
 		if (it->sourceName == _sourceName &&
 			it->dirName == _dirName)
-			return -1;
+			return false;
 	}
 
 	// 新しいTransDirectionを生成
 	TransDirection* newDir = new TransDirection(_sourceName, _dirName);
 	transDirList.emplace_back(newDir);
 
-	return 0;
+	return true;
 }
 
-int Animator2D::AddTransDirInfo(std::string _sourceName, std::string _dirName, std::string _boolName, bool _enable)
+bool Animator2D::AddTransDirInfo(std::string _sourceName, std::string _dirName, std::string _boolName, bool _enable)
 {
 	// 対応するTransDirectionを抽出
 	TransDirection* dir = nullptr;
@@ -185,12 +195,12 @@ int Animator2D::AddTransDirInfo(std::string _sourceName, std::string _dirName, s
 			break;
 		}
 	}
-	if (dir == nullptr) return -1;	// 抽出失敗で終了
+	if (dir == nullptr) return false;	// 抽出失敗で終了
 
 	// 既に使われているboolが見つかったら、追加せず終了
 	for (auto it : dir->info.transBool) {
 		if (it->boolName == _boolName)
-			return -1;
+			return false;
 	}
 
 	// 新しい遷移条件を追加
@@ -202,7 +212,7 @@ int Animator2D::AddTransDirInfo(std::string _sourceName, std::string _dirName, s
 	}
 	dir->info.transState.emplace_back(_enable);
 
-	return 0;
+	return true;
 }
 
 void Animator2D::TransAnimation()
