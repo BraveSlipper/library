@@ -23,6 +23,7 @@
     <ClCompile Include="..\AnimTestScene.cpp" />
     <ClCompile Include="..\GameMain.cpp" />
     <ClCompile Include="..\lib\Animator2D.cpp" />
+    <ClCompile Include="..\lib\Bone.cpp" />
     <ClCompile Include="..\lib\BoxCollider.cpp" />
     <ClCompile Include="..\lib\BoxCollider2D.cpp" />
     <ClCompile Include="..\lib\CircleCollider2D.cpp" />
@@ -38,6 +39,9 @@
     <ClCompile Include="..\lib\Image.cpp" />
     <ClCompile Include="..\lib\ImageRenderer.cpp" />
     <ClCompile Include="..\lib\Input.cpp" />
+    <ClCompile Include="..\lib\Material.cpp" />
+    <ClCompile Include="..\lib\Mesh.cpp" />
+    <ClCompile Include="..\lib\MeshRenderer.cpp" />
     <ClCompile Include="..\lib\Object.cpp" />
     <ClCompile Include="..\lib\Renderer.cpp" />
     <ClCompile Include="..\lib\Scene.cpp" />
@@ -45,6 +49,7 @@
     <ClCompile Include="..\lib\Sound.cpp" />
     <ClCompile Include="..\lib\SoundListener.cpp" />
     <ClCompile Include="..\lib\SphereCollider.cpp" />
+    <ClCompile Include="..\lib\Texture.cpp" />
     <ClCompile Include="..\lib\Time.cpp" />
     <ClCompile Include="..\lib\Transform.cpp" />
     <ClCompile Include="..\lib\typedef.cpp" />
@@ -67,6 +72,7 @@
     <ClInclude Include="..\GameMain.h" />
     <ClInclude Include="..\lib\Anim2D.h" />
     <ClInclude Include="..\lib\Animator2D.h" />
+    <ClInclude Include="..\lib\Bone.h" />
     <ClInclude Include="..\lib\BoxCollider.h" />
     <ClInclude Include="..\lib\BoxCollider2D.h" />
     <ClInclude Include="..\lib\CircleCollider2D.h" />
@@ -84,6 +90,10 @@
     <ClInclude Include="..\lib\Image.h" />
     <ClInclude Include="..\lib\ImageRenderer.h" />
     <ClInclude Include="..\lib\Input.h" />
+    <ClInclude Include="..\lib\Material.h" />
+    <ClInclude Include="..\lib\Mesh.h" />
+    <ClInclude Include="..\lib\MeshRenderer.h" />
+    <ClInclude Include="..\lib\MeshRendererInfo.h" />
     <ClInclude Include="..\lib\Object.h" />
     <ClInclude Include="..\lib\Renderer.h" />
     <ClInclude Include="..\lib\Scene.h" />
@@ -91,6 +101,7 @@
     <ClInclude Include="..\lib\Sound.h" />
     <ClInclude Include="..\lib\SoundListener.h" />
     <ClInclude Include="..\lib\SphereCollider.h" />
+    <ClInclude Include="..\lib\Texture.h" />
     <ClInclude Include="..\lib\Time.h" />
     <ClInclude Include="..\lib\Transform.h" />
     <ClInclude Include="..\lib\typedef.h" />

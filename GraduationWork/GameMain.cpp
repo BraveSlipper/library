@@ -10,7 +10,7 @@ void GameMain::Start()
 {
 	player = Instantiate<Player>();
 	player->RemoveComponent<PlayerRotate>();
-	player->AddComponent<PlayerComponent>();
+//	player->AddComponent<PlayerComponent>();
 	player->SetChild(Instantiate<PlayerChild>());
 	for (GameObject* p : player->GetChildren())
 	{
@@ -30,6 +30,16 @@ void GameMain::Start()
 
 	Sound* s = player->AddComponent<Sound>();
 	s->isLoop = true;
+
+	player->transform->position = VGet(0.f, 0.f, 0.f);
+
+	int h=MV1LoadModel("../Model/‰‰¹ƒ~ƒN.pmd");
+	int num = MV1GetMeshNum(h);
+	if (num == 1)
+	{
+		int a = 0;
+	}
+	MV1SetMeshVisible(h, 0, FALSE);
 }
 
 void GameMain::Update()
@@ -57,7 +67,7 @@ void GameMain::Update()
 	if (Input::IsKeyDown(KEY::KEY_F))
 	{
 		Sound* s = player->GetComponent<Sound>();
-		s->Load("../Sound/testBGM.mp3");
+		s->Load3D("../Sound/testBGM.mp3");
 		s->isLoop = true;
 		s->Play();
 	}
@@ -86,10 +96,29 @@ void GameMain::Update()
 	printfDx("pan:%d\n", s->pan);
 	printfDx("volume:%d\n", s->volume);
 
+	if (Input::IsKeyPush(KEY::KEY_5))
+	{
+		for (GameObject* p : player->GetChildren())
+		{
+			p->transform->AddPosition(VGet(0.1f, 0.f, 0.f));
+		}
+	}
+	if (Input::IsKeyPush(KEY::KEY_6))
+	{
+		for (GameObject* p : player->GetChildren())
+		{
+			p->transform->AddPosition(VGet(-0.1f, 0.f, 0.f));
+		}
+	}
 	for (GameObject* p : player->GetChildren())
 	{
-		p->transform->AddPosition(VGet(0.1f, 0.f, 0.f));
+		printfDx("posx:%f\n", p->transform->position.x);
+		printfDx("posy:%f\n", p->transform->position.y);
+		printfDx("posz:%f\n", p->transform->position.z);
 	}
+	printfDx("playerx:%f\n", player->transform->position.x);
+	printfDx("playery:%f\n", player->transform->position.y);
+	printfDx("playerz:%f\n", player->transform->position.z);
 }
 
 void GameMain::Add()

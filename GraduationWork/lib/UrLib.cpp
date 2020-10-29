@@ -13,9 +13,9 @@ int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowM
     Screen::x = ScreenSizeX;
     Screen::y = ScreenSizeY;
 
-    ret += SetEnableXAudioFlag(TRUE);
+//    ret += SetEnableXAudioFlag(TRUE);//TODO：エラーがでます、DxLibが更新されたら解除しましょう
 
-    Set3DSoundOneMetre(Meter::oneMeter);
+    ret += Set3DSoundOneMetre(Meter::oneMeter);
     
     ret += ChangeWindowMode(WindowMode);
 

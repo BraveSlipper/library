@@ -112,11 +112,7 @@ void Image::Destroy(std::unordered_map<std::string, Image::INFO>& _info)
 		}
 
 		//ƒ}ƒbƒv‚©‚çÁ‚·
-		std::unordered_map<std::string, INFO>::iterator it = _info.find(path);
-		if (it != _info.end())
-		{
-			_info.erase(it);
-		}
+		_info.erase(path);
 	}
 
 	imageInfo = nullptr;

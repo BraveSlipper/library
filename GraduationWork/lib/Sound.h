@@ -90,7 +90,7 @@ public:
 	/// <summary>
 	/// 読み込んだデータを破棄
 	/// </summary>
-	void Clear();
+	void Release();
 
 public://リバーブエフェクト（3D）
 

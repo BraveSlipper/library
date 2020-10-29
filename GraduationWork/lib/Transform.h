@@ -67,6 +67,8 @@ public:
 	/// <returns>アップベクトル</returns>
 	VECTOR GetUp() const;
 
+	Quaternion GetQuaternion()const { return foward; }
+
 	VECTOR position;
 	VECTOR scale;
 

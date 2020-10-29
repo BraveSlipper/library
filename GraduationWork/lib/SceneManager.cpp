@@ -59,7 +59,7 @@ void SceneManager::Update()
 				mainScene->reloadScene = f;
 			}
 
-			if (mainScene->IsActive())
+//			if (mainScene->IsActive())
 			{
 				mainScene->SceneUpdate();
 			}

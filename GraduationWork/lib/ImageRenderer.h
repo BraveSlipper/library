@@ -1,4 +1,5 @@
 #pragma once
+
 #include "typedef.h"
 #include "Renderer.h"
 #include "Image.h"
@@ -61,7 +62,7 @@ public:
 	/// <summary>
 	/// “Ç‚İ‚ñ‚¾ƒf[ƒ^‚ğ”jŠü
 	/// </summary>
-	void Clear() { image.Destroy(); }
+	void Release() { image.Destroy(); }
 
 	VECTOR2 position;
 	float rotation;

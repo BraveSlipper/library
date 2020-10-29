@@ -40,7 +40,7 @@ bool Sound::Load(const std::string& _path)
 		p = &it->second;
 	}
 
-	Clear();//Œ³‚Ì‰æ‘œ‚ð”jŠü
+	Release();//Œ³‚Ì‰æ‘œ‚ð”jŠü
 
 	soundInfo = p;
 	path = _path;
@@ -83,7 +83,7 @@ bool Sound::Load3D(const std::string& _path)
 		p = &it->second;
 	}
 
-	Clear();//Œ³‚Ì‰æ‘œ‚ð”jŠü
+	Release();//Œ³‚Ì‰æ‘œ‚ð”jŠü
 
 	soundInfo = p;
 	path = _path;
@@ -125,7 +125,7 @@ bool Sound::Stop()
     return false;
 }
 
-void Sound::Clear()
+void Sound::Release()
 {
 	if (soundInfo == nullptr)return;
 
