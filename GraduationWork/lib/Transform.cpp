@@ -1,5 +1,7 @@
 #include "Transform.h"
 #include "Function.h"
+#include "BoxCollider.h"
+#include "BoxCollider2D.h"
 
 Transform::Transform() : 
     position(VGet(0.0f,0.0f,0.0f)), scale(VGet(1.0f, 1.0f, 1.0f)),
@@ -83,12 +85,17 @@ void Transform::Rotate(VECTOR _axis, float _deg)
     Quaternion::RotatePosition(_axis, right, _deg);
     Quaternion::RotatePosition(_axis, up, _deg);
 
+    // コライダーを回転
+    BoxCollider* col = GetComponent<BoxCollider>();
+    if (col != nullptr) {
+        col->Rotate(_axis, _deg);
+    }
+
     // 子の座標を更新
     for (auto child : gameObject->GetChildren()) {
-        Quaternion quaChild;
         VECTOR dif = child->transform->position - position;
-        quaChild = Quaternion::RotatePosition(_axis, dif, _deg);
-        child->transform->SetPosition(quaChild.GetVec() + position);
+        Quaternion::RotatePosition(_axis, dif, _deg);
+        child->transform->SetPosition(dif + position);
         child->transform->Rotate(_axis, _deg);
     }
 }

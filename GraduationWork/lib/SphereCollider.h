@@ -8,6 +8,7 @@ public:
 	SphereCollider();
 	~SphereCollider();
 
+	void Disp();
 	bool IsCollide(Collider3D* _collider) override;
 	void SetRadius(float _radius) { radius = _radius; }
 	float GetRadius()const { return radius; }

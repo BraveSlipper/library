@@ -6,6 +6,8 @@ public:
 	Collider();
 	virtual ~Collider();
 
+	void Disp() {}
+
 private:
 	bool isTrriger;
 };

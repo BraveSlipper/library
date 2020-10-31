@@ -1,5 +1,6 @@
 #pragma once
 #include "Collider3D.h"
+#include "typedef.h"
 
 class SphereCollider;
 
@@ -8,14 +9,17 @@ public:
 	BoxCollider();
 	~BoxCollider();
 
+	void Disp();
 	bool IsCollide(Collider3D* _collider) override;
-	float GetHeight() const;
-	float GetWidth() const;
-	void SetSize(float _hight, float _width);
+	void SetPosition(VECTOR _pos) override;
+
+	VECTOR GetDirect(int elem);	// 指定軸番号の方向ベクトルを取得
+	float GetLen_W(int elem);		// 指定軸方向の長さを取得
+	void Rotate(VECTOR _axis, float _deg);	// OBBを回転させる
+	void SetLength(int elem, float len);	// 指定軸の長さを設定
 
 private:
-	float height;
-	float width;
+	OBB obb;
 
 private:
 	bool IsCollideCircle(SphereCollider* _collider);

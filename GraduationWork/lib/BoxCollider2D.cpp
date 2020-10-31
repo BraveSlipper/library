@@ -11,6 +11,14 @@ BoxCollider2D::~BoxCollider2D()
 {
 }
 
+void BoxCollider2D::Disp()
+{
+	VECTOR2 center = GetWorldPosition();
+	VECTOR2 leftTop(center.x - width * 0.5f, center.y - height * 0.5f);
+	VECTOR2 rightBottom(center.x + width * 0.5f, center.y + height * 0.5f);
+	DrawBox(leftTop.x, leftTop.y, rightBottom.x, rightBottom.y, GetColor(255, 255, 255), FALSE);
+}
+
 bool BoxCollider2D::IsCollide(Collider2D* _collider)
 {
 	CircleCollider2D* col_c = dynamic_cast<CircleCollider2D*>(_collider);
@@ -93,7 +101,7 @@ bool BoxCollider2D::IsCollideCircle(CircleCollider2D* _collider)
 bool BoxCollider2D::IsCollideBox(BoxCollider2D* _collider)
 {
 	// Ž©•ª‚Ì’ZŒa‚Ì’¸“_À•W
-	VECTOR myPos = transform->position;
+	VECTOR myPos = transform->position + position;
 	float left = myPos.x - width * 0.5f;
 	float right = myPos.x + width * 0.5f;
 	float up = myPos.y - height * 0.5f;

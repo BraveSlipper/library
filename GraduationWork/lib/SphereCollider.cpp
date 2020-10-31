@@ -11,6 +11,13 @@ SphereCollider::~SphereCollider()
 {
 }
 
+void SphereCollider::Disp()
+{
+	// ToDo
+	VECTOR pos = GetWorldPosition();
+	DrawCircle(pos.x, pos.y, radius, GetColor(255, 255, 255));
+}
+
 bool SphereCollider::IsCollide(Collider3D* _collider)
 {
 	SphereCollider* col_c = dynamic_cast<SphereCollider*>(_collider);
@@ -26,9 +33,9 @@ bool SphereCollider::IsCollide(Collider3D* _collider)
 
 bool SphereCollider::IsCollideCircle(SphereCollider* _collider)
 {
-	Transform* tr1 = _collider->transform;
-	Transform* tr2 = transform;
-	VECTOR diff = tr1->position - tr2->position;
+	VECTOR pos1 = _collider->GetWorldPosition();
+	VECTOR pos2 = GetWorldPosition();
+	VECTOR diff = pos1 - pos2;
 	float dist = VSize(diff);
 	if (dist <= _collider->GetRadius() + this->radius) {
 		return true;
@@ -40,50 +47,4 @@ bool SphereCollider::IsCollideCircle(SphereCollider* _collider)
 bool SphereCollider::IsCollideBox(BoxCollider* _collider)
 {
 	return false;
-	//// ãÈå`ÇOìxÇÃéûÇÃç¿ïWÇ…â~ÇÃäpìxÇíºÇ∑
-	//VECTOR origin_c = transform->position;
-	//float radian = ToRadian(transform->rotate.z);
-	//VECTOR rect = _collider->transform->position;
-	//VECTOR c;
-
-	//c.x = cos(radian) * (origin_c.x - rect.x) - sin(radian) * (origin_c.y - rect.y) + rect.x;
-	//c.y = sin(radian) * (origin_c.x - rect.x) + cos(radian) * (origin_c.y - rect.y) + rect.y;
-
-	//// è„ÇÃâ~ÇÃíÜêSì_Ç©ÇÁãÈå`ÇÃÇPî‘ãﬂÇ¢ç¿ïW
-	//VECTOR ver;
-
-	//// íZåaÇÃí∏ì_ç¿ïW
-	//float height = _collider->GetHeight();
-	//float width = _collider->GetWidth();
-	//float left = rect.x - width * 0.5f;
-	//float right = rect.x + width * 0.5f;
-	//float up = rect.y - height * 0.5f;
-	//float down = rect.y + height * 0.5f;
-
-	//// ÇPî‘ãﬂÇ¢xç¿ïWÇãÅÇﬂÇÈ
-	//if (c.x < rect.x)
-	//	ver.x = left;
-	//else if (c.x > rect.x)
-	//	ver.x = right;
-	//else
-	//	ver.x = c.x;
-
-	//// ÇPî‘ãﬂÇ¢yç¿ïWÇãÅÇﬂÇÈ
-	//if (c.y < rect.y)
-	//	ver.y = up;
-	//else if (c.y > rect.y)
-	//	ver.y = down;
-	//else
-	//	ver.y = c.y;
-
-	//// àÍî‘ãﬂÇ¢äpä€Ç∆ÇÃè’ìÀîªíË
-	//float distance = VSize(c - ver);
-	//if (distance < radius)
-	//	return true; // è’ìÀ
-
-	//// â~ÇÃíÜêSì_Ç∆í∑ï˚å`ÇÃÇ†ÇΩÇËîªíË
-	//bool a = c.x > left && c.x < right&& c.y > up - radius && c.y < down + radius;
-	//bool b = c.x > left - radius && c.x < right + radius && c.y > up && c.y < down;
-	//if (a || b)  return true;
-	//else return false;
 }

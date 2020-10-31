@@ -57,7 +57,7 @@ void MeshRenderer::Draw()
     VECTOR pos = transform->position + renderTransform.position;
     VECTOR scale = transform->scale + renderTransform.scale;
 
-    Quaternion q = transform->GetQuaternion();
+    Quaternion q = transform->GetFowardQuaternion();
     float x2 = q.x * q.x, y2 = q.y * q.y, z2 = q.z * q.z;
     float xy = q.x * q.y, yz = q.y * q.z, zw = q.z * q.w, wx = q.w * q.x,
         xz = q.x * q.z, yw = q.y * q.w;

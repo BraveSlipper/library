@@ -11,6 +11,12 @@ CircleCollider2D::~CircleCollider2D()
 {
 }
 
+void CircleCollider2D::Disp()
+{
+	VECTOR2 pos = GetWorldPosition();
+	DrawCircle(pos.x, pos.y, radius, GetColor(255, 255, 255));
+}
+
 bool CircleCollider2D::IsCollide(Collider2D* _collider)
 {
 	CircleCollider2D* col_c = dynamic_cast<CircleCollider2D*>(_collider);

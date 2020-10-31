@@ -2,13 +2,46 @@
 #include "UrLib.h"
 #include "SphereCollider.h"
 
-BoxCollider::BoxCollider() :
-	height(1.0f), width(1.0f)
+BoxCollider::BoxCollider()
 {
 }
 
 BoxCollider::~BoxCollider()
 {
+}
+
+void BoxCollider::Disp()
+{
+	VECTOR c = GetWorldPosition();
+	VECTOR left = obb.GetDirect(0) * obb.GetLen_W(0) * -1.0f;
+	VECTOR right = obb.GetDirect(0) * obb.GetLen_W(0);
+	VECTOR top = obb.GetDirect(1) * obb.GetLen_W(1) * -1.0f;
+	VECTOR bottom = obb.GetDirect(1) * obb.GetLen_W(1);
+	VECTOR front = obb.GetDirect(2) * obb.GetLen_W(2);
+	VECTOR back = obb.GetDirect(2) * obb.GetLen_W(2) * -1.0f;
+	VECTOR v[8] = {
+		c + left + top + front,
+		c + left + top + back,
+		c + left + bottom + back,
+		c + left + bottom + front,
+		c + right + top + front,
+		c + right + top + back,
+		c + right + bottom + back,
+		c + right + bottom + front
+	};
+
+	DrawLine(v[0].x, v[0].y, v[1].x, v[1].y, GetColor(255, 255, 255));
+	DrawLine(v[1].x, v[1].y, v[2].x, v[2].y, GetColor(255, 255, 255));
+	DrawLine(v[2].x, v[2].y, v[3].x, v[3].y, GetColor(255, 255, 255));
+	DrawLine(v[3].x, v[3].y, v[0].x, v[0].y, GetColor(255, 255, 255));
+	DrawLine(v[0].x, v[0].y, v[4].x, v[4].y, GetColor(255, 255, 255));
+	DrawLine(v[1].x, v[1].y, v[5].x, v[5].y, GetColor(255, 255, 255));
+	DrawLine(v[2].x, v[2].y, v[6].x, v[6].y, GetColor(255, 255, 255));
+	DrawLine(v[3].x, v[3].y, v[7].x, v[7].y, GetColor(255, 255, 255));
+	DrawLine(v[4].x, v[4].y, v[5].x, v[5].y, GetColor(255, 255, 255));
+	DrawLine(v[5].x, v[5].y, v[6].x, v[6].y, GetColor(255, 255, 255));
+	DrawLine(v[6].x, v[6].y, v[7].x, v[7].y, GetColor(255, 255, 255));
+	DrawLine(v[7].x, v[7].y, v[4].x, v[4].y, GetColor(255, 255, 255));
 }
 
 bool BoxCollider::IsCollide(Collider3D* _collider)
@@ -24,96 +57,41 @@ bool BoxCollider::IsCollide(Collider3D* _collider)
 	return false;
 }
 
-float BoxCollider::GetHeight() const
+void BoxCollider::SetPosition(VECTOR _pos)
 {
-	return height;
+    position = _pos;
+    obb.SetPos(GetWorldPosition());
 }
 
-float BoxCollider::GetWidth() const
+VECTOR BoxCollider::GetDirect(int elem)
 {
-	return width;
+    return obb.GetDirect(elem);
 }
 
-void BoxCollider::SetSize(float _hight, float _width)
+float BoxCollider::GetLen_W(int elem)
 {
-	height = _hight;
-	width = _width;
+    return obb.GetLen_W(elem);
+}
+
+void BoxCollider::Rotate(VECTOR _axis, float _deg)
+{
+    VECTOR vec = VNorm(_axis);
+
+    // Še²‚ğ‰ñ“]
+    obb.Rotate(_axis, _deg);
+}
+
+void BoxCollider::SetLength(int elem, float len)
+{
+    obb.SetLength(elem, len);
 }
 
 bool BoxCollider::IsCollideCircle(SphereCollider* _collider)
 {
 	return false;
-	//// ‹éŒ`‚O“x‚Ì‚ÌÀ•W‚É‰~‚ÌŠp“x‚ğ’¼‚·
-	//VECTOR circle = _collider->transform->position;
-	//float radian = ToRadian(_collider->transform->rotate.z);
-	//VECTOR rect = transform->position;
-	//VECTOR c;
-
-	//c.x = static_cast<float>(cos(radian) * ((double)circle.x - (double)rect.x) - sin(radian) * ((double)circle.y - (double)rect.y) + rect.x);
-	//c.y = static_cast<float>(sin(radian) * ((double)circle.x - (double)rect.x) + cos(radian) * ((double)circle.y - (double)rect.y) + rect.y);
-
-	//// ã‚Ì‰~‚Ì’†S“_‚©‚ç‹éŒ`‚Ì‚P”Ô‹ß‚¢À•W
-	//VECTOR ver;
-
-	//// ’ZŒa‚Ì’¸“_À•W
-	//float left = rect.x - width * 0.5f;
-	//float right = rect.x + width * 0.5f;
-	//float up = rect.y - height * 0.5f;
-	//float down = rect.y + height * 0.5f;
-
-	//// ‚P”Ô‹ß‚¢xÀ•W‚ğ‹‚ß‚é
-	//if (c.x < rect.x)
-	//	ver.x = rect.x - width * 0.5f;
-	//else if (c.x > rect.x)
-	//	ver.x = rect.x + width * 0.5f;
-	//else
-	//	ver.x = c.x;
-
-	//// ‚P”Ô‹ß‚¢yÀ•W‚ğ‹‚ß‚é
-	//if (c.y < rect.y)
-	//	ver.y = rect.y - height * 0.5f;
-	//else if (c.y > rect.y)
-	//	ver.y = rect.y + height * 0.5f;
-	//else
-	//	ver.y = c.y;
-
-	//// ˆê”Ô‹ß‚¢ŠpŠÛ‚Æ‚ÌÕ“Ë”»’è
-	//float radius = _collider->GetRadius();
-	//float distance = VSize(c - ver);
-	//if (distance < radius)
-	//	return true; // Õ“Ë
-
-	//// ‰~‚Ì’†S“_‚Æ’·•ûŒ`‚Ì‚ ‚½‚è”»’è
-	//bool a = c.x > left && c.x < right&& c.y > up - radius && c.y < down + radius;
-	//bool b = c.x > left - radius && c.x < right + radius && c.y > up && c.y < down;
-	//if (a || b)  return true;
-	//else return false;
 }
 
 bool BoxCollider::IsCollideBox(BoxCollider* _collider)
 {
-	// ©•ª‚Ì’ZŒa‚Ì’¸“_À•W
-	VECTOR myPos = transform->position;
-	float left = myPos.x - width * 0.5f;
-	float right = myPos.x + width * 0.5f;
-	float up = myPos.y - height * 0.5f;
-	float down = myPos.y + height * 0.5f;
-
-	// ‘Šè‚Ì’ZŒa‚Ì’¸“_À•W
-	VECTOR pairPos = _collider->transform->position;
-	float pairHeight = _collider->GetHeight();
-	float pairWidth = _collider->GetWidth();
-	float pairLeft = pairPos.x - pairWidth * 0.5f;
-	float pairRight = pairPos.x + pairWidth * 0.5f;
-	float pairUp = pairPos.y - pairHeight * 0.5f;
-	float pairDown = pairPos.y + pairHeight * 0.5f;
-
-	// ’ZŒa‚Æ’ZŒa‚ÌÕ“Ë”»’è
-	if (left < pairRight &&
-		right > pairLeft &&
-		up < pairDown &&
-		down > pairUp)
-		return true; // Õ“Ë
-
-	return false;
+	return ColOBBs(obb, _collider->obb);
 }

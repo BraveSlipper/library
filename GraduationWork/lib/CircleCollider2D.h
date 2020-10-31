@@ -8,6 +8,7 @@ public:
 	CircleCollider2D();
 	~CircleCollider2D();
 
+	void Disp();
 	bool IsCollide(Collider2D* _collider) override;
 	void SetRadius(float _radius) { radius = _radius; }
 	float GetRadius()const { return radius; }

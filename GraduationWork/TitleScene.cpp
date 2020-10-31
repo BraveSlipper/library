@@ -3,6 +3,7 @@
 #include "GameMain.h"
 #include "TestTransformScene.h"
 #include "AnimTestScene.h"
+#include "TestCollisionScene.h"
 #include "Player.h"
 #include "PlayerRotate.h"
 #include "PlayerChanger.h"
@@ -44,5 +45,6 @@ void TitleScene::Update()
 	if (Input::IsKeyDown(KEY::KEY_ENTER))SceneManager::Get()->LoadScene<GameMain>();
 	if (Input::IsKeyDown(KEY::KEY_T))SceneManager::Get()->LoadScene<TestTransformScene>();
 	if (Input::IsKeyDown(KEY::KEY_A))SceneManager::Get()->LoadScene<AnimTestScene>();
+	if (Input::IsKeyDown(KEY::KEY_C))SceneManager::Get()->LoadScene<TestCollisionScene>();
 	if (Input::IsKeyDown(KEY::KEY_S))SceneManager::Get()->AddSubScene<TitleSubScene>();
 }

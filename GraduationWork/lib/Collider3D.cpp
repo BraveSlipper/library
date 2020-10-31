@@ -1,5 +1,7 @@
 #include "Collider3D.h"
 #include "CollideManager.h"
+#include "Transform.h"
+#include "Function.h"
 
 Collider3D::Collider3D()
 {
@@ -45,4 +47,19 @@ void Collider3D::ExecuteAllCollisionExit(Collider3D* _collider)
 	for (auto it : obj_2) {
 		it->OnCollisionExit(_collider);
 	}
+}
+
+VECTOR Collider3D::GetLocalPosition()
+{
+	return position;
+}
+
+VECTOR Collider3D::GetWorldPosition()
+{
+	return transform->position + position;
+}
+
+void Collider3D::SetPosition(VECTOR _pos)
+{
+	position = _pos;
 }

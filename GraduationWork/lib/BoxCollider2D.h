@@ -8,6 +8,7 @@ public:
 	BoxCollider2D();
 	~BoxCollider2D();
 
+	void Disp();
 	bool IsCollide(Collider2D* _collider) override;
 	float GetHeight() const;
 	float GetWidth() const;

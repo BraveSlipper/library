@@ -156,6 +156,9 @@
     <ClCompile Include="..\lib\Texture.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="..\TestCollisionScene.cpp">
+      <Filter>testSource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\UrLib.h">
@@ -304,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="..\lib\Mesh.h">
       <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TestCollisionScene.h">
+      <Filter>testSource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

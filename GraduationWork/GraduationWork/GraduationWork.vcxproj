@@ -60,6 +60,7 @@
     <ClCompile Include="..\PlayerChild.cpp" />
     <ClCompile Include="..\PlayerComponent.cpp" />
     <ClCompile Include="..\PlayerRotate.cpp" />
+    <ClCompile Include="..\TestCollisionScene.cpp" />
     <ClCompile Include="..\TestTransformChara.cpp" />
     <ClCompile Include="..\TestTransformComponent.cpp" />
     <ClCompile Include="..\TestTransformScene.cpp" />
@@ -111,6 +112,7 @@
     <ClInclude Include="..\PlayerChild.h" />
     <ClInclude Include="..\PlayerComponent.h" />
     <ClInclude Include="..\PlayerRotate.h" />
+    <ClInclude Include="..\TestCollisionScene.h" />
     <ClInclude Include="..\TestTransformChara.h" />
     <ClInclude Include="..\TestTransformComponent.h" />
     <ClInclude Include="..\TestTransformScene.h" />
