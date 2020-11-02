@@ -257,6 +257,13 @@ void MeshRenderer::Release()
     path.clear();
 }
 
+int MeshRenderer::GetHandle() const
+{
+    if (info != nullptr)
+        return info->handle;
+    return -1;
+}
+
 Material* MeshRenderer::GetMaterial(unsigned _count)
 {
     if (_count < materials.size())

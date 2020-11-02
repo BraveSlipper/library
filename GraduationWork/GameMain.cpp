@@ -33,13 +33,10 @@ void GameMain::Start()
 
 	player->transform->position = VGet(0.f, 0.f, 0.f);
 
-	int h=MV1LoadModel("../Model/‰‰¹ƒ~ƒN.pmd");
-	int num = MV1GetMeshNum(h);
-	if (num == 1)
-	{
-		int a = 0;
-	}
-	MV1SetMeshVisible(h, 0, FALSE);
+	MeshRenderer* mesh = player->AddComponent<MeshRenderer>();
+	mesh->Load("../unitychan/Models/unitychan.fbx");
+	
+
 }
 
 void GameMain::Update()

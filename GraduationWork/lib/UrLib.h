@@ -15,6 +15,7 @@
 #include "BoxCollider2D.h"
 #include "SphereCollider.h"
 #include "BoxCollider.h"
+#include "MeshRenderer.h"
 
 namespace UrLib {
 	int Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode);
