@@ -58,6 +58,28 @@ Quaternion UrLib::Quaternion::RotatePosition(VECTOR _axis, Quaternion& _pos, flo
     return _pos;
 }
 
+MATRIX UrLib::Quaternion::GetMatrix() const
+{
+    float x2 = x * x, y2 = y * y, z2 = z * z, w2 = w * w;
+    float xy = x * y, yz = y * z, zw = z * w, wx = w * x,
+        xz = x * z, yw = y * w;
+
+    MATRIX m = MGetIdent();
+    m.m[0][0] = w2 + x2 - y2 - z2;
+    m.m[0][1] = 2.f * (xy - zw);
+    m.m[0][2] = 2.f * (yw + xz);
+
+    m.m[1][0] = 2.f * (zw + xy);
+    m.m[1][1] = w2 - x2 + y2 - z2;
+    m.m[1][2] = 2.f * (yz - wx);
+
+    m.m[2][0] = 2.f * (xz - yw);
+    m.m[2][1] = 2.f * (yz + wx);
+    m.m[2][2] = w2 - x2 - y2 + z2;
+
+    return m;
+}
+
 UrLib::OBB::OBB() : 
     Pos(VGet(0.0f, 0.0f, 0.0f)), 
     NormaDirect{ VGet(1.0f, 0.0f, 0.0f), VGet(0.0f, 1.0f, 0.0f), VGet(0.0f, 0.0f, 1.0f) },

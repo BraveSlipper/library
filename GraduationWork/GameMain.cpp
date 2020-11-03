@@ -10,7 +10,7 @@ void GameMain::Start()
 {
 	player = Instantiate<Player>();
 	player->RemoveComponent<PlayerRotate>();
-//	player->AddComponent<PlayerComponent>();
+	//	player->AddComponent<PlayerComponent>();
 	player->SetChild(Instantiate<PlayerChild>());
 	for (GameObject* p : player->GetChildren())
 	{
@@ -33,9 +33,8 @@ void GameMain::Start()
 
 	player->transform->position = VGet(0.f, 0.f, 0.f);
 
-	MeshRenderer* mesh = player->AddComponent<MeshRenderer>();
-	mesh->Load("../unitychan/Models/unitychan.fbx");
-	
+	mesh = player->AddComponent<MeshRenderer>();
+	bool b = mesh->Load("../Model/‰‰¹ƒ~ƒN.pmd");
 
 }
 
@@ -50,9 +49,6 @@ void GameMain::Update()
 	}
 	if (Input::IsKeyDown(KEY::KEY_ENTER))SceneManager::Get()->LoadScene<TitleScene>();
 	if (Input::IsMouseDown(MOUSE::MOUSE_LEFT))SceneManager::Get()->End();
-
-	printfDx("time:%f\n", Time::DeltaTime());
-	printfDx("time:%f\n", Time::DeltaTime());
 
 	if (Input::IsKeyDown(KEY::KEY_J))
 	{
@@ -107,19 +103,34 @@ void GameMain::Update()
 			p->transform->AddPosition(VGet(-0.1f, 0.f, 0.f));
 		}
 	}
-	for (GameObject* p : player->GetChildren())
+
+	if (Input::IsKeyDown(KEY::KEY_A))
 	{
-		printfDx("posx:%f\n", p->transform->position.x);
-		printfDx("posy:%f\n", p->transform->position.y);
-		printfDx("posz:%f\n", p->transform->position.z);
+		static unsigned bc;
+		if (mesh->GetBoneCount() <= bc)bc = 0u;
+		mesh->GetBone(bc);
 	}
-	printfDx("playerx:%f\n", player->transform->position.x);
-	printfDx("playery:%f\n", player->transform->position.y);
-	printfDx("playerz:%f\n", player->transform->position.z);
+
+	if (Input::IsKeyDown(KEY::KEY_S))
+	{
+//		mesh->GetMaterial();
+	}
+
+	if (Input::IsKeyDown(KEY::KEY_D))
+	{
+//		mesh->GetTexture();
+	}
+
+	static VECTOR camera;
+	if (Input::IsKeyPush(KEY::KEY_V))camera.z++;
+	if (Input::IsKeyPush(KEY::KEY_B))camera.z--;
+	SetCameraPositionAndTarget_UpVecY(camera, VGet(0, 0, 0));
+	printfDx("camera.z : %f", camera.z);
 }
 
 void GameMain::Add()
 {
+	return;
 	Player* p = Instantiate<Player>();
 	p->RemoveComponent<PlayerRotate>();
 	p->AddComponent<PlayerComponent>();

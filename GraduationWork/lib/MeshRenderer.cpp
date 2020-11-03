@@ -54,32 +54,22 @@ void MeshRenderer::Draw()
     MV1SetAmbColorScale(info->handle, ambient);
     MV1SetOpacityRate(info->handle, alpha);
 
-    VECTOR pos = transform->position + renderTransform.position;
-    VECTOR scale = transform->scale + renderTransform.scale;
+    VECTOR scale;
+    scale.x = transform->scale.x * renderTransform.scale.x;
+    scale.y = transform->scale.y * renderTransform.scale.y;
+    scale.z = transform->scale.z * renderTransform.scale.z;
 
-    Quaternion q = transform->GetFowardQuaternion();
-    float x2 = q.x * q.x, y2 = q.y * q.y, z2 = q.z * q.z;
-    float xy = q.x * q.y, yz = q.y * q.z, zw = q.z * q.w, wx = q.w * q.x,
-        xz = q.x * q.z, yw = q.y * q.w;
+    MATRIX m = MGetScale(scale);
 
-    MATRIX m = MGetIdent();
-    m.m[0][0] = 1.f - 2.f * (y2 - z2);
-    m.m[0][1] = 2.f * (xy + zw);
-    m.m[0][2] = 2.f * (xz - yw);
-    m.m[1][0] = 2.f * (xy - zw);
-    m.m[1][1] = 1.f - 2.f * (x2 - z2);
-    m.m[1][2] = 2.f * (yz + wx);
-    m.m[2][0] = 2.f * (xz + yw);
-    m.m[2][1] = 2.f * (yz - wx);
-    m.m[2][2] = 1.f - 2.f * (x2 - y2);
-
-    MATRIX ms = MGetScale(transform->scale + renderTransform.scale);
-
-    m = ms * m;
+    m *= transform->GetFowardQuaternion().GetMatrix();
 
     m *= MGetTranslate(transform->position + renderTransform.position);
 
+    m.m[0][0] = m.m[1][1] = 1.f;
+
     MV1SetMatrix(info->handle, m);
+
+    SetUseLighting((isLighting) ? TRUE : FALSE);
 
     MV1DrawModel(info->handle);
 
@@ -224,7 +214,7 @@ bool MeshRenderer::Load(const std::string& _path)
 
         //ƒƒbƒVƒ…¶¬
         bones[i].meshes.resize(info->bones[i].meshes.size());
-        for (int j = 0, end = static_cast<int>(bones.size()); j < end; ++j)
+        for (int j = 0, end = static_cast<int>(bones[i].meshes.size()); j < end; ++j)
         {
             Mesh& m = bones[i].meshes[j];
             m.no = info->bones[i].meshes[j];

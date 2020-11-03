@@ -24,5 +24,7 @@ private:
 
 	Player* player;
 
+	MeshRenderer* mesh;
+
 	void Add();
 };

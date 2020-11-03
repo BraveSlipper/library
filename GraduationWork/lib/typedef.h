@@ -23,6 +23,8 @@ namespace UrLib {
 		static VECTOR RotatePosition(VECTOR _axis, VECTOR& _pos, float _deg);
 		static Quaternion RotatePosition(VECTOR _axis, Quaternion& _pos, float _deg);
 
+		MATRIX GetMatrix()const;
+
 		/// <summary>
 		/// ƒxƒNƒgƒ‹‚ðŽæ“¾
 		/// </summary>

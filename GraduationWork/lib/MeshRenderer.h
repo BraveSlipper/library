@@ -94,6 +94,24 @@ public:
 	/// <returns>null以外：使用ボーン、null：ボーンが存在しない</returns>
 	Bone* GetBone(const std::string& _name);
 
+	/// <summary>
+	/// モデルが使用しているマテリアル数取得
+	/// </summary>
+	/// <returns>マテリアル数</returns>
+	unsigned GetMaterialCount()const { return static_cast<unsigned>(materials.size()); }
+
+	/// <summary>
+	/// モデルが使用しているテクスチャ数取得
+	/// </summary>
+	/// <returns>テクスチャ数</returns>
+	unsigned GetTextureCount()const{ static_cast<unsigned>(textures.size()); }
+
+	/// <summary>
+	/// モデルが使用しているボーン数取得
+	/// </summary>
+	/// <returns>ボーン数</returns>
+	unsigned GetBoneCount()const{ static_cast<unsigned>(bones.size()); }
+
 public:
 	Transform renderTransform;
 
@@ -104,6 +122,8 @@ public:
 		specular, //鏡面スケール（0～1）
 		ambient, //環境スケール（0～1）
 		emissive;//自己発光色スケール（0～1）
+
+	bool isLighting;//ライティングを行うか
 
 private:
 	MeshRendererInfo* info;
