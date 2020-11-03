@@ -24,6 +24,8 @@ private:
 
 	Player* player;
 
+	GameObject* child;
+
 	MeshRenderer* mesh;
 
 	void Add();

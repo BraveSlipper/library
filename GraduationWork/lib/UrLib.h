@@ -16,6 +16,9 @@
 #include "SphereCollider.h"
 #include "BoxCollider.h"
 #include "MeshRenderer.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
+#include "SpotLight.h"
 
 namespace UrLib {
 	int Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode);

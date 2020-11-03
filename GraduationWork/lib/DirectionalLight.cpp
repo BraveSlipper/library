@@ -1,11 +1,12 @@
 #include "DirectionalLight.h"
 #include "Transform.h"
 
-DirectionalLight::DirectionalLight()
+void DirectionalLight::Start()
 {
 	handle = CreateDirLightHandle(transform->GetForward());
 }
 
 void DirectionalLight::SetDerived()
 {
+	SetLightDirectionHandle(handle, transform->GetForward());
 }

@@ -5,12 +5,16 @@
 class DirectionalLight :public Light
 {
 public:
-	DirectionalLight();
+	DirectionalLight() {}
 
 	~DirectionalLight()
 	{
 	}
 
+private:
+	void Start()override;
+
+private:
 	void SetDerived()override;
 
 public:

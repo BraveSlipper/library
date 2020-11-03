@@ -5,6 +5,7 @@ void Texture::Set()
 {
     MV1SetTextureAddressMode(info->handle, no, modeU, modeV);
     MV1SetTextureSampleFilterMode(info->handle, no, sample);
+    MV1SetTextureGraphHandle(info->handle, no, handle, TRUE);
 }
 
 std::string Texture::GetName() const

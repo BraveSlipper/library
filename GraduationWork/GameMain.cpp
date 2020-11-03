@@ -11,7 +11,9 @@ void GameMain::Start()
 	player = Instantiate<Player>();
 	player->RemoveComponent<PlayerRotate>();
 	//	player->AddComponent<PlayerComponent>();
-	player->SetChild(Instantiate<PlayerChild>());
+	child = Instantiate<PlayerChild>();
+	player->SetChild(child);
+	child->AddComponent<DirectionalLight>()->diffuse = Light::red;
 	for (GameObject* p : player->GetChildren())
 	{
 		p->RemoveComponent<PlayerComponent>();
@@ -104,22 +106,57 @@ void GameMain::Update()
 		}
 	}
 
-	if (Input::IsKeyDown(KEY::KEY_A))
+	if (Input::IsKeyPush(KEY::KEY_A))
 	{
 		static unsigned bc;
-		if (mesh->GetBoneCount() <= bc)bc = 0u;
-		mesh->GetBone(bc);
+		if (mesh->GetBone(0)->GetMeshCount() <= bc)bc = 0u;
+		mesh->GetBone(0)->GetMesh(bc)->alpha = 0.f;
+		printfDx("Bonカウント : %d\n", bc++);
 	}
 
-	if (Input::IsKeyDown(KEY::KEY_S))
+	if (Input::IsKeyPush(KEY::KEY_S))
 	{
-//		mesh->GetMaterial();
+		static unsigned mc;
+		if (mesh->GetMaterialCount() <= mc)mc = 0u;
+		for (unsigned i = 0u; i < mesh->GetMaterialCount(); ++i)
+		{
+			auto r = [](Material* _m)
+			{
+				_m->diffuse = GetColorF	(1.f, 0.f, 0.f, 1.f);
+				//_m->specular = GetColorF(1.f, 0.f, 0.f, 1.f);
+				//_m->ambient = GetColorF	(1.f, 0.f, 0.f, 1.f);
+				//_m->emissive = GetColorF(1.f, 0.f, 0.f, 1.f);
+			};
+			if (mesh->GetMaterial(i)->GetDiffuseMap() != nullptr)
+				mesh->GetMaterial(i)->GetDiffuseMap()->handle = player->GetComponent<ImageRenderer>()->GetHandle()[0];
+			else
+				r(mesh->GetMaterial(i));
+
+			if (mesh->GetMaterial(i)->GetNormalMap() != nullptr)
+				mesh->GetMaterial(i)->GetNormalMap()->handle = player->GetComponent<ImageRenderer>()->GetHandle()[0];
+			else
+				r(mesh->GetMaterial(i));
+
+			if (mesh->GetMaterial(i)->GetSpecularMap() != nullptr)
+				mesh->GetMaterial(i)->GetSpecularMap()->handle = player->GetComponent<ImageRenderer>()->GetHandle()[0];
+			else
+				r(mesh->GetMaterial(i));
+
+		}
+		printfDx("Matカウント : %d\n", mc++);
 	}
+
+	static unsigned tc;
 
 	if (Input::IsKeyDown(KEY::KEY_D))
-	{
-//		mesh->GetTexture();
-	}
+		if (++tc >= mesh->GetTextureCount())tc = 0;
+
+	for (unsigned i = 0u; i < mesh->GetTextureCount(); ++i)
+		if (i == tc)
+			mesh->GetTexture(tc)->handle = player->GetComponent<ImageRenderer>()->GetHandle()[0];
+		else
+			mesh->GetTexture(tc)->handle = -1;
+	printfDx("Texカウント : %d\n", tc);
 
 	static VECTOR camera;
 	if (Input::IsKeyPush(KEY::KEY_V))camera.z++;

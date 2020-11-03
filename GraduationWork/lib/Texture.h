@@ -89,4 +89,7 @@ private:
 
 	MeshRendererInfo* info;
 
+public:
+	int handle;//画像ハンドル（デフォルトは-1）
+
 };

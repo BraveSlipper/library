@@ -20,7 +20,7 @@ std::unordered_map<std::string, MeshRendererInfo> MeshRenderer::meshInfo;
 
 MeshRenderer::MeshRenderer() :
     alpha(1.f), diffuse(defColor), specular(defColor), ambient(defColor), emissive(defColor),
-    info(nullptr)
+    info(nullptr), isLighting(true)
 {
 }
 
@@ -200,6 +200,7 @@ bool MeshRenderer::Load(const std::string& _path)
         textures[i].modeU = static_cast<Texture::ADDRESS_MODE>(info->textures[i].modeU);
         textures[i].modeV = static_cast<Texture::ADDRESS_MODE>(info->textures[i].modeV);
         textures[i].sample = static_cast<Texture::SAMPLE>(info->textures[i].sample);
+        textures[i].handle = info->textures[i].handle;
     }
 
     //É{Å[Éìê∂ê¨

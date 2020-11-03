@@ -3,10 +3,10 @@
 
 Renderer::Renderer()
 {
-	DrawManager::Get()->Add(this);
+	DrawManager::Get()->AddRenderer(this);
 }
 
 Renderer::~Renderer()
 {
-	DrawManager::Get()->Erase(this);
+	DrawManager::Get()->EraseRenderer(this);
 }

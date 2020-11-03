@@ -104,13 +104,13 @@ public:
 	/// モデルが使用しているテクスチャ数取得
 	/// </summary>
 	/// <returns>テクスチャ数</returns>
-	unsigned GetTextureCount()const{ static_cast<unsigned>(textures.size()); }
+	unsigned GetTextureCount()const{ return static_cast<unsigned>(textures.size()); }
 
 	/// <summary>
 	/// モデルが使用しているボーン数取得
 	/// </summary>
 	/// <returns>ボーン数</returns>
-	unsigned GetBoneCount()const{ static_cast<unsigned>(bones.size()); }
+	unsigned GetBoneCount()const{ return static_cast<unsigned>(bones.size()); }
 
 public:
 	Transform renderTransform;
