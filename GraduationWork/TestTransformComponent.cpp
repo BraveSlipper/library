@@ -16,10 +16,10 @@ void TestTransformComponent::Start()
 void TestTransformComponent::Update()
 {
 	if (isControl) {
-		if (Input::IsKeyPush(KEY::KEY_LEFT))	transform->AddPosition(-2.0f);
-		if (Input::IsKeyPush(KEY::KEY_RIGHT))	transform->AddPosition(2.0f);
-		if (Input::IsKeyPush(KEY::KEY_UP))		transform->AddPosition(0.0f, -2.0f);
-		if (Input::IsKeyPush(KEY::KEY_DOWN))	transform->AddPosition(0.0f, 2.0f);
+		if (Input::IsKeyPush(KEY::KEY_LEFT))	transform->AddPosition(VGet(-2.0f, 0.0f, 0.0f));
+		if (Input::IsKeyPush(KEY::KEY_RIGHT))	transform->AddPosition(VGet(2.0f, 0.0f, 0.0f));
+		if (Input::IsKeyPush(KEY::KEY_UP))		transform->AddPosition(VGet(0.0f, -2.0f, 0.0f));
+		if (Input::IsKeyPush(KEY::KEY_DOWN))	transform->AddPosition(VGet(0.0f, 2.0f, 0.0f));
 	}
 	
 	if (Input::IsKeyPush(KEY::KEY_X))		transform->AxisRotateX(2.0f);
