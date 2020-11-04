@@ -52,16 +52,16 @@ bool BoxCollider2D::IsCollideCircle(CircleCollider2D* _collider)
 {
 	return false;
 	//// ‹éŒ`‚O“x‚ÌŽž‚ÌÀ•W‚É‰~‚ÌŠp“x‚ð’¼‚·
-	//VECTOR circle = _collider->transform->position;
+	//VECTOR3 circle = _collider->transform->position;
 	//float radian = ToRadian(_collider->transform->rotate.z);
-	//VECTOR rect = transform->position;
-	//VECTOR c;
+	//VECTOR3 rect = transform->position;
+	//VECTOR3 c;
 
 	//c.x = static_cast<float>(cos(radian) * ((double)circle.x - (double)rect.x) - sin(radian) * ((double)circle.y - (double)rect.y) + rect.x);
 	//c.y = static_cast<float>(sin(radian) * ((double)circle.x - (double)rect.x) + cos(radian) * ((double)circle.y - (double)rect.y) + rect.y);
 
 	//// ã‚Ì‰~‚Ì’†S“_‚©‚ç‹éŒ`‚Ì‚P”Ô‹ß‚¢À•W
-	//VECTOR ver;
+	//VECTOR3 ver;
 
 	//// ’ZŒa‚Ì’¸“_À•W
 	//float left = rect.x - width * 0.5f;
@@ -101,14 +101,14 @@ bool BoxCollider2D::IsCollideCircle(CircleCollider2D* _collider)
 bool BoxCollider2D::IsCollideBox(BoxCollider2D* _collider)
 {
 	// Ž©•ª‚Ì’ZŒa‚Ì’¸“_À•W
-	VECTOR myPos = transform->position + position;
+	VECTOR3 myPos = transform->position + position;
 	float left = myPos.x - width * 0.5f;
 	float right = myPos.x + width * 0.5f;
 	float up = myPos.y - height * 0.5f;
 	float down = myPos.y + height * 0.5f;
 
 	// ‘ŠŽè‚Ì’ZŒa‚Ì’¸“_À•W
-	VECTOR pairPos = _collider->transform->position;
+	VECTOR3 pairPos = _collider->transform->position;
 	float pairHeight = _collider->GetHeight();
 	float pairWidth = _collider->GetWidth();
 	float pairLeft = pairPos.x - pairWidth * 0.5f;

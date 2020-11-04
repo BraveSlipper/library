@@ -158,7 +158,7 @@ void GameMain::Update()
 			mesh->GetTexture(tc)->handle = -1;
 	printfDx("TexƒJƒEƒ“ƒg : %d\n", tc);
 
-	static VECTOR camera;
+	static VECTOR3 camera;
 	if (Input::IsKeyPush(KEY::KEY_V))camera.z++;
 	if (Input::IsKeyPush(KEY::KEY_B))camera.z--;
 	SetCameraPositionAndTarget_UpVecY(camera, VGet(0, 0, 0));

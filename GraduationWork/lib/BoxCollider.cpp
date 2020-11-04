@@ -12,14 +12,14 @@ BoxCollider::~BoxCollider()
 
 void BoxCollider::Disp()
 {
-	VECTOR c = GetWorldPosition();
-	VECTOR left = obb.GetDirect(0) * obb.GetLen_W(0) * -1.0f;
-	VECTOR right = obb.GetDirect(0) * obb.GetLen_W(0);
-	VECTOR top = obb.GetDirect(1) * obb.GetLen_W(1) * -1.0f;
-	VECTOR bottom = obb.GetDirect(1) * obb.GetLen_W(1);
-	VECTOR front = obb.GetDirect(2) * obb.GetLen_W(2);
-	VECTOR back = obb.GetDirect(2) * obb.GetLen_W(2) * -1.0f;
-	VECTOR v[8] = {
+	VECTOR3 c = GetWorldPosition();
+	VECTOR3 left = obb.GetDirect(0) * obb.GetLen_W(0) * -1.0f;
+	VECTOR3 right = obb.GetDirect(0) * obb.GetLen_W(0);
+	VECTOR3 top = obb.GetDirect(1) * obb.GetLen_W(1) * -1.0f;
+	VECTOR3 bottom = obb.GetDirect(1) * obb.GetLen_W(1);
+	VECTOR3 front = obb.GetDirect(2) * obb.GetLen_W(2);
+	VECTOR3 back = obb.GetDirect(2) * obb.GetLen_W(2) * -1.0f;
+	VECTOR3 v[8] = {
 		c + left + top + front,
 		c + left + top + back,
 		c + left + bottom + back,
@@ -57,13 +57,13 @@ bool BoxCollider::IsCollide(Collider3D* _collider)
 	return false;
 }
 
-void BoxCollider::SetPosition(VECTOR _pos)
+void BoxCollider::SetPosition(VECTOR3 _pos)
 {
     position = _pos;
     obb.SetPos(GetWorldPosition());
 }
 
-VECTOR BoxCollider::GetDirect(int elem)
+VECTOR3 BoxCollider::GetDirect(int elem)
 {
     return obb.GetDirect(elem);
 }
@@ -73,9 +73,9 @@ float BoxCollider::GetLen_W(int elem)
     return obb.GetLen_W(elem);
 }
 
-void BoxCollider::Rotate(VECTOR _axis, float _deg)
+void BoxCollider::Rotate(VECTOR3 _axis, float _deg)
 {
-    VECTOR vec = VNorm(_axis);
+    VECTOR3 vec = VNorm(_axis);
 
     // ŠeŽ²‚ð‰ñ“]
     obb.Rotate(_axis, _deg);

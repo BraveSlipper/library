@@ -4,6 +4,8 @@
 
 #include "Component.h"
 
+#include "typedef.h"
+
 class SoundListener : public Component
 {
 public:
@@ -21,6 +23,6 @@ public:
 	void Update();
 
 private:
-	VECTOR prevPos;//前フレーム座標
+	VECTOR3 prevPos;//前フレーム座標
 
 };

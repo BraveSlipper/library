@@ -1,6 +1,7 @@
 #pragma once
 #include "Collider.h"
 #include "dxlib/DxLib.h"
+#include "typedef.h"
 
 class Collider3D : public Collider {
 public:
@@ -31,20 +32,20 @@ public:
 	/// 座標の取得
 	/// </summary>
 	/// <returns>所有者を原点としたコライダーの座標</returns>
-	VECTOR GetLocalPosition();
+	VECTOR3 GetLocalPosition();
 
 	/// <summary>
 	/// ワールド座標上のコライダーの座標を取得
 	/// </summary>
 	/// <returns>ワールド座標上のコライダーの座標</returns>
-	VECTOR GetWorldPosition();
+	VECTOR3 GetWorldPosition();
 
 	/// <summary>
 	/// コライダーの座標を設定
 	/// </summary>
 	/// <param name="_pos">所有者を原点とした移動先の座標</param>
-	virtual void SetPosition(VECTOR _pos);
+	virtual void SetPosition(VECTOR3 _pos);
 
 protected:
-	VECTOR position;
+	VECTOR3 position;
 };

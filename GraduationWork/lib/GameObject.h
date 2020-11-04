@@ -55,7 +55,7 @@ public:
 	/// 存在しているシーンのポインターを返す
 	/// </summary>
 	/// <returns>存在しているシーンのポインター</returns>
-	Scene* GetScene() const;
+	Scene* GetScene() const override;
 
 	/// <summary>
 	/// 親GameObjectを取得

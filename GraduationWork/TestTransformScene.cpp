@@ -18,9 +18,9 @@ TestTransformScene::~TestTransformScene()
 void TestTransformScene::Start()
 {
 	obj->GetComponent<TestTransformComponent>()->UseControl(true);
-	VECTOR center = { Screen::x / 2, Screen::y / 2, 0.0f };
+	VECTOR3 center = { Screen::x / 2, Screen::y / 2, 0.0f };
 	obj->transform->SetPosition(center);
-	VECTOR dif = { 200.0f, 0.0f, 0.0f };
+	VECTOR3 dif = { 200.0f, 0.0f, 0.0f };
 	obj2->transform->AddPosition(dif);
 	obj3->transform->AddPosition(dif);
 }

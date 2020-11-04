@@ -10,7 +10,7 @@ void SoundListener::Start()
 
 void SoundListener::Update()
 {
-	VECTOR velocity = transform->position - prevPos;
+	VECTOR3 velocity = transform->position - prevPos;
 
 	float time = 1.f / Time::DeltaTime();
 

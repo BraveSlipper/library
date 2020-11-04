@@ -14,7 +14,7 @@ CircleCollider2D::~CircleCollider2D()
 void CircleCollider2D::Disp()
 {
 	VECTOR2 pos = GetWorldPosition();
-	DrawCircle(pos.x, pos.y, radius, GetColor(255, 255, 255));
+	DrawCircle(pos.x, pos.y, radius, GetColor(255, 255, 255), FALSE);
 }
 
 bool CircleCollider2D::IsCollide(Collider2D* _collider)
@@ -34,7 +34,7 @@ bool CircleCollider2D::IsCollideCircle(CircleCollider2D* _collider)
 {
 	Transform* tr1 = _collider->transform;
 	Transform* tr2 = transform;
-	VECTOR diff = tr1->position - tr2->position;
+	VECTOR3 diff = tr1->position - tr2->position;
 	float dist = VSize(diff);
 	if (dist <= _collider->GetRadius() + this->radius) {
 		return true;
@@ -47,16 +47,16 @@ bool CircleCollider2D::IsCollideBox(BoxCollider2D* _collider)
 {
 	return false;
 	//// ‹éŒ`‚O“x‚ÌŽž‚ÌÀ•W‚É‰~‚ÌŠp“x‚ð’¼‚·
-	//VECTOR origin_c = transform->position;
+	//VECTOR3 origin_c = transform->position;
 	//float radian = ToRadian(transform->rotate.z);
-	//VECTOR rect = _collider->transform->position;
-	//VECTOR c;
+	//VECTOR3 rect = _collider->transform->position;
+	//VECTOR3 c;
 
 	//c.x = cos(radian) * (origin_c.x - rect.x) - sin(radian) * (origin_c.y - rect.y) + rect.x;
 	//c.y = sin(radian) * (origin_c.x - rect.x) + cos(radian) * (origin_c.y - rect.y) + rect.y;
 
 	//// ã‚Ì‰~‚Ì’†S“_‚©‚ç‹éŒ`‚Ì‚P”Ô‹ß‚¢À•W
-	//VECTOR ver;
+	//VECTOR3 ver;
 
 	//// ’ZŒa‚Ì’¸“_À•W
 	//float height = _collider->GetHeight();

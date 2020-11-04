@@ -22,6 +22,12 @@ public:
 	std::string GetTypeName() const;
 
 	/// <summary>
+	/// 存在しているシーンのポインターを返す
+	/// </summary>
+	/// <returns>存在しているシーンのポインター</returns>
+	virtual Scene* GetScene() const = 0;
+
+	/// <summary>
 	/// Objectの有効・無効を取得
 	/// </summary>
 	/// <returns>Objectの有効状態</returns>

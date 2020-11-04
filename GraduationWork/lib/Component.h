@@ -51,6 +51,12 @@ public:
 	template<class C>
 	inline GameObject* Instantiate();
 
+	/// <summary>
+	/// 存在しているシーンのポインターを返す
+	/// </summary>
+	/// <returns>存在しているシーンのポインター</returns>
+	Scene* GetScene() const override;
+
 	virtual void OnCollisionEnter2D(Collider2D* _collider) {}
 	virtual void OnCollisionStay2D(Collider2D* _collider) {}
 	virtual void OnCollisionExit2D(Collider2D* _collider) {}

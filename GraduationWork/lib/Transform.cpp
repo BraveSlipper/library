@@ -21,10 +21,10 @@ void Transform::Update()
 {
 }
 
-void Transform::SetPosition(VECTOR _pos)
+void Transform::SetPosition(VECTOR3 _pos)
 {
     // 移動量を算出
-    VECTOR dif = _pos - position;
+    VECTOR3 dif = _pos - position;
 
     // 自分の座標を代入
     position = _pos;
@@ -35,19 +35,18 @@ void Transform::SetPosition(VECTOR _pos)
     }
 }
 
-void Transform::AddPosition(float _x, float _y, float _z)
+void Transform::AddPosition(VECTOR2 _add)
 {
     // 自分の座標を加算
-    VECTOR add = VGet(_x, _y, _z);
-    position += add;
+    position += _add;
 
     // 子の座標を加算
     for (auto child : gameObject->GetChildren()) {
-        child->transform->AddPosition(add);
+        child->transform->AddPosition(_add);
     }
 }
 
-void Transform::AddPosition(VECTOR _add)
+void Transform::AddPosition(VECTOR3 _add)
 {
     // 自分の座標を加算
     position += _add;
@@ -60,25 +59,25 @@ void Transform::AddPosition(VECTOR _add)
 
 void Transform::AxisRotateX(float _deg)
 {
-    VECTOR vec = { 1.0f, 0.0f, 0.0f };
+    VECTOR3 vec = { 1.0f, 0.0f, 0.0f };
     Rotate(vec, _deg);
 }
 
 void Transform::AxisRotateY(float _deg)
 {
-    VECTOR vec = { 0.0f, 1.0f, 0.0f };
+    VECTOR3 vec = { 0.0f, 1.0f, 0.0f };
     Rotate(vec, _deg);
 }
 
 void Transform::AxisRotateZ(float _deg)
 {
-    VECTOR vec = { 0.0f, 0.0f, 1.0f };
+    VECTOR3 vec = { 0.0f, 0.0f, 1.0f };
     Rotate(vec, _deg);
 }
 
-void Transform::Rotate(VECTOR _axis, float _deg)
+void Transform::Rotate(VECTOR3 _axis, float _deg)
 {
-    VECTOR vec = VNorm(_axis);
+    VECTOR3 vec = VNorm(_axis);
 
     // 自分の向きを更新
     Quaternion::RotatePosition(_axis, foward, _deg);
@@ -93,24 +92,24 @@ void Transform::Rotate(VECTOR _axis, float _deg)
 
     // 子の座標を更新
     for (auto child : gameObject->GetChildren()) {
-        VECTOR dif = child->transform->position - position;
+        VECTOR3 dif = child->transform->position - position;
         Quaternion::RotatePosition(_axis, dif, _deg);
         child->transform->SetPosition(dif + position);
         child->transform->Rotate(_axis, _deg);
     }
 }
 
-VECTOR Transform::GetForward() const
+VECTOR3 Transform::GetForward() const
 {
     return foward.GetVec();
 }
 
-VECTOR Transform::GetRight() const
+VECTOR3 Transform::GetRight() const
 {
     return right.GetVec();
 }
 
-VECTOR Transform::GetUp() const
+VECTOR3 Transform::GetUp() const
 {
     return up.GetVec();
 }

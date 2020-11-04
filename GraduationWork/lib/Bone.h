@@ -8,6 +8,8 @@
 
 #include "Mesh.h"
 
+#include "typedef.h"
+
 struct MeshRendererInfo;
 
 class MeshRenderer;
@@ -74,7 +76,7 @@ public:
 	/// ボーンのワールド座標取得
 	/// </summary>
 	/// <returns>ワールド座標</returns>
-	VECTOR GetWorldPosition()const;
+	VECTOR3 GetWorldPosition()const;
 
 	/// <summary>
 	/// ボーンのワールド変換行列取得

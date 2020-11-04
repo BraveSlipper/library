@@ -15,14 +15,14 @@ public:
 	/// 座標を代入
 	/// </summary>
 	/// <param name="_pos">代入したい座標</param>
-	void SetPosition(VECTOR _pos);
+	void SetPosition(VECTOR3 _pos);
 
 	/// <summary>
 	/// 座標を加算する
 	/// </summary>
 	/// <param name="_add"></param>
-	void AddPosition(float _x = 0.0f, float _y = 0.0f, float _z = 0.0f);
-	void AddPosition(VECTOR _add);
+	void AddPosition(VECTOR2 _add);
+	void AddPosition(VECTOR3 _add);
 
 	/// <summary>
 	/// X軸で回転する
@@ -47,30 +47,30 @@ public:
 	/// </summary>
 	/// <param name="_axis">回転軸</param>
 	/// <param name="_deg">回転角度</param>
-	void Rotate(VECTOR _axis, float _deg);
+	void Rotate(VECTOR3 _axis, float _deg);
 
 	/// <summary>
 	/// 正面ベクトルを取得
 	/// </summary>
 	/// <returns>正面ベクトル</returns>
-	VECTOR GetForward() const;
+	VECTOR3 GetForward() const;
 
 	/// <summary>
 	/// 右ベクトルを取得
 	/// </summary>
 	/// <returns>右ベクトル</returns>
-	VECTOR GetRight() const;
+	VECTOR3 GetRight() const;
 
 	/// <summary>
 	/// アップベクトルを取得
 	/// </summary>
 	/// <returns>アップベクトル</returns>
-	VECTOR GetUp() const;
+	VECTOR3 GetUp() const;
 
 	Quaternion GetFowardQuaternion() const { return foward; }
 
-	VECTOR position;
-	VECTOR scale;
+	VECTOR3 position;
+	VECTOR3 scale;
 
 private:
 	Quaternion foward;

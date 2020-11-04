@@ -158,10 +158,16 @@ public:
 	void Reload() { isReload = true; }
 
 	/// <summary>
-	/// 現在のシーンを再帰的に検索
+	/// 現在のシーンを取得
 	/// </summary>
 	/// <returns>現在のシーン</returns>
 	static Scene* GetCurrentScene() { return currentScene; }
+
+	/// <summary>
+	/// シーンを取得
+	/// </summary>
+	/// <returns>シーンアドレス</returns>
+	Scene* GetScene()const override { return const_cast<Scene*>(this); }
 
 private://SceneManagerで使用
 	void SetName(const std::string& _name) { className = _name; }

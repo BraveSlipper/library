@@ -4,6 +4,7 @@
 #include <string>
 #include "dxlib/DxLib.h"
 #include "Component.h"
+#include "typedef.h"
 
 enum REVERB
 {
@@ -145,7 +146,7 @@ public:
 public://3D‚Åg—p
 	float radius;//‰¹‚ª•·‚±‚¦‚é‹——£
 
-	VECTOR velocity;//•b‘¬
+	VECTOR3 velocity;//•b‘¬
 
 private:
 	bool is3D;//3D“Ç‚İ‚İ‚·‚é‚©

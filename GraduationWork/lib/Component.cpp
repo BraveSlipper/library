@@ -21,3 +21,8 @@ std::list<Component*> Component::GetComponentAll()
 {
 	return gameObject->GetComponentAll();
 }
+
+Scene* Component::GetScene() const
+{
+	return gameObject->GetScene();
+}

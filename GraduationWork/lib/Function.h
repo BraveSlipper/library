@@ -17,28 +17,28 @@ namespace UrLib {
 	inline VECTOR2 operator *(const VECTOR2& v1, float scale) { return VECTOR2(v1.x * scale, v1.y * scale); }
 	inline VECTOR2& operator *=(VECTOR2& v1, float scale) { return v1 = v1 * scale; }
 	
-	inline VECTOR operator +(const VECTOR& v1, const VECTOR& v2) { return VAdd(v1, v2); }
-	inline VECTOR operator +(const VECTOR& v1, const VECTOR2& v2) { return VGet(v1.x + v2.x, v1.y + v2.y, v1.z); }
-	inline VECTOR& operator +=(VECTOR& v1, const VECTOR& v2) { return v1 = VAdd(v1, v2); }
-	inline VECTOR& operator +=(VECTOR& v1, const VECTOR2& v2) { return v1 = v1 + v2; }
-	inline VECTOR operator -(const VECTOR& v1, const VECTOR& v2) { return VSub(v1, v2); }
-	inline VECTOR operator -(const VECTOR& v1, const VECTOR2& v2) { return VGet(v1.x - v2.x, v1.y - v2.y, v1.z); }
-	inline VECTOR& operator -=(VECTOR& v1, const VECTOR& v2) { return v1 = VSub(v1, v2); }
-	inline VECTOR& operator -=(VECTOR& v1, const VECTOR2& v2) { return v1 = v1 - v2; }
-	inline VECTOR operator *(const VECTOR& v1, float scale) { return VScale(v1, scale); }
-	inline VECTOR& operator *=(VECTOR& v1, float scale) { return v1 = VScale(v1, scale); }
+	inline VECTOR3 operator +(const VECTOR3& v1, const VECTOR3& v2) { return VAdd(v1, v2); }
+	inline VECTOR3 operator +(const VECTOR3& v1, const VECTOR2& v2) { return VGet(v1.x + v2.x, v1.y + v2.y, v1.z); }
+	inline VECTOR3& operator +=(VECTOR3& v1, const VECTOR3& v2) { return v1 = VAdd(v1, v2); }
+	inline VECTOR3& operator +=(VECTOR3& v1, const VECTOR2& v2) { return v1 = v1 + v2; }
+	inline VECTOR3 operator -(const VECTOR3& v1, const VECTOR3& v2) { return VSub(v1, v2); }
+	inline VECTOR3 operator -(const VECTOR3& v1, const VECTOR2& v2) { return VGet(v1.x - v2.x, v1.y - v2.y, v1.z); }
+	inline VECTOR3& operator -=(VECTOR3& v1, const VECTOR3& v2) { return v1 = VSub(v1, v2); }
+	inline VECTOR3& operator -=(VECTOR3& v1, const VECTOR2& v2) { return v1 = v1 - v2; }
+	inline VECTOR3 operator *(const VECTOR3& v1, float scale) { return VScale(v1, scale); }
+	inline VECTOR3& operator *=(VECTOR3& v1, float scale) { return v1 = VScale(v1, scale); }
 
-	inline VECTOR operator *(const VECTOR& v, const MATRIX& m) { return VTransform(v, m); }
+	inline VECTOR3 operator *(const VECTOR3& v, const MATRIX& m) { return VTransform(v, m); }
 
-	inline VECTOR& operator *=(VECTOR& v, const MATRIX& m) { return v = VTransform(v, m); }
+	inline VECTOR3& operator *=(VECTOR3& v, const MATRIX& m) { return v = VTransform(v, m); }
 
 	inline MATRIX operator *(const MATRIX& m1, const MATRIX& m2) { return MMult(m1, m2); }
 	inline MATRIX& operator *=(MATRIX& m1, const MATRIX& m2) { return m1 = MMult(m1, m2); }
 
 	inline bool operator ==(const VECTOR2& v1, const VECTOR2& v2) { return VSize(v1 - v2) == 0; }
 	inline bool operator !=(const VECTOR2& v1, const VECTOR2& v2) { return VSize(v1 - v2) > 0; }
-	inline bool operator ==(const VECTOR& v1, const VECTOR& v2) { return VSize(v1 - v2) == 0; }
-	inline bool operator !=(const VECTOR& v1, const VECTOR& v2) { return VSize(v1 - v2) > 0; }
+	inline bool operator ==(const VECTOR3& v1, const VECTOR3& v2) { return VSize(v1 - v2) == 0; }
+	inline bool operator !=(const VECTOR3& v1, const VECTOR3& v2) { return VSize(v1 - v2) > 0; }
 
 	inline float Remainder(const float& f1, const float& f2) { return f1 - (f2 * (int)(f1 / f2)); }
 

@@ -81,7 +81,7 @@ bool Bone::IsSemiTrans() const
 	return info->bones[no].isSemiTrans;
 }
 
-VECTOR Bone::GetWorldPosition() const
+VECTOR3 Bone::GetWorldPosition() const
 {
 	return MV1GetFramePosition(info->handle, no);
 }

@@ -49,17 +49,17 @@ void Collider3D::ExecuteAllCollisionExit(Collider3D* _collider)
 	}
 }
 
-VECTOR Collider3D::GetLocalPosition()
+VECTOR3 Collider3D::GetLocalPosition()
 {
 	return position;
 }
 
-VECTOR Collider3D::GetWorldPosition()
+VECTOR3 Collider3D::GetWorldPosition()
 {
 	return transform->position + position;
 }
 
-void Collider3D::SetPosition(VECTOR _pos)
+void Collider3D::SetPosition(VECTOR3 _pos)
 {
 	position = _pos;
 }

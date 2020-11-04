@@ -54,7 +54,7 @@ void MeshRenderer::Draw()
     MV1SetAmbColorScale(info->handle, ambient);
     MV1SetOpacityRate(info->handle, alpha);
 
-    VECTOR scale;
+    VECTOR3 scale;
     scale.x = transform->scale.x * renderTransform.scale.x;
     scale.y = transform->scale.y * renderTransform.scale.y;
     scale.z = transform->scale.z * renderTransform.scale.z;
