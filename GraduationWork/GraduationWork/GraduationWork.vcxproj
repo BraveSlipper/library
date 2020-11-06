@@ -41,12 +41,14 @@
     <ClCompile Include="..\lib\ImageRenderer.cpp" />
     <ClCompile Include="..\lib\Input.cpp" />
     <ClCompile Include="..\lib\Light.cpp" />
+    <ClCompile Include="..\lib\Loader.cpp" />
     <ClCompile Include="..\lib\Material.cpp" />
     <ClCompile Include="..\lib\Mesh.cpp" />
     <ClCompile Include="..\lib\MeshRenderer.cpp" />
     <ClCompile Include="..\lib\Object.cpp" />
     <ClCompile Include="..\lib\PointLight.cpp" />
     <ClCompile Include="..\lib\Renderer.cpp" />
+    <ClCompile Include="..\lib\Saver.cpp" />
     <ClCompile Include="..\lib\Scene.cpp" />
     <ClCompile Include="..\lib\SceneManager.cpp" />
     <ClCompile Include="..\lib\Sound.cpp" />
@@ -58,6 +60,7 @@
     <ClCompile Include="..\lib\Transform.cpp" />
     <ClCompile Include="..\lib\typedef.cpp" />
     <ClCompile Include="..\lib\UrLib.cpp" />
+    <ClCompile Include="..\LightTest.cpp" />
     <ClCompile Include="..\Main.cpp" />
     <ClCompile Include="..\Player.cpp" />
     <ClCompile Include="..\PlayerChanger.cpp" />
@@ -97,6 +100,7 @@
     <ClInclude Include="..\lib\ImageRenderer.h" />
     <ClInclude Include="..\lib\Input.h" />
     <ClInclude Include="..\lib\Light.h" />
+    <ClInclude Include="..\lib\Loader.h" />
     <ClInclude Include="..\lib\Material.h" />
     <ClInclude Include="..\lib\Mesh.h" />
     <ClInclude Include="..\lib\MeshRenderer.h" />
@@ -104,6 +108,7 @@
     <ClInclude Include="..\lib\Object.h" />
     <ClInclude Include="..\lib\PointLight.h" />
     <ClInclude Include="..\lib\Renderer.h" />
+    <ClInclude Include="..\lib\Saver.h" />
     <ClInclude Include="..\lib\Scene.h" />
     <ClInclude Include="..\lib\SceneManager.h" />
     <ClInclude Include="..\lib\Sound.h" />
@@ -115,6 +120,7 @@
     <ClInclude Include="..\lib\Transform.h" />
     <ClInclude Include="..\lib\typedef.h" />
     <ClInclude Include="..\lib\UrLib.h" />
+    <ClInclude Include="..\LightTest.h" />
     <ClInclude Include="..\Player.h" />
     <ClInclude Include="..\PlayerChanger.h" />
     <ClInclude Include="..\PlayerChild.h" />

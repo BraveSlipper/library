@@ -57,4 +57,7 @@ private:
 	std::list<Renderer*> rendererList;	//描画リスト
 	std::list<Light*> lightList;		//ライトリスト
 	static DrawManager* instance;
+
+	int shadowHandle;//シャドウマップのハンドル：TODO 3つまで設定可能なので増やしましょう
+
 };

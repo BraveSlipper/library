@@ -6,7 +6,7 @@ class PointLight :public Light
 {
 public:
 	PointLight() :
-		radius(1.f), attenuation(0.1f) {}
+		radius(200.f), attenuation(0.001f) {}
 
 	~PointLight()
 	{
@@ -21,6 +21,6 @@ private:
 public:
 	float radius;		//”¼Œa
 
-	float attenuation;	//‹——£‚Ì2æ–attenuation
+	float attenuation;	//Œ¸ŠF‹——£‚Ì2æ–attenuation
 
 };

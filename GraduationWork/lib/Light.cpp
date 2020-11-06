@@ -14,11 +14,13 @@ namespace
 }
 
 const Light::COLOR Light::red = Light::GetCOLOR(1.f, 0.f, 0.f);
-const Light::COLOR Light::green = Light::GetCOLOR(1.f, 0.f, 0.f);
-const Light::COLOR Light::blue = Light::GetCOLOR(1.f, 0.f, 0.f);
+const Light::COLOR Light::green = Light::GetCOLOR(0.f, 1.f, 0.f);
+const Light::COLOR Light::blue = Light::GetCOLOR(0.f, 0.f, 1.f);
+const Light::COLOR Light::white = Light::GetCOLOR(1.f, 1.f, 1.f);
+const Light::COLOR Light::black = Light::GetCOLOR(0.f, 0.f, 0.f);
 
 Light::Light() :
-	handle(-1)
+	handle(-1), ambient(0.f, 0.f, 0.f)
 {
 	DrawManager::Get()->AddRight(this);
 }

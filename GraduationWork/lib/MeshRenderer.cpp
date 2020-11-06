@@ -20,7 +20,7 @@ std::unordered_map<std::string, MeshRendererInfo> MeshRenderer::meshInfo;
 
 MeshRenderer::MeshRenderer() :
     alpha(1.f), diffuse(defColor), specular(defColor), ambient(defColor), emissive(defColor),
-    info(nullptr), isLighting(true)
+    info(nullptr), isLighting(true), isShadow(true)
 {
 }
 
@@ -65,7 +65,7 @@ void MeshRenderer::Draw()
 
     m *= MGetTranslate(transform->position + renderTransform.position);
 
-    m.m[0][0] = m.m[1][1] = 1.f;
+    m.m[0][0] = m.m[1][1] = 1.f;//TODO : Quaternion‚Ìs—ñ•ÏŠ·ƒoƒO
 
     MV1SetMatrix(info->handle, m);
 

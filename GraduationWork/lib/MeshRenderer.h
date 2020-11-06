@@ -125,6 +125,8 @@ public:
 
 	bool isLighting;//ライティングを行うか
 
+	bool isShadow;//影を付けるか
+
 private:
 	MeshRendererInfo* info;
 

@@ -19,9 +19,11 @@
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "SpotLight.h"
+#include "Saver.h"
+#include "Loader.h"
 
 namespace UrLib {
-	int Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode);
+	int Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode, bool IsShadowCalc = true);
 	void Update();
 	int Draw();
 	int End();

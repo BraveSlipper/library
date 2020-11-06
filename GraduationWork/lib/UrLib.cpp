@@ -1,3 +1,4 @@
+#include <Windows.h>
 #include "UrLib.h"
 #include "DrawManager.h"
 #include "CollideManager.h"
@@ -7,7 +8,7 @@ int Screen::y = 600;
 
 float Meter::oneMeter = 1.f;
 
-int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode)
+int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode, bool IsShadowCalc)
 {
     int ret = 0;
 
@@ -15,6 +16,8 @@ int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowM
     Screen::y = ScreenSizeY;
 
 //    ret += SetEnableXAudioFlag(TRUE);//TODO：エラーがでます、DxLibが更新されたら解除しましょう
+
+    ret += SetUsePixelLighting(TRUE);
 
     ret += Set3DSoundOneMetre(Meter::oneMeter);
     
@@ -26,6 +29,8 @@ int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowM
     
     ret += SetDrawScreen(DX_SCREEN_BACK);	//裏画面を描画対象へ
 
+    ret += SetLightEnable(FALSE);
+
     SceneManager::Get()->Start();
 
     Input::Start();
@@ -33,6 +38,10 @@ int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowM
     Time::Init();
 
     SetSysCommandOffFlag(TRUE);
+
+    CreateDirectory("Save", NULL);
+
+    Loader::Load();
 
     return ret;
 }

@@ -80,9 +80,9 @@ void Transform::Rotate(VECTOR3 _axis, float _deg)
     VECTOR3 vec = VNorm(_axis);
 
     // 自分の向きを更新
-    Quaternion::RotatePosition(_axis, foward, _deg);
-    Quaternion::RotatePosition(_axis, right, _deg);
-    Quaternion::RotatePosition(_axis, up, _deg);
+    Quaternion::RotatePosition(_axis, &foward, _deg);
+    Quaternion::RotatePosition(_axis, &right, _deg);
+    Quaternion::RotatePosition(_axis, &up, _deg);
 
     // コライダーを回転
     BoxCollider* col = GetComponent<BoxCollider>();

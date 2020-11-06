@@ -5,6 +5,7 @@
 #include "PlayerChanger.h"
 #include "PlayerComponent.h"
 #include "PlayerRotate.h"
+#include "LightTest.h"
 
 void GameMain::Start()
 {
@@ -13,7 +14,6 @@ void GameMain::Start()
 	//	player->AddComponent<PlayerComponent>();
 	child = Instantiate<PlayerChild>();
 	player->SetChild(child);
-	child->AddComponent<DirectionalLight>()->diffuse = Light::red;
 	for (GameObject* p : player->GetChildren())
 	{
 		p->RemoveComponent<PlayerComponent>();
@@ -38,6 +38,15 @@ void GameMain::Start()
 	mesh = player->AddComponent<MeshRenderer>();
 	bool b = mesh->Load("../Model/初音ミク.pmd");
 
+	Instantiate<LightTest>();
+
+	Saver::SetFloat("gehageha", 1.100001f);
+	Saver::SetInt("hogehoge", 111111111);
+	Saver::SetString("hojihoji", "hahaha_0783_おいおい！！！");
+	Saver::Save();
+	Loader::DeleteKey("hogehoge");
+	Loader::DeleteKey("hoge");
+//	Loader::DeleteAll();
 }
 
 void GameMain::Update()
@@ -122,7 +131,7 @@ void GameMain::Update()
 		{
 			auto r = [](Material* _m)
 			{
-				_m->diffuse = GetColorF	(1.f, 0.f, 0.f, 1.f);
+				_m->diffuse = GetColorF(1.f, 0.f, 0.f, 1.f);
 				//_m->specular = GetColorF(1.f, 0.f, 0.f, 1.f);
 				//_m->ambient = GetColorF	(1.f, 0.f, 0.f, 1.f);
 				//_m->emissive = GetColorF(1.f, 0.f, 0.f, 1.f);
@@ -158,11 +167,16 @@ void GameMain::Update()
 			mesh->GetTexture(tc)->handle = -1;
 	printfDx("Texカウント : %d\n", tc);
 
-	static VECTOR3 camera;
+	static VECTOR3 camera(0.f, 10.f, 0.f);
 	if (Input::IsKeyPush(KEY::KEY_V))camera.z++;
 	if (Input::IsKeyPush(KEY::KEY_B))camera.z--;
 	SetCameraPositionAndTarget_UpVecY(camera, VGet(0, 0, 0));
-	printfDx("camera.z : %f", camera.z);
+	printfDx("camera.z : %f\n", camera.z);
+
+	printfDx("float : %f\n", Loader::GetFloat("gehageha"));
+	printfDx("int : %i\n", Loader::GetInt("hogehoge"));
+	printfDx("string : %s\n", Loader::GetString("hojihoji").c_str());
+
 }
 
 void GameMain::Add()
