@@ -7,6 +7,8 @@
 #include "GameObject.h"
 
 class SceneManager;
+class Renderer;
+class Sound;
 
 class Scene :public Object
 {
@@ -31,8 +33,10 @@ private:
 
 public:
 	Scene() :
-		isReload(false), reloadScene(nullptr)
+		isReload(false), reloadScene(nullptr), isAsyncLoad(false), parentScene(nullptr),
+		asyncScene(nullptr), asyncMinTime(0.5f), asyncTime(0.5f), asyncUseTime(0.5f)
 	{
+		asyncNode.createScene = nullptr;
 	}
 
 	virtual~Scene();
@@ -46,13 +50,6 @@ public:
 	/// 更新
 	/// </summary>
 	void SceneUpdate();
-
-	/// <summary>
-	/// ゲームオブジェクト追加
-	/// </summary>
-	/// <param name="_object">追加するオブジェクト</param>
-	/// <returns>true：成功、false：追加済み</returns>
-	bool AddGameObject(GameObject* _object);
 
 	/// <summary>
 	/// サブシーン追加
@@ -126,6 +123,12 @@ public:
 	}
 
 	/// <summary>
+	/// サブシーン数取得
+	/// </summary>
+	/// <returns>サブシーン数</returns>
+	int GetSubSceneCount()const;
+
+	/// <summary>
 	/// ゲームオブジェクト生成
 	/// </summary>
 	/// <typeparam name="C">生成するオブジェクト</typeparam>
@@ -169,6 +172,52 @@ public:
 	/// <returns>シーンアドレス</returns>
 	Scene* GetScene()const override { return const_cast<Scene*>(this); }
 
+	/// <summary>
+	/// 親シーン取得
+	/// </summary>
+	/// <returns>null以外：親アドレス、null：親無し</returns>
+	Scene* GetParentScene()const { return parentScene; }
+
+	/// <summary>
+	/// 非同期読み込み中のファイル数を取得
+	/// </summary>
+	/// <returns>非同期読み込み中ファイル数</returns>
+	int GetAsyncLoadCount()const;
+
+	/// <summary>
+	/// 非同期読み込み中のファイル数を取得（サブシーン含む）
+	/// </summary>
+	/// <returns>非同期読み込み中ファイル数</returns>
+	int GetAsyncLoadCountWithSubScene()const;
+
+public:
+	/// <summary>
+	/// 非同期読み込み中に生成されるシーンを設定
+	/// 非同期読み込み終了時、自動で破棄されます
+	/// </summary>
+	/// <typeparam name="C"></typeparam>
+	template<class C>
+	void AsyncScene()
+	{
+		std::string name = typeid(C).name();
+
+		asyncNode.name = name;
+		asyncNode.createScene = CreateScene<C>;
+
+		asyncUseTime = asyncMinTime;
+	}
+
+public:
+	bool AddGameObject(GameObject* _object);
+
+	void AddAsyncRenderer(Renderer* _renderer);
+
+	void EraseAsyncRenderer(Renderer* _renderer);
+
+	void AddAsyncSound(Sound* _sound);
+
+	void EraseAsyncSound(Sound* _sound);
+
 private://SceneManagerで使用
 	void SetName(const std::string& _name) { className = _name; }
 
@@ -196,5 +245,24 @@ private:
 	bool isReload;//リロードフラグ
 
 	Scene* (*reloadScene)();//シーンの再読み込み
+
+	Scene* parentScene;//親シーン
+
+	std::list<Renderer*> asyncRendererList;//非同期読み込み中レンダラー
+	std::list<Sound*> asyncSoundList;//非同期読み込み中サウンド
+
+private://非同期用変数
+	NODE asyncNode;
+
+	Scene* asyncScene;
+
+	float asyncTime;
+
+	float asyncUseTime;//一時保存
+
+public:
+	bool isAsyncLoad;//子シーン生成時に画像・音・モデルを非同期で読み込むか
+
+	float asyncMinTime;//非同期シーン最低生存時間
 
 };

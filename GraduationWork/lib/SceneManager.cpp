@@ -1,3 +1,4 @@
+#include "dxlib/DxLib.h"
 #include "SceneManager.h"
 
 SceneManager* SceneManager::instance = nullptr;
@@ -51,12 +52,17 @@ void SceneManager::Update()
 		{
 			if (mainScene->IsReload())
 			{
+				//if (isAsyncLoad)
+				//	SetUseASyncLoadFlag(TRUE);//TODO
+
 				Scene* (*f)() = mainScene->reloadScene;
 				std::string name = mainScene->GetTypeName();
 				delete mainScene;
 				mainScene = f();
 				mainScene->SetName(name);
 				mainScene->reloadScene = f;
+
+				SetUseASyncLoadFlag(FALSE);
 			}
 
 //			if (mainScene->IsActive())
@@ -67,10 +73,18 @@ void SceneManager::Update()
 	}
 }
 
+int SceneManager::GetAsyncLoadAllCount()
+{
+	return 	GetASyncLoadNum();
+}
+
 void SceneManager::ChangeScene()
 {
 	if (mainScene != nullptr)
 		delete mainScene;
+
+	if (isAsyncLoad)
+		SetUseASyncLoadFlag(TRUE);
 
 	Scene* (*p)() = createScene;
 
@@ -83,5 +97,7 @@ void SceneManager::ChangeScene()
 	mainScene->reloadScene = p;
 
 	mainScene->SceneStart();
+
+	SetUseASyncLoadFlag(FALSE);
 
 }

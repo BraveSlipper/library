@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <vector>
 
+class ImageRenderer;
+
 class Image
 {
 	struct INFO
@@ -14,8 +16,8 @@ class Image
 	};
 
 public:
-	Image() :
-		imageInfo(nullptr), isDiv(false)
+	Image(ImageRenderer* _p) :
+		imageInfo(nullptr), isDiv(false), renderer(_p)
 	{
 	}
 
@@ -46,6 +48,13 @@ public:
 	/// </summary>
 	void Destroy();
 
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	void Initialize(INFO*_p);
+
+	void DestroyParam();
+
 private:
 	void Destroy(std::unordered_map<std::string, Image::INFO>& _info);
 
@@ -56,6 +65,8 @@ public:
 	bool isDiv;//分割読み込みか
 
 private:
+	ImageRenderer* renderer;
+
 	static std::unordered_map<std::string, INFO> loadInfo;//ファイルパスと参照数を関連付ける
 	static std::unordered_map<std::string, INFO> loadDivInfo;//ファイルパスと参照数を関連付ける（分割読み込み用）
 

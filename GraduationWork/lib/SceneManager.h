@@ -2,6 +2,8 @@
 
 #include "Scene.h"
 
+class Renderer;
+
 class SceneManager
 {
 private:
@@ -23,7 +25,7 @@ public:
 
 private:
 	SceneManager():
-		mainScene(nullptr), createScene(nullptr), isEnd(false)
+		mainScene(nullptr), createScene(nullptr), isEnd(false), isAsyncLoad(false)
 	{
 	}
 
@@ -98,6 +100,12 @@ public:
 	static Scene* GetCurrentScene() { return Scene::GetCurrentScene(); }
 
 	/// <summary>
+	/// 非同期読み込み中のファイル数を取得
+	/// </summary>
+	/// <returns>非同期読み込み中のファイル数</returns>
+	static int GetAsyncLoadAllCount();
+
+	/// <summary>
 	/// 終了フラグを立てる
 	/// </summary>
 	void End() { isEnd = true; }
@@ -125,5 +133,8 @@ private:
 
 private:
 	bool isEnd;//終了フラグ
+
+public:
+	bool isAsyncLoad;//Loader・Sceneで画像・音・モデル・ファイルを非同期で読み込むか
 
 };

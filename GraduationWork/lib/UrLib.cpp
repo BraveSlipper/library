@@ -41,7 +41,12 @@ int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowM
 
     CreateDirectory("Save", NULL);
 
+    if (SceneManager::Get()->isAsyncLoad)
+        SetUseASyncLoadFlag(TRUE);
+
     Loader::Load();
+
+    SetUseASyncLoadFlag(FALSE);
 
     return ret;
 }

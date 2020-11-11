@@ -3,7 +3,7 @@
 
 ImageRenderer::ImageRenderer() :
     position(0.0f, 0.0f), rotation(0.0f), scale(1.0f, 1.0f), alpha(1.0f),
-    transFlag(TRUE), turnFlag(FALSE), order(0), drawNum(0u)
+    transFlag(TRUE), turnFlag(FALSE), order(0), drawNum(0u), image(this)
 {
 }
 
@@ -64,4 +64,23 @@ bool ImageRenderer::SetImageNumber(unsigned _num)
 unsigned ImageRenderer::GetDrawMaxNumber() const
 {
     return (image.imageInfo == nullptr) ? 0u : static_cast<unsigned>(image.imageInfo->handles.size());
+}
+
+int ImageRenderer::CheckAsyncLoading() 
+{
+    if (image.imageInfo == nullptr)
+        return 0;
+    return CheckHandleASyncLoad(image.imageInfo->handles[0]);
+}
+
+void ImageRenderer::DestroyParam()
+{
+    image.DestroyParam();
+    drawNum = 0u;
+}
+
+void ImageRenderer::Initialize()
+{
+    if (image.imageInfo != nullptr)
+        image.Initialize(image.imageInfo);
 }

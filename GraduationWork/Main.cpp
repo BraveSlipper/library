@@ -10,6 +10,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		return -1;			// エラーが起きたら直ちに終了
 	}
 
+	//TODO
+	SceneManager::Get()->isAsyncLoad = true;
+
 	SceneManager::Get()->LoadScene<GameMain>();
 
 	//メイン処理

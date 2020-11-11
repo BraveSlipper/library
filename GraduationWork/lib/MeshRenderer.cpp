@@ -90,74 +90,12 @@ bool MeshRenderer::Load(const std::string& _path)
 
         info = &meshInfo[_path];
         info->handle = h;
+        info->isAsync = true;
 
-        //マテリアル生成
-        info->materials.resize(MV1GetMaterialNum(h));
-        for (int i = 0, size = static_cast<int>(info->materials.size()); i < size; ++i)
-        {
-            MeshRendererInfo::MaterialInfo& m = info->materials[i];
-            m.name = MV1GetMaterialName(h, i);
-            m.diffuse=MV1GetMaterialDifColor(h, i);
-            m.specular = MV1GetMaterialSpcColor(h, i);
-            m.emissive = MV1GetMaterialEmiColor(h, i);
-            m.ambient = MV1GetMaterialAmbColor(h, i);
-            m.specularPow = MV1GetMaterialSpcPower(h, i);
-            m.diffuseTex = MV1GetMaterialDifMapTexture(h, i);
-            m.specularTex = MV1GetMaterialSpcMapTexture(h, i);
-            m.normalTex = MV1GetMaterialNormalMapTexture(h, i);
-            m.blendMode = MV1GetMaterialDrawBlendMode(h, i);
-            m.blendParam = MV1GetMaterialDrawBlendParam(h, i);
-            m.toonSize = MV1GetMaterialOutLineWidth(h, i);
-            m.toonColor = MV1GetMaterialOutLineColor(h, i);
-        }
-
-        //テクスチャ生成
-        info->textures.resize(MV1GetTextureNum(h));
-        for (int i = 0, size = static_cast<int>(info->textures.size()); i < size; ++i)
-        {
-            MeshRendererInfo::TextureInfo& t = info->textures[i];
-            t.name = MV1GetTextureName(h, i);
-            t.handle = MV1GetTextureGraphHandle(h, i);
-            t.modeU = MV1GetTextureAddressModeU(h, i);
-            t.modeV = MV1GetTextureAddressModeV(h, i);
-            t.sample = MV1GetTextureSampleFilterMode(h, i);
-        }
-
-        //ボーン生成
-        info->bones.resize(MV1GetFrameNum(h));
-        for (int i = 0, size = static_cast<int>(info->bones.size()); i < size; ++i)
-        {
-            MeshRendererInfo::BoneInfo& b = info->bones[i];
-            b.name = MV1GetFrameName(h, i);
-            int count = MV1GetFrameParent(h, i);
-            if (count >= 0)
-                b.parent = count;
-            else
-                b.parent = -1;
-            
-            count = MV1GetFrameChildNum(h, i);
-            if (count > 0)
-                b.children.resize(count);
-            
-            b.isDisp = MV1GetFrameVisible(h, i);
-            b.isSemiTrans = MV1GetFrameSemiTransState(h, i);
-
-            b.meshes.resize(MV1GetFrameMeshNum(h, i));
-            for (int j = 0, end = static_cast<int>(b.meshes.size()); j < end; ++j)
-                b.meshes[j] = MV1GetFrameMesh(h, i, j);
-        }
-
-        //メッシュ生成
-        info->meshes.resize(MV1GetMeshNum(h));
-        for (int i = 0, size = static_cast<int>(info->meshes.size()); i < size; ++i)
-        {
-            MeshRendererInfo::MeshInfo& m = info->meshes[i];
-            m.materialNo = MV1GetMeshMaterial(h, i);
-            m.isDisp = MV1GetMeshVisible(h, i);
-            m.blendMode = MV1GetMeshDrawBlendMode(h, i);
-            m.blendParam = MV1GetMeshDrawBlendParam(h, i);
-            m.isSemiTrans = MV1GetMeshSemiTransState(h, i);
-        }
+        if (GetUseASyncLoadFlag())
+            AddRendererToScene();
+        else
+            Initialize();
     }
     else
     {
@@ -167,66 +105,10 @@ bool MeshRenderer::Load(const std::string& _path)
         info = &it->second;
     }
 
-    //初期設定
-
-    //マテリアル生成
-    materials.resize(info->materials.size());
-    for (int i = 0, size = static_cast<int>(materials.size()); i < size; ++i)
-    {
-        materials[i].no = i;
-        materials[i].renderer = this;
-        materials[i].info = info;
-
-        materials[i].diffuse = info->materials[i].diffuse;
-        materials[i].specular = info->materials[i].specular;
-        materials[i].emissive = info->materials[i].emissive;
-        materials[i].ambient = info->materials[i].ambient;
-
-        materials[i].blendMode = info->materials[i].blendMode;
-        materials[i].blendParam = info->materials[i].blendParam;
-        materials[i].specularPow = info->materials[i].specularPow;
-
-        materials[i].toonColor = info->materials[i].toonColor;
-        materials[i].toonSize = info->materials[i].toonSize;
-    }
-
-    //テクスチャ生成
-    textures.resize(info->textures.size());
-    for (int i = 0, size = static_cast<int>(textures.size()); i < size; ++i)
-    {
-        textures[i].no = i;
-        textures[i].info = info;
-
-        textures[i].modeU = static_cast<Texture::ADDRESS_MODE>(info->textures[i].modeU);
-        textures[i].modeV = static_cast<Texture::ADDRESS_MODE>(info->textures[i].modeV);
-        textures[i].sample = static_cast<Texture::SAMPLE>(info->textures[i].sample);
-        textures[i].handle = info->textures[i].handle;
-    }
-
-    //ボーン生成
-    bones.resize(info->bones.size());
-    for (int i = 0, size = static_cast<int>(bones.size()); i < size; ++i)
-    {
-        bones[i].no = i;
-        bones[i].info = info;
-        bones[i].renderer = this;
-
-        bones[i].isDisp = info->bones[i].isDisp;
-
-        //メッシュ生成
-        bones[i].meshes.resize(info->bones[i].meshes.size());
-        for (int j = 0, end = static_cast<int>(bones[i].meshes.size()); j < end; ++j)
-        {
-            Mesh& m = bones[i].meshes[j];
-            m.no = info->bones[i].meshes[j];
-            m.info = info;
-            m.renderer = this;
-
-            m.isDisp = info->meshes[j].isDisp;
-            m.blendMode = info->meshes[j].blendMode;
-            m.blendParam = info->meshes[j].blendParam;
-        }
-    }
+    if (info->isAsync)
+        info->asyncList.emplace_back(this);
+    else
+        InitializeParam();
 
     path = _path;
 
@@ -242,6 +124,21 @@ void MeshRenderer::Release()
     {
         MV1DeleteModel(info->handle);
         meshInfo.erase(path);
+    }
+    else
+    {
+        if (info->isAsync)
+        {
+            for (std::list<MeshRenderer*>::iterator it = info->asyncList.begin(),
+                end = info->asyncList.end(); it != end; ++it)
+            {
+                if ((*it) == this)
+                {
+                    info->asyncList.erase(it);
+                    break;
+                }
+            }
+        }
     }
 
     info = nullptr;
@@ -304,4 +201,169 @@ Bone* MeshRenderer::GetBone(const std::string& _name)
             return &bones[i];
     }
     return nullptr;
+}
+
+int MeshRenderer::CheckAsyncLoading() 
+{
+    if (info == nullptr)
+        return 0;
+    return CheckHandleASyncLoad(info->handle);
+}
+
+void MeshRenderer::DestroyParam()
+{
+    if (info == nullptr)return;
+
+    meshInfo.erase(path);
+    info = nullptr;
+    path.clear();
+}
+
+void MeshRenderer::Initialize()
+{
+    if (info == nullptr)return;
+
+    info->isAsync = false;
+
+    int h = info->handle;
+
+    //マテリアル生成
+    info->materials.resize(MV1GetMaterialNum(h));
+    for (int i = 0, size = static_cast<int>(info->materials.size()); i < size; ++i)
+    {
+        MeshRendererInfo::MaterialInfo& m = info->materials[i];
+        m.name = MV1GetMaterialName(h, i);
+        m.diffuse = MV1GetMaterialDifColor(h, i);
+        m.specular = MV1GetMaterialSpcColor(h, i);
+        m.emissive = MV1GetMaterialEmiColor(h, i);
+        m.ambient = MV1GetMaterialAmbColor(h, i);
+        m.specularPow = MV1GetMaterialSpcPower(h, i);
+        m.diffuseTex = MV1GetMaterialDifMapTexture(h, i);
+        m.specularTex = MV1GetMaterialSpcMapTexture(h, i);
+        m.normalTex = MV1GetMaterialNormalMapTexture(h, i);
+        m.blendMode = MV1GetMaterialDrawBlendMode(h, i);
+        m.blendParam = MV1GetMaterialDrawBlendParam(h, i);
+        m.toonSize = MV1GetMaterialOutLineWidth(h, i);
+        m.toonColor = MV1GetMaterialOutLineColor(h, i);
+    }
+
+    //テクスチャ生成
+    info->textures.resize(MV1GetTextureNum(h));
+    for (int i = 0, size = static_cast<int>(info->textures.size()); i < size; ++i)
+    {
+        MeshRendererInfo::TextureInfo& t = info->textures[i];
+        t.name = MV1GetTextureName(h, i);
+        t.handle = MV1GetTextureGraphHandle(h, i);
+        t.modeU = MV1GetTextureAddressModeU(h, i);
+        t.modeV = MV1GetTextureAddressModeV(h, i);
+        t.sample = MV1GetTextureSampleFilterMode(h, i);
+    }
+
+    //ボーン生成
+    info->bones.resize(MV1GetFrameNum(h));
+    for (int i = 0, size = static_cast<int>(info->bones.size()); i < size; ++i)
+    {
+        MeshRendererInfo::BoneInfo& b = info->bones[i];
+        b.name = MV1GetFrameName(h, i);
+        int count = MV1GetFrameParent(h, i);
+        if (count >= 0)
+            b.parent = count;
+        else
+            b.parent = -1;
+
+        count = MV1GetFrameChildNum(h, i);
+        if (count > 0)
+            b.children.resize(count);
+
+        b.isDisp = MV1GetFrameVisible(h, i);
+        b.isSemiTrans = MV1GetFrameSemiTransState(h, i);
+
+        b.meshes.resize(MV1GetFrameMeshNum(h, i));
+        for (int j = 0, end = static_cast<int>(b.meshes.size()); j < end; ++j)
+            b.meshes[j] = MV1GetFrameMesh(h, i, j);
+    }
+
+    //メッシュ生成
+    info->meshes.resize(MV1GetMeshNum(h));
+    for (int i = 0, size = static_cast<int>(info->meshes.size()); i < size; ++i)
+    {
+        MeshRendererInfo::MeshInfo& m = info->meshes[i];
+        m.materialNo = MV1GetMeshMaterial(h, i);
+        m.isDisp = MV1GetMeshVisible(h, i);
+        m.blendMode = MV1GetMeshDrawBlendMode(h, i);
+        m.blendParam = MV1GetMeshDrawBlendParam(h, i);
+        m.isSemiTrans = MV1GetMeshSemiTransState(h, i);
+    }
+
+    //初期パラメータ
+    for (std::list<MeshRenderer*>::iterator it = info->asyncList.begin(), end = info->asyncList.end(); it != end;)
+    {
+        (*it)->InitializeParam();
+        it = info->asyncList.erase(it);
+    }
+
+}
+
+void MeshRenderer::InitializeParam()
+{
+    //初期設定
+
+    //マテリアル生成
+    materials.resize(info->materials.size());
+    for (int i = 0, size = static_cast<int>(materials.size()); i < size; ++i)
+    {
+        materials[i].no = i;
+        materials[i].renderer = this;
+        materials[i].info = info;
+
+        materials[i].diffuse = info->materials[i].diffuse;
+        materials[i].specular = info->materials[i].specular;
+        materials[i].emissive = info->materials[i].emissive;
+        materials[i].ambient = info->materials[i].ambient;
+
+        materials[i].blendMode = info->materials[i].blendMode;
+        materials[i].blendParam = info->materials[i].blendParam;
+        materials[i].specularPow = info->materials[i].specularPow;
+
+        materials[i].toonColor = info->materials[i].toonColor;
+        materials[i].toonSize = info->materials[i].toonSize;
+    }
+
+    //テクスチャ生成
+    textures.resize(info->textures.size());
+    for (int i = 0, size = static_cast<int>(textures.size()); i < size; ++i)
+    {
+        textures[i].no = i;
+        textures[i].info = info;
+
+        textures[i].modeU = static_cast<Texture::ADDRESS_MODE>(info->textures[i].modeU);
+        textures[i].modeV = static_cast<Texture::ADDRESS_MODE>(info->textures[i].modeV);
+        textures[i].sample = static_cast<Texture::SAMPLE>(info->textures[i].sample);
+        textures[i].handle = info->textures[i].handle;
+    }
+
+    //ボーン生成
+    bones.resize(info->bones.size());
+    for (int i = 0, size = static_cast<int>(bones.size()); i < size; ++i)
+    {
+        bones[i].no = i;
+        bones[i].info = info;
+        bones[i].renderer = this;
+
+        bones[i].isDisp = info->bones[i].isDisp;
+
+        //メッシュ生成
+        bones[i].meshes.resize(info->bones[i].meshes.size());
+        for (int j = 0, end = static_cast<int>(bones[i].meshes.size()); j < end; ++j)
+        {
+            Mesh& m = bones[i].meshes[j];
+            m.no = info->bones[i].meshes[j];
+            m.info = info;
+            m.renderer = this;
+
+            m.isDisp = info->meshes[j].isDisp;
+            m.blendMode = info->meshes[j].blendMode;
+            m.blendParam = info->meshes[j].blendParam;
+        }
+    }
 }

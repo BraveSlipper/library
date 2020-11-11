@@ -7,6 +7,7 @@
 #include <vector>
 
 class ImageRenderer : public Renderer {
+	friend Image;
 public:
 	ImageRenderer();
 	~ImageRenderer();
@@ -62,8 +63,16 @@ public:
 	/// <summary>
 	/// “Ç‚İ‚ñ‚¾ƒf[ƒ^‚ğ”jŠü
 	/// </summary>
-	void Release() { image.Destroy(); }
+	void Release() { image.Destroy(); drawNum = 0u; }
 
+private:
+	void Initialize();
+
+	int CheckAsyncLoading() override;
+
+	void DestroyParam()override;
+
+public:
 	VECTOR2 position;
 	float rotation;
 	VECTOR2 scale;

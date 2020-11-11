@@ -112,6 +112,15 @@ public:
 	/// <returns>ƒ{[ƒ“”</returns>
 	unsigned GetBoneCount()const{ return static_cast<unsigned>(bones.size()); }
 
+private:
+	void Initialize()override;
+
+	void InitializeParam();
+
+	int CheckAsyncLoading() override;
+
+	void DestroyParam()override;
+
 public:
 	Transform renderTransform;
 

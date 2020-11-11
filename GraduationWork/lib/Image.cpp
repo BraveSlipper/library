@@ -1,4 +1,5 @@
 #include "Image.h"
+#include "ImageRenderer.h"
 #include "dxlib/DxLib.h"
 
 std::unordered_map<std::string, Image::INFO> Image::loadInfo;
@@ -26,7 +27,11 @@ bool Image::Load(const std::string& _path)
 		p = &loadInfo[_path];//“o˜^‚µ‚½INFO‚ÌƒAƒhƒŒƒX‚ð•ÛŽ
 
 		p->handles.emplace_back(h);
-		GetGraphSize(h, &p->sizeX, &p->sizeY);
+
+		if (GetUseASyncLoadFlag())
+			renderer->AddRendererToScene();
+		else
+			Initialize(p);
 	}
 	else
 	{
@@ -74,6 +79,12 @@ bool Image::LoadDiv(const std::string& _path, unsigned _xdiv, unsigned _ydiv, un
 		if (result == -1)return false;//Ž¸”s‚µ‚½‚çI—¹
 
 		p = &loadDivInfo[_path];//“o˜^‚µ‚½INFO‚ÌƒAƒhƒŒƒX‚ð•ÛŽ
+
+		if (GetUseASyncLoadFlag())
+			renderer->AddRendererToScene();
+		else
+			Initialize(p);
+
 		*p = info;
 	}
 	else
@@ -96,6 +107,29 @@ void Image::Destroy()
 {
 	if (isDiv)	Destroy(loadDivInfo);
 	else		Destroy(loadInfo);
+}
+
+void Image::Initialize(INFO* _p)
+{
+	if (isDiv)
+	{
+		//¡‚Ì‚Æ‚±‚ë‚È‚µ
+	}
+	else
+	{
+		GetGraphSize(_p->handles[0], &_p->sizeX, &_p->sizeY);
+	}
+}
+
+void Image::DestroyParam()
+{
+	if (imageInfo == nullptr)return;
+
+	if (isDiv)	loadDivInfo.erase(path);
+	else loadInfo.erase(path);
+
+	imageInfo = nullptr;
+	path.clear();
 }
 
 void Image::Destroy(std::unordered_map<std::string, Image::INFO>& _info)

@@ -1,8 +1,11 @@
 #pragma once
 
 #include <vector>
+#include <list>
 #include <string>
 #include "dxlib/DxLib.h"
+
+class MeshRenderer;
 
 struct MeshRendererInfo
 {
@@ -70,7 +73,7 @@ struct MeshRendererInfo
 		int materialNo;
 	};
 
-	MeshRendererInfo() :count(1) {}
+	MeshRendererInfo() :count(1), isAsync(false) {}
 	int handle;
 	int count;
 	
@@ -78,4 +81,8 @@ struct MeshRendererInfo
 	std::vector<TextureInfo> textures;
 	std::vector<BoneInfo> bones;
 	std::vector<MeshInfo> meshes;
+
+	std::list<MeshRenderer*> asyncList;
+
+	bool isAsync;
 };

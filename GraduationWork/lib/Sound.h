@@ -56,9 +56,7 @@ public:
 	{
 	}
 
-	~Sound()
-	{
-	}
+	~Sound();
 
 	void Update()override;
 
@@ -132,6 +130,13 @@ public://リバーブエフェクト（3D）
 	/// <returns>true：成功、false：失敗</returns>
 	static bool SetReverbAll(SOUND3D_REVERB_PARAM* _param, bool _playSoundOnly = false);
 
+public:
+	/// <summary>
+	/// 非同期読み込み中か
+	/// </summary>
+	/// <returns>true：読み込み中、false：読み込み終了</returns>
+	bool CheckAsync();
+
 private:
 	void DeleteHandle(std::unordered_map<std::string, INFO>& _info);
 
@@ -149,6 +154,8 @@ public://3Dで使用
 	VECTOR3 velocity;//秒速
 
 private:
+	bool isAsync;//非同期読み込み中か
+
 	bool is3D;//3D読み込みするか
 	bool isLoopPlay;//ループ再生中か
 

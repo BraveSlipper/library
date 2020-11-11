@@ -13,6 +13,7 @@ void GameMain::Start()
 	player->RemoveComponent<PlayerRotate>();
 	//	player->AddComponent<PlayerComponent>();
 	child = Instantiate<PlayerChild>();
+	child->AddComponent<MeshRenderer>()->Load("../Model/‰‰¹ƒ~ƒN.pmd");
 	player->SetChild(child);
 	for (GameObject* p : player->GetChildren())
 	{
@@ -47,6 +48,7 @@ void GameMain::Start()
 	Loader::DeleteKey("hogehoge");
 	Loader::DeleteKey("hoge");
 //	Loader::DeleteAll();
+
 }
 
 void GameMain::Update()
@@ -176,7 +178,10 @@ void GameMain::Update()
 	printfDx("float : %f\n", Loader::GetFloat("gehageha"));
 	printfDx("int : %i\n", Loader::GetInt("hogehoge"));
 	printfDx("string : %s\n", Loader::GetString("hojihoji").c_str());
+	printfDx("LoadCount:%d\n", SceneManager::Get()->GetMainScene<Scene>()->GetAsyncLoadCountWithSubScene());
 
+	asyncMinTime = 3.f;
+	AsyncScene<TitleScene>();
 }
 
 void GameMain::Add()
