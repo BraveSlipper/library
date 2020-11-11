@@ -14,7 +14,7 @@ int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowM
 
     Screen::x = ScreenSizeX;
     Screen::y = ScreenSizeY;
-
+    
 //    ret += SetEnableXAudioFlag(TRUE);//TODO：エラーがでます、DxLibが更新されたら解除しましょう
 
     ret += SetUsePixelLighting(TRUE);

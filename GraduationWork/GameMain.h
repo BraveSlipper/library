@@ -7,7 +7,7 @@ class GameMain :public Scene
 {
 public:
 	GameMain():
-		num(0)
+		num(0), random(Random::GetF())
 	{
 	}
 
@@ -29,4 +29,6 @@ private:
 	MeshRenderer* mesh;
 
 	void Add();
+
+	float random;
 };

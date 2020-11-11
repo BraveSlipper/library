@@ -52,8 +52,8 @@ void SceneManager::Update()
 		{
 			if (mainScene->IsReload())
 			{
-				//if (isAsyncLoad)
-				//	SetUseASyncLoadFlag(TRUE);//TODO
+				if (isAsyncLoad)
+					SetUseASyncLoadFlag(TRUE);
 
 				Scene* (*f)() = mainScene->reloadScene;
 				std::string name = mainScene->GetTypeName();

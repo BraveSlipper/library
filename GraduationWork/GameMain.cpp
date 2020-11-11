@@ -179,13 +179,14 @@ void GameMain::Update()
 	printfDx("int : %i\n", Loader::GetInt("hogehoge"));
 	printfDx("string : %s\n", Loader::GetString("hojihoji").c_str());
 	printfDx("LoadCount:%d\n", SceneManager::Get()->GetMainScene<Scene>()->GetAsyncLoadCountWithSubScene());
-
+	printfDx("random:%f", random);
 	asyncMinTime = 3.f;
 	AsyncScene<TitleScene>();
 }
 
 void GameMain::Add()
 {
+	random = Random::GetF();
 	return;
 	Player* p = Instantiate<Player>();
 	p->RemoveComponent<PlayerRotate>();

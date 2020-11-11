@@ -47,6 +47,7 @@
     <ClCompile Include="..\lib\MeshRenderer.cpp" />
     <ClCompile Include="..\lib\Object.cpp" />
     <ClCompile Include="..\lib\PointLight.cpp" />
+    <ClCompile Include="..\lib\Random.cpp" />
     <ClCompile Include="..\lib\Renderer.cpp" />
     <ClCompile Include="..\lib\Saver.cpp" />
     <ClCompile Include="..\lib\Scene.cpp" />
@@ -107,6 +108,7 @@
     <ClInclude Include="..\lib\MeshRendererInfo.h" />
     <ClInclude Include="..\lib\Object.h" />
     <ClInclude Include="..\lib\PointLight.h" />
+    <ClInclude Include="..\lib\Random.h" />
     <ClInclude Include="..\lib\Renderer.h" />
     <ClInclude Include="..\lib\Saver.h" />
     <ClInclude Include="..\lib\Scene.h" />

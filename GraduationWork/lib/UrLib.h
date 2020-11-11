@@ -21,6 +21,7 @@
 #include "SpotLight.h"
 #include "Saver.h"
 #include "Loader.h"
+#include "Random.h"
 
 namespace UrLib {
 	int Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowMode, bool IsShadowCalc = true);
