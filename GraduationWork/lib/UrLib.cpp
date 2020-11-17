@@ -17,6 +17,8 @@ int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowM
     
 //    ret += SetEnableXAudioFlag(TRUE);//TODO：エラーがでます、DxLibが更新されたら解除しましょう
 
+    ret += SetAlwaysRunFlag(TRUE);
+
     ret += SetUsePixelLighting(TRUE);
 
     ret += Set3DSoundOneMetre(Meter::oneMeter);
@@ -41,12 +43,7 @@ int UrLib::Init(int ScreenSizeX, int ScreenSizeY, int ColorBitDepth, int WindowM
 
     CreateDirectory("Save", NULL);
 
-    if (SceneManager::Get()->isAsyncLoad)
-        SetUseASyncLoadFlag(TRUE);
-
     Loader::Load();
-
-    SetUseASyncLoadFlag(FALSE);
 
     return ret;
 }
@@ -71,6 +68,15 @@ void UrLib::Update()
 int UrLib::Draw()
 {
     int ret = 0;
+
+#if defined _DEBUG || DEBUG
+
+    printfDx("Loading:%d\n", Loader::IsLoading());
+
+    printfDx("ファイル非同期:%d\n", SceneManager::GetAsyncLoadAllCount());
+
+#endif // !
+
     DrawManager::Get()->Draw();
     return ret;
 }
@@ -82,5 +88,8 @@ int UrLib::End()
     CollideManager::Destroy();
     DrawManager::Get()->Destroy();
     Input::End();
+    Saver::Wait();
+    Loader::Wait();
+    Debug::Release();
     return ret;
 }

@@ -131,10 +131,10 @@ public:
 	/// <summary>
 	/// ゲームオブジェクト生成
 	/// </summary>
-	/// <typeparam name="C">生成するオブジェクト</typeparam>
+	/// <typeparam _tagName="C">生成するオブジェクト</typeparam>
 	/// <returns>生成したオブジェクト</returns>
 	template<class C>
-	C* Instantiate(std::string _name = "")
+	C* Instantiate(std::string _tagName = "")
 	{
 		GameObject* obj = new C;
 		obj->scene = this;
@@ -142,11 +142,11 @@ public:
 		Object* p = obj;
 		p->className = typeid(C).name();
 
-		if (_name == "") {
-			obj->name = p->className.substr(6ull);
+		if (_tagName == "") {
+			obj->tag = p->className.substr(6ull);
 		}
 		else
-			obj->name = _name;
+			obj->tag = _tagName;
 
 		objectList.emplace_back(obj);
 

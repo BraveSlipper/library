@@ -10,15 +10,15 @@ void LightTest::Start()
 
 	//««‰e««
 
-	shadow=MakeShadowMap(100, 100);
+	//shadow=MakeShadowMap(100, 100);
 
-	SetShadowMapLightDirection(shadow, VGet(-1.f, -1.f, 1.f));
+	//SetShadowMapLightDirection(shadow, VGet(-1.f, -1.f, 1.f));
 
-	SetShadowMapAdjustDepth(shadow, 0.002f);
+	//SetShadowMapAdjustDepth(shadow, 0.002f);
 
-	SetUseShadowMap(0, shadow);
+	//SetUseShadowMap(0, shadow);
 
-	SetShadowMapDrawArea(shadow, VGet(-50, 0, -50), VGet(50, 0, 50));
+	//SetShadowMapDrawArea(shadow, VGet(-50, 0, -50), VGet(50, 0, 50));
 }
 
 void LightTest::Update()
@@ -34,13 +34,13 @@ void LightTest::Update()
 	DrawTriangle3D(v1, v2, v3, 0xffffffff, TRUE);
 	DrawTriangle3D(v2, v3, v4, 0xffffffff, TRUE);
 
-	TestDrawShadowMap(shadow, 350, 250, 450, 350);
+//	TestDrawShadowMap(shadow, 350, 250, 450, 350);
 
 	//««‰e««//TODO
 
-	ShadowMap_DrawSetup(shadow);
+	//ShadowMap_DrawSetup(shadow);
 
 
 
-	ShadowMap_DrawEnd();
+	//ShadowMap_DrawEnd();
 }

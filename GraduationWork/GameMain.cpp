@@ -45,8 +45,8 @@ void GameMain::Start()
 	Saver::SetInt("hogehoge", 111111111);
 	Saver::SetString("hojihoji", "hahaha_0783_‚¨‚¢‚¨‚¢III");
 	Saver::Save();
-	Loader::DeleteKey("hogehoge");
-	Loader::DeleteKey("hoge");
+	//Loader::DeleteKey("hogehoge");
+	//Loader::DeleteKey("hoge");
 //	Loader::DeleteAll();
 
 }
@@ -179,9 +179,11 @@ void GameMain::Update()
 	printfDx("int : %i\n", Loader::GetInt("hogehoge"));
 	printfDx("string : %s\n", Loader::GetString("hojihoji").c_str());
 	printfDx("LoadCount:%d\n", SceneManager::Get()->GetMainScene<Scene>()->GetAsyncLoadCountWithSubScene());
-	printfDx("random:%f", random);
+	printfDx("random:%f\n", random);
 	asyncMinTime = 3.f;
 	AsyncScene<TitleScene>();
+	DEBUG_LOG(10);
+	printf("hogehoge");
 }
 
 void GameMain::Add()

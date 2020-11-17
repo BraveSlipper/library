@@ -155,19 +155,7 @@ namespace UrLib {
 			return *this;
 		}
 
-		VECTOR2& operator +=(const VECTOR3& v) {
-			x = x + v.x;
-			y = y + v.y;
-			return *this;
-		}
-
 		VECTOR2& operator -=(const VECTOR2& v) {
-			x = x - v.x;
-			y = y - v.y;
-			return *this;
-		}
-
-		VECTOR2& operator -=(const VECTOR3& v) {
 			x = x - v.x;
 			y = y - v.y;
 			return *this;
@@ -378,7 +366,7 @@ namespace UrLib {
 		}
 	} Float3, Point;
 
-	typedef struct VECTOR3 : public tagFloat3 {
+	struct VECTOR3 : public tagFloat3 {
 		VECTOR3() {}
 		VECTOR3(float _x, float _y, float _z) : tagFloat3(_x, _y, _z) {}
 		VECTOR3(tagFloat3 f) : tagFloat3(f) {}
@@ -597,5 +585,20 @@ namespace UrLib {
 		VECTOR3 NormaDirect[3];	// 方向ベクトル
 		float Length[3];		// 各軸方向の長さ
 	};
+
+
+	inline VECTOR2& operator +=(VECTOR2&v1, const VECTOR3& v2)
+	{
+		v1.x = v1.x + v2.x;
+		v1.y = v1.y + v2.y;
+		return v1;
+	}
+
+	inline VECTOR2& operator -=(VECTOR2& v1, const VECTOR3& v2) {
+		v1.x = v1.x - v2.x;
+		v1.y = v1.y - v2.y;
+		return v1;
+	}
+
 }
 using namespace UrLib;

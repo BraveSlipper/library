@@ -34,6 +34,7 @@
     <ClCompile Include="..\lib\Collider2D.cpp" />
     <ClCompile Include="..\lib\Collider3D.cpp" />
     <ClCompile Include="..\lib\Component.cpp" />
+    <ClCompile Include="..\lib\Debug.cpp" />
     <ClCompile Include="..\lib\DirectionalLight.cpp" />
     <ClCompile Include="..\lib\DrawManager.cpp" />
     <ClCompile Include="..\lib\GameObject.cpp" />
@@ -68,6 +69,7 @@
     <ClCompile Include="..\PlayerChild.cpp" />
     <ClCompile Include="..\PlayerComponent.cpp" />
     <ClCompile Include="..\PlayerRotate.cpp" />
+    <ClCompile Include="..\TestCollisionComponent.cpp" />
     <ClCompile Include="..\TestCollisionScene.cpp" />
     <ClCompile Include="..\TestTransformChara.cpp" />
     <ClCompile Include="..\TestTransformComponent.cpp" />
@@ -92,11 +94,13 @@
     <ClInclude Include="..\lib\Collider2D.h" />
     <ClInclude Include="..\lib\Collider3D.h" />
     <ClInclude Include="..\lib\Component.h" />
+    <ClInclude Include="..\lib\Debug.h" />
     <ClInclude Include="..\lib\Delay.h" />
     <ClInclude Include="..\lib\DirectionalLight.h" />
     <ClInclude Include="..\lib\DrawManager.h" />
     <ClInclude Include="..\lib\Function.h" />
     <ClInclude Include="..\lib\GameObject.h" />
+    <ClInclude Include="..\lib\HiddenType.h" />
     <ClInclude Include="..\lib\Image.h" />
     <ClInclude Include="..\lib\ImageRenderer.h" />
     <ClInclude Include="..\lib\Input.h" />
@@ -128,12 +132,16 @@
     <ClInclude Include="..\PlayerChild.h" />
     <ClInclude Include="..\PlayerComponent.h" />
     <ClInclude Include="..\PlayerRotate.h" />
+    <ClInclude Include="..\TestCollisionComponent.h" />
     <ClInclude Include="..\TestCollisionScene.h" />
     <ClInclude Include="..\TestTransformChara.h" />
     <ClInclude Include="..\TestTransformComponent.h" />
     <ClInclude Include="..\TestTransformScene.h" />
     <ClInclude Include="..\TitleScene.h" />
     <ClInclude Include="..\TitleSubScene.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\lib\Scene.h.rej" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

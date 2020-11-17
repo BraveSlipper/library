@@ -183,6 +183,12 @@
     <ClCompile Include="..\lib\Random.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="..\lib\Debug.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TestCollisionComponent.cpp">
+      <Filter>testSource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\UrLib.h">
@@ -359,5 +365,19 @@
     <ClInclude Include="..\lib\Random.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="..\lib\HiddenType.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\Debug.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TestCollisionComponent.h">
+      <Filter>testSource</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\lib\Scene.h.rej">
+      <Filter>ソース ファイル</Filter>
+    </None>
   </ItemGroup>
 </Project>
