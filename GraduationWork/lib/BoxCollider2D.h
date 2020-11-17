@@ -10,13 +10,16 @@ public:
 
 	void Disp();
 	bool IsCollide(Collider2D* _collider) override;
-	float GetHeight() const;
-	float GetWidth() const;
-	void SetSize(float _hight, float _width);
+	Point2D GetWorldPosition() override;
 
-private:
-	float height;
-	float width;
+	// ‰ñ“]Œã‚Ì’¸“_À•W‚Ìæ“¾
+	Point2D LeftTop();
+	Point2D LeftBottom();
+	Point2D RightTop();
+	Point2D RightBottom();
+
+	AABB2D box;
+	float rotation;
 
 private:
 	bool IsCollideCircle(CircleCollider2D* _collider);

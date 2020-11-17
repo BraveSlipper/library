@@ -2,7 +2,7 @@
 #include "Transform.h"
 
 GameObject::GameObject() :
-	parent(nullptr), scene(nullptr), name("")
+	parent(nullptr), scene(nullptr), tag("")
 {
 	transform = new Transform();
 	transform->gameObject = this;
@@ -43,15 +43,17 @@ void GameObject::SetParent(GameObject* _obj)
 	_obj->SetChild(this);
 }
 
-GameObject* GameObject::GetChild(std::string _name) const
+std::list<GameObject*> GameObject::GetChild(std::string _tag) const
 {
+	std::list<GameObject*> list;
+
 	// 対応した名前の子GameObject抽出
 	for (auto child : children) {
-		if (child->name == _name) {
-			return child;
+		if (child->tag == _tag) {
+			list.push_back(child);
 		}
 	}
-	return nullptr;
+	return list;
 }
 
 std::list<GameObject*> GameObject::GetChildren() const
@@ -74,16 +76,30 @@ bool GameObject::SetChild(GameObject* _obj)
 	return true;
 }
 
-bool GameObject::RemoveChild(std::string _name)
+bool GameObject::RemoveChild(GameObject* _obj)
 {
-	// 対応した名前の子GameObjectの破壊フラグを立てる
+	// 対応した子GameObjectの破壊フラグを立てる
 	for (auto child : children) {
-		if (child->name == _name) {
+		if (child == _obj) {
 			child->Destroy();
 			return true;
 		}
 	}
 	return false;
+}
+
+bool GameObject::RemoveChild(std::string _tag)
+{
+	bool ret = false;
+
+	// 対応したタグの子GameObjectの破壊フラグを立てる
+	for (auto child : children) {
+		if (child->tag == _tag) {
+			child->Destroy();
+			ret = true;
+		}
+	}
+	return ret;
 }
 
 void GameObject::RemoveChildren()
@@ -97,6 +113,14 @@ void GameObject::RemoveChildren()
 std::list<Component*> GameObject::GetComponentAll()
 {
 	return compList;
+}
+
+void GameObject::RemoveComponentAll()
+{
+	for (auto it = compList.begin(); it != compList.end();) {
+		delete (*it);
+		it = compList.erase(it);
+	}
 }
 
 void GameObject::DestroyComponents()

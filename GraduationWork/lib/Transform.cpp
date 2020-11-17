@@ -2,6 +2,8 @@
 #include "Function.h"
 #include "BoxCollider.h"
 #include "BoxCollider2D.h"
+#include "CircleCollider2D.h"
+#include "SphereCollider.h"
 
 Transform::Transform() : 
     position(VGet(0.0f,0.0f,0.0f)), scale(VGet(1.0f, 1.0f, 1.0f)),
@@ -73,6 +75,12 @@ void Transform::AxisRotateZ(float _deg)
 {
     VECTOR3 vec = { 0.0f, 0.0f, 1.0f };
     Rotate(vec, _deg);
+
+    // 2D‚Ì“–‚½‚è”»’è‚É‰ñ“]’l‚ð”½‰f
+    BoxCollider2D* boxCollider2D = GetComponent<BoxCollider2D>();
+    if (boxCollider2D != nullptr) {
+        boxCollider2D->rotation += _deg;
+    }
 }
 
 void Transform::Rotate(VECTOR3 _axis, float _deg)

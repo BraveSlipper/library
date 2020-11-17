@@ -3,8 +3,10 @@
 #include "CircleCollider2D.h"
 
 BoxCollider2D::BoxCollider2D() :
-	height(1.0f), width(1.0f)
+	rotation(0.0f)
 {
+	box.hl.x = 0.5f;
+	box.hl.y = 0.5f;
 }
 
 BoxCollider2D::~BoxCollider2D()
@@ -13,10 +15,11 @@ BoxCollider2D::~BoxCollider2D()
 
 void BoxCollider2D::Disp()
 {
-	VECTOR2 center = GetWorldPosition();
-	VECTOR2 leftTop(center.x - width * 0.5f, center.y - height * 0.5f);
-	VECTOR2 rightBottom(center.x + width * 0.5f, center.y + height * 0.5f);
-	DrawBox(leftTop.x, leftTop.y, rightBottom.x, rightBottom.y, GetColor(255, 255, 255), FALSE);
+	AABB2D dispBox = box;
+	dispBox.p = GetWorldPosition();
+	float rad = ToRadian(rotation);
+	DrawRotaBox(dispBox, rad, GetColor(255, 255, 255), FALSE);
+	printfDx("rotation = %f\n", rotation);
 }
 
 bool BoxCollider2D::IsCollide(Collider2D* _collider)
@@ -32,96 +35,160 @@ bool BoxCollider2D::IsCollide(Collider2D* _collider)
 	return false;
 }
 
-float BoxCollider2D::GetHeight() const
+Point2D BoxCollider2D::GetWorldPosition()
 {
-	return height;
+	Point p = transform->position + box.p;
+	return Point2D(p.x, p.y);
 }
 
-float BoxCollider2D::GetWidth() const
+Point2D BoxCollider2D::LeftTop()
 {
-	return width;
+	MATRIX matZ = MGetRotZ(ToRadian(rotation));
+	VECTOR2 lt = box.LeftTop();
+	Point p = VTransform(VGet(lt.x, lt.y, 0.0f), matZ);
+	Point2D p2(p.x, p.y);
+	p2 = p2 + GetWorldPosition();
+	return p2;
 }
 
-void BoxCollider2D::SetSize(float _hight, float _width)
+Point2D BoxCollider2D::LeftBottom()
 {
-	height = _hight;
-	width = _width;
+	MATRIX matZ = MGetRotZ(ToRadian(rotation));
+	VECTOR2 lb = box.LeftBottom();
+	Point p = VTransform(VGet(lb.x, lb.y, 0.0f), matZ);
+	Point2D p2(p.x, p.y);
+	p2 = p2 + GetWorldPosition();
+	return p2;
+}
+
+Point2D BoxCollider2D::RightTop()
+{
+	MATRIX matZ = MGetRotZ(ToRadian(rotation));
+	VECTOR2 rt = box.RightTop();
+	Point p = VTransform(VGet(rt.x, rt.y, 0.0f), matZ);
+	Point2D p2(p.x, p.y);
+	p2 = p2 + GetWorldPosition();
+	return p2;
+}
+
+Point2D BoxCollider2D::RightBottom()
+{
+	MATRIX matZ = MGetRotZ(ToRadian(rotation));
+	VECTOR2 rb = box.RightBottom();
+	Point p = VTransform(VGet(rb.x, rb.y, 0.0f), matZ);
+	Point2D p2(p.x, p.y);
+	p2 = p2 + GetWorldPosition();
+	return p2;
 }
 
 bool BoxCollider2D::IsCollideCircle(CircleCollider2D* _collider)
 {
-	return false;
-	//// 矩形０度の時の座標に円の角度を直す
-	//VECTOR3 circle = _collider->transform->position;
-	//float radian = ToRadian(_collider->transform->rotate.z);
-	//VECTOR3 rect = transform->position;
-	//VECTOR3 c;
+	// 矩形０度の時の座標に円の角度を直す
+	Point2D circle = _collider->GetWorldPosition();
+	float radian = ToRadian(rotation);
+	Point2D rect = GetWorldPosition();
+	Point2D c;
 
-	//c.x = static_cast<float>(cos(radian) * ((double)circle.x - (double)rect.x) - sin(radian) * ((double)circle.y - (double)rect.y) + rect.x);
-	//c.y = static_cast<float>(sin(radian) * ((double)circle.x - (double)rect.x) + cos(radian) * ((double)circle.y - (double)rect.y) + rect.y);
+	c.x = static_cast<float>(cos(radian) * ((double)circle.x - (double)rect.x) - sin(radian) * ((double)circle.y - (double)rect.y) + rect.x);
+	c.y = static_cast<float>(sin(radian) * ((double)circle.x - (double)rect.x) + cos(radian) * ((double)circle.y - (double)rect.y) + rect.y);
 
-	//// 上の円の中心点から矩形の１番近い座標
-	//VECTOR3 ver;
+	// 円の中心点から矩形の１番近い頂点の座標
+	Point2D p;
 
-	//// 短径の頂点座標
-	//float left = rect.x - width * 0.5f;
-	//float right = rect.x + width * 0.5f;
-	//float up = rect.y - height * 0.5f;
-	//float down = rect.y + height * 0.5f;
+	// 短径の頂点座標
+	Point2D lt(box.LeftTop() + rect);
+	Point2D rb(box.RightBottom() + rect);
 
-	//// １番近いx座標を求める
-	//if (c.x < rect.x)
-	//	ver.x = rect.x - width * 0.5f;
-	//else if (c.x > rect.x)
-	//	ver.x = rect.x + width * 0.5f;
-	//else
-	//	ver.x = c.x;
+	// １番近いx座標を求める
+	if (c.x < rect.x)
+		p.x = lt.x;
+	else if (c.x > rect.x)
+		p.x = rb.x;
+	else
+		p.x = c.x;
 
-	//// １番近いy座標を求める
-	//if (c.y < rect.y)
-	//	ver.y = rect.y - height * 0.5f;
-	//else if (c.y > rect.y)
-	//	ver.y = rect.y + height * 0.5f;
-	//else
-	//	ver.y = c.y;
+	// １番近いy座標を求める
+	if (c.y < rect.y)
+		p.y = lt.y;
+	else if (c.y > rect.y)
+		p.y = rb.y;
+	else
+		p.y = c.y;
 
-	//// 一番近い角丸との衝突判定
-	//float radius = _collider->GetRadius();
-	//float distance = VSize(c - ver);
-	//if (distance < radius)
-	//	return true; // 衝突
+	// 一番近い角丸との衝突判定
+	float radius = _collider->circle.r;
+	float distance = (c - p).Length();
+	if (distance < radius)
+		return true; // 衝突
 
-	//// 円の中心点と長方形のあたり判定
-	//bool a = c.x > left && c.x < right&& c.y > up - radius && c.y < down + radius;
-	//bool b = c.x > left - radius && c.x < right + radius && c.y > up && c.y < down;
-	//if (a || b)  return true;
-	//else return false;
+	// 円の中心点と長方形のあたり判定
+	bool a = c.x > lt.x && c.x < rb.x && c.y > lt.y - radius && c.y < rb.y + radius;
+	bool b = c.x > lt.x - radius && c.x < rb.x + radius && c.y > lt.y && c.y < rb.y;
+	if (a || b)  return true;
+	else return false;
 }
 
 bool BoxCollider2D::IsCollideBox(BoxCollider2D* _collider)
 {
-	// 自分の短径の頂点座標
-	VECTOR3 myPos = transform->position + position;
-	float left = myPos.x - width * 0.5f;
-	float right = myPos.x + width * 0.5f;
-	float up = myPos.y - height * 0.5f;
-	float down = myPos.y + height * 0.5f;
+	// 自分の頂点
+	Point2D myP[4];
+	myP[0] = LeftTop();
+	myP[1] = RightTop();
+	myP[2] = RightBottom();
+	myP[3] = LeftBottom();
+	// 相手の頂点
+	Point2D pairP[4];
+	pairP[0] = _collider->LeftTop();
+	pairP[1] = _collider->RightTop();
+	pairP[2] = _collider->RightBottom();
+	pairP[3] = _collider->LeftBottom();
 
-	// 相手の短径の頂点座標
-	VECTOR3 pairPos = _collider->transform->position;
-	float pairHeight = _collider->GetHeight();
-	float pairWidth = _collider->GetWidth();
-	float pairLeft = pairPos.x - pairWidth * 0.5f;
-	float pairRight = pairPos.x + pairWidth * 0.5f;
-	float pairUp = pairPos.y - pairHeight * 0.5f;
-	float pairDown = pairPos.y + pairHeight * 0.5f;
+	// 自分を構成する４辺のベクトル
+	VECTOR2 myVec[4];
+	myVec[0] = myP[1] - myP[0];
+	myVec[1] = myP[2] - myP[1];
+	myVec[2] = myP[3] - myP[2];
+	myVec[3] = myP[0] - myP[3];
+	// 自分を構成する４辺のベクトル
+	VECTOR2 pairVec[4];
+	pairVec[0] = pairP[1] - pairP[0];
+	pairVec[1] = pairP[2] - pairP[1];
+	pairVec[2] = pairP[3] - pairP[2];
+	pairVec[3] = pairP[0] - pairP[3];
 
-	// 短径と短径の衝突判定
-	if (left < pairRight &&
-		right > pairLeft &&
-		up < pairDown &&
-		down > pairUp)
-		return true; // 衝突
+	// 当たり判定確認
+	for (int i = 0; i < 4; ++i) { // ４頂点チェック
+		bool isHit = true;
+		VECTOR2 v[4];
+		v[0] = pairP[i] - myP[0];
+		v[1] = pairP[i] - myP[1];
+		v[2] = pairP[i] - myP[2];
+		v[3] = pairP[i] - myP[3];
+		for (int j = 0; j < 4; ++j) {
+			float dot = myVec[j].Cross(v[j]);
+			if (dot < 0.0f) {
+				isHit = false;
+				break;
+			}
+		}
+		if (isHit) return true;
+	}
+	for (int i = 0; i < 4; ++i) { // ４頂点チェック
+		bool isHit = true;
+		VECTOR2 v[4];
+		v[0] = myP[i] - pairP[0];
+		v[1] = myP[i] - pairP[1];
+		v[2] = myP[i] - pairP[2];
+		v[3] = myP[i] - pairP[3];
+		for (int j = 0; j < 4; ++j) {
+			float dot = pairVec[j].Cross(v[j]);
+			if (dot < 0.0f) {
+				isHit = false;
+				break;
+			}
+		}
+		if (isHit) return true;
+	}
 
 	return false;
 }

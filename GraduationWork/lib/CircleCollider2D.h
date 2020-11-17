@@ -10,11 +10,9 @@ public:
 
 	void Disp();
 	bool IsCollide(Collider2D* _collider) override;
-	void SetRadius(float _radius) { radius = _radius; }
-	float GetRadius()const { return radius; }
+	Point2D GetWorldPosition() override;
 
-private:
-	float radius;
+	Circle2D circle;
 
 private:
 	bool IsCollideCircle(CircleCollider2D* _collider);

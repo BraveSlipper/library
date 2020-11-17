@@ -60,7 +60,7 @@ bool BoxCollider::IsCollide(Collider3D* _collider)
 void BoxCollider::SetPosition(VECTOR3 _pos)
 {
     position = _pos;
-    obb.SetPos(GetWorldPosition());
+    obb.SetPosition(GetWorldPosition());
 }
 
 VECTOR3 BoxCollider::GetDirect(int elem)

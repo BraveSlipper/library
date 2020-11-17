@@ -47,6 +47,11 @@ public:
 	bool RemoveComponent();
 
 	/// <summary>
+	/// 所持している全てのComponentを破棄する
+	/// </summary>
+	void RemoveComponentAll();
+
+	/// <summary>
 	/// 所持しているComponentから、破壊フラグが立っているものを破棄する
 	/// </summary>
 	void DestroyComponents();
@@ -70,11 +75,11 @@ public:
 	void SetParent(GameObject* _obj);
 
 	/// <summary>
-	/// 指定した名前の子GameObjectを抽出する
+	/// 指定したタグの子GameObjectを抽出する
 	/// </summary>
-	/// <param name="_name">抽出したい子GameObjectの名前</param>
-	/// <returns>抽出成功でその子GameObjectのポインター、抽出失敗でnullptr</returns>
-	GameObject* GetChild(std::string _name) const;
+	/// <param name="_name">抽出したい子GameObjectのタグ</param>
+	/// <returns>抽出したGameObjectのリスト</returns>
+	std::list<GameObject*> GetChild(std::string _tag) const;
 
 	/// <summary>
 	/// 子GameObjectのリストを取得
@@ -90,11 +95,18 @@ public:
 	bool SetChild(GameObject* _obj);
 
 	/// <summary>
-	/// 指定した名前の子GameObjectを破棄する
+	/// 指定した子GameObjectを破棄する
 	/// </summary>
-	/// <param name="_name">破棄したい子GameObjectの名前</param>
-	/// <returns>成功でtrue、指定した名前の子GameObjectが見つからなければfalse</returns>
-	bool RemoveChild(std::string _name);
+	/// <param name="_name">破棄したい子GameObject</param>
+	/// <returns>成功でtrue、指定したGameObjectが見つからなければfalse</returns>
+	bool RemoveChild(GameObject* _obj);
+
+	/// <summary>
+	/// 指定したタグの子GameObjectを全て破棄する
+	/// </summary>
+	/// <param name="_name">破棄したい子GameObjectのタグ</param>
+	/// <returns>成功でtrue、指定したタグの子GameObjectが見つからなければfalse</returns>
+	bool RemoveChild(std::string _tag);
 
 	/// <summary>
 	/// 子GameObjectを全て破棄する
@@ -105,10 +117,10 @@ public:
 	/// GameObjectを生成する
 	/// </summary>
 	/// <typeparam name="C">生成したいクラス</typeparam>
-	/// <param name="_name">生成したGameObjectに付ける名前</param>
+	/// <param name="_tag">生成したGameObjectに付けるタグ</param>
 	/// <returns>生成したGameObjectのポインター</returns>
 	template<class C>
-	inline C* Instantiate(std::string _name = "");
+	inline C* Instantiate(std::string _tag = "");
 
 public:
 	/// <summary>
@@ -126,7 +138,7 @@ private:
 	GameObject* func(GameObject*);
 
 public:
-	std::string name;						// オブジェクト名
+	std::string tag;						// タグ
 	Transform* transform;					// トランスフォーム
 };
 
@@ -174,11 +186,11 @@ inline bool GameObject::RemoveComponent()
 	// 対応するComponentの破壊フラグを立てる
 	for (auto it = compList.begin(); it != compList.end(); ++it) {
 		p = dynamic_cast<C*>(*it);
-			if (p != nullptr) {
-				Object* obj = p;
-				obj->Destroy();
-				return true;
-			}
+		if (p != nullptr) {
+			Object* obj = p;
+			obj->Destroy();
+			return true;
+		}
 	}
 
 	return false;
@@ -192,9 +204,9 @@ inline C* GameObject::Instantiate(std::string _name)
 	obj->className = typeid(C).name();
 	GameObject* gameObj = p;
 	if (_name == "")
-		gameObj->name = obj->className.substr(6ull);
+		gameObj->tag = obj->className.substr(6ull);
 	else
-		gameObj->name = _name;
+		gameObj->tag = _name;
 	gameObj->Start();
 
 	return p;

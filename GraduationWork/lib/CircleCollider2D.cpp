@@ -2,8 +2,7 @@
 #include "UrLib.h"
 #include "BoxCollider2D.h"
 
-CircleCollider2D::CircleCollider2D() :
-	radius(1.0f)
+CircleCollider2D::CircleCollider2D()
 {
 }
 
@@ -14,7 +13,7 @@ CircleCollider2D::~CircleCollider2D()
 void CircleCollider2D::Disp()
 {
 	VECTOR2 pos = GetWorldPosition();
-	DrawCircle(pos.x, pos.y, radius, GetColor(255, 255, 255), FALSE);
+	DrawCircle(pos.x, pos.y, circle.r, GetColor(255, 255, 255), FALSE);
 }
 
 bool CircleCollider2D::IsCollide(Collider2D* _collider)
@@ -30,13 +29,19 @@ bool CircleCollider2D::IsCollide(Collider2D* _collider)
 	return false;
 }
 
+Point2D CircleCollider2D::GetWorldPosition()
+{
+	Point p = transform->position + circle.p;
+	return Point2D(p.x, p.y);;
+}
+
 bool CircleCollider2D::IsCollideCircle(CircleCollider2D* _collider)
 {
 	Transform* tr1 = _collider->transform;
 	Transform* tr2 = transform;
 	VECTOR3 diff = tr1->position - tr2->position;
 	float dist = VSize(diff);
-	if (dist <= _collider->GetRadius() + this->radius) {
+	if (dist <= _collider->circle.r + circle.r) {
 		return true;
 	}
 
@@ -45,51 +50,46 @@ bool CircleCollider2D::IsCollideCircle(CircleCollider2D* _collider)
 
 bool CircleCollider2D::IsCollideBox(BoxCollider2D* _collider)
 {
-	return false;
-	//// 矩形０度の時の座標に円の角度を直す
-	//VECTOR3 origin_c = transform->position;
-	//float radian = ToRadian(transform->rotate.z);
-	//VECTOR3 rect = _collider->transform->position;
-	//VECTOR3 c;
+	// 矩形０度の時の座標に円の座標を直す
+	Point2D origin_c = GetWorldPosition();
+	float radian = ToRadian(_collider->rotation);
+	Point2D rect = _collider->GetWorldPosition();
+	Point2D c;
 
-	//c.x = cos(radian) * (origin_c.x - rect.x) - sin(radian) * (origin_c.y - rect.y) + rect.x;
-	//c.y = sin(radian) * (origin_c.x - rect.x) + cos(radian) * (origin_c.y - rect.y) + rect.y;
+	c.x = cos(radian) * (origin_c.x - rect.x) - sin(radian) * (origin_c.y - rect.y) + rect.x;
+	c.y = sin(radian) * (origin_c.x - rect.x) + cos(radian) * (origin_c.y - rect.y) + rect.y;
 
-	//// 上の円の中心点から矩形の１番近い座標
-	//VECTOR3 ver;
+	// 円の中心点から矩形の１番近い頂点の座標
+	Point2D p;
 
-	//// 短径の頂点座標
-	//float height = _collider->GetHeight();
-	//float width = _collider->GetWidth();
-	//float left = rect.x - width * 0.5f;
-	//float right = rect.x + width * 0.5f;
-	//float up = rect.y - height * 0.5f;
-	//float down = rect.y + height * 0.5f;
+	// 短径の頂点座標
+	Point2D lt(_collider->LeftTop());
+	Point2D rb(_collider->RightBottom());
 
-	//// １番近いx座標を求める
-	//if (c.x < rect.x)
-	//	ver.x = left;
-	//else if (c.x > rect.x)
-	//	ver.x = right;
-	//else
-	//	ver.x = c.x;
+	// １番近いx座標を求める
+	if (c.x < rect.x)
+		p.x = lt.x;
+	else if (c.x > rect.x)
+		p.x = rb.x;
+	else
+		p.x = c.x;
 
-	//// １番近いy座標を求める
-	//if (c.y < rect.y)
-	//	ver.y = up;
-	//else if (c.y > rect.y)
-	//	ver.y = down;
-	//else
-	//	ver.y = c.y;
+	// １番近いy座標を求める
+	if (c.y < rect.y)
+		p.y = lt.y;
+	else if (c.y > rect.y)
+		p.y = rb.y;
+	else
+		p.y = c.y;
 
-	//// 一番近い角丸との衝突判定
-	//float distance = VSize(c - ver);
-	//if (distance < radius)
-	//	return true; // 衝突
+	// 一番近い角丸との衝突判定
+	float distance = (c - p).Length();
+	if (distance < circle.r)
+		return true; // 衝突
 
-	//// 円の中心点と長方形のあたり判定
-	//bool a = c.x > left && c.x < right&& c.y > up - radius && c.y < down + radius;
-	//bool b = c.x > left - radius && c.x < right + radius && c.y > up && c.y < down;
-	//if (a || b)  return true;
-	//else return false;
+	// 円の中心点と長方形のあたり判定
+	bool a = c.x > lt.x && c.x < rb.x && c.y > lt.y - circle.r && c.y < rb.y + circle.r;
+	bool b = c.x > lt.x - circle.r && c.x < rb.x + circle.r && c.y > lt.y && c.y < rb.y;
+	if (a || b)  return true;
+	else return false;
 }

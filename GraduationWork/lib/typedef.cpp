@@ -120,7 +120,7 @@ MATRIX UrLib::Quaternion::GetMatrix() const
 }
 
 UrLib::OBB::OBB() : 
-    Pos(VGet(0.0f, 0.0f, 0.0f)), 
+    p(VGet(0.0f, 0.0f, 0.0f)), 
     NormaDirect{ VGet(1.0f, 0.0f, 0.0f), VGet(0.0f, 1.0f, 0.0f), VGet(0.0f, 0.0f, 1.0f) },
     Length{ 1.0f, 1.0f, 1.0f }
 {
@@ -141,12 +141,12 @@ float UrLib::OBB::GetLen_W(int elem)
 }
 VECTOR3 UrLib::OBB::GetPos_W()
 {
-    return Pos;
+    return p;
 }
 
-void UrLib::OBB::SetPos(VECTOR3 pos)
+void UrLib::OBB::SetPosition(Point pos)
 {
-    Pos = pos;
+    p = pos;
 }
 
 void UrLib::OBB::Rotate(VECTOR3 _axis, float _deg)
